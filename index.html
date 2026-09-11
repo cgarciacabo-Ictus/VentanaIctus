@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300..600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#F6F6F4; color:#0F1114; font-family:'IBM Plex Sans', system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:#1F3A5F; text-decoration:none; }
+  a:hover { color:#14263E; text-decoration:underline; }
+  * { box-sizing:border-box; }
+</style>
+</helmet>
+<div style="min-height:100vh; display:flex; flex-direction:column">
+
+  <header style="border-bottom:1px solid #DEDEDA; background:#F6F6F4; position:sticky; top:0; z-index:20">
+    <div style="max-width:1080px; margin:0 auto; padding:18px 28px 0; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap">
+      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap">
+        <img src="./logo-sna.png" alt="Grupo Ictus SNA" style="height:58px; width:auto; display:block" />
+        <div style="width:1px; height:34px; background:#DEDEDA"></div>
+        <div style="font-family:'Source Serif 4', Georgia, serif; font-size:30px; font-weight:600; letter-spacing:-0.01em">Ventana</div>
+        <div style="font-size:14px; color:#5A6169; max-width:340px; line-height:1.35">{{ tagline }}</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; padding-top:6px">
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#8A919B; letter-spacing:0.04em">ventanaictus.org</div>
+        <div style="display:flex; border:1px solid #D5D6D2; border-radius:999px; overflow:hidden">
+          <div onClick="{{ setEs }}" style="{{ esBtn }}">ES</div>
+          <div onClick="{{ setEn }}" style="{{ enBtn }}">EN</div>
+        </div>
+      </div>
+    </div>
+    <nav style="max-width:1080px; margin:0 auto; padding:14px 28px 0; display:flex; gap:4px; flex-wrap:wrap">
+      <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
+        <div onClick="{{ item.go }}" style="{{ item.style }}">{{ item.label }}</div>
+      </sc-for>
+    </nav>
+  </header>
+
+  <main style="flex:1; max-width:1080px; width:100%; margin:0 auto; padding:44px 28px 80px">
+
+    <sc-if value="{{ isInicio }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:48px; align-items:start; margin-bottom:56px">
+          <div>
+            <h1 style="font-family:'Source Serif 4', Georgia, serif; font-size:38px; line-height:1.18; font-weight:600; margin:0 0 18px; letter-spacing:-0.015em; text-wrap:pretty">{{ heroTitle }}</h1>
+            <p style="font-size:18px; line-height:1.6; color:#2B2F35; margin:0 0 14px; max-width:52ch; text-wrap:pretty">{{ heroBody }}</p>
+            <p style="font-size:15px; line-height:1.6; color:#5A6169; margin:0; max-width:52ch">{{ heroNote }}</p>
+          </div>
+          <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; margin-bottom:14px">{{ agendaLabel }}</div>
+            <div style="display:flex; flex-direction:column; gap:14px">
+              <sc-for list="{{ agenda }}" as="s" hint-placeholder-count="3">
+                <div style="display:flex; gap:14px; align-items:baseline">
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#B01226; min-width:52px">{{ s.date }}</div>
+                  <div>
+                    <div style="font-size:15px; line-height:1.35">{{ s.title }}</div>
+                    <div style="font-size:13px; color:#79808A">{{ s.meta }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="margin-top:18px; padding-top:14px; border-top:1px dashed #D5D6D2; font-family:'IBM Plex Mono', monospace; font-size:11px; color:#A89C8D; line-height:1.5">{{ agendaHint }}</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px">
+          <sc-for list="{{ shortcuts }}" as="c" hint-placeholder-count="4">
+            <div onClick="{{ c.go }}" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:20px 22px; cursor:pointer; transition:border-color .15s, transform .15s" style-hover="border-color:#1F3A5F; transform:translateY(-2px)">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">{{ c.n }}</div>
+              <div style="font-size:17px; font-weight:600; margin-bottom:6px">{{ c.title }}</div>
+              <div style="font-size:14px; line-height:1.5; color:#5A6169">{{ c.body }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
+      <article style="max-width:760px">
+        <div onClick="{{ backToBlog }}" style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; cursor:pointer; margin-bottom:26px">{{ backLabel }}</div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; letter-spacing:0.06em; margin-bottom:14px">REVISIÓN · SEPTIEMBRE 2026</div>
+        <h1 style="font-family:'Source Serif 4', Georgia, serif; font-size:38px; line-height:1.18; font-weight:600; margin:0 0 16px; letter-spacing:-0.01em; text-wrap:pretty">Isquemia medular: cuando el ictus está en la médula (y a veces en la aorta)</h1>
+        <p style="font-size:17px; line-height:1.6; color:#5A6169; margin:0 0 8px; font-style:italic">Revisión breve del estado actual y de los puntos clave del manejo · Septiembre 2026</p>
+        <div style="height:1px; background:#DEDEDA; margin:28px 0 32px"></div>
+
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">El infarto medular es el «hermano pequeño» del ictus: supone en torno al 1–2 % de todos los ictus y su incidencia estandarizada ronda los 3 casos por 100.000 habitantes y año. Pero su rareza no se corresponde con su gravedad. En la revisión sistemática más reciente (21 estudios, 734 pacientes) casi un tercio de los enfermos se presentaba con una lesión completa (ASIA A), la incontinencia fue la complicación más frecuente (36 %) y la mortalidad alcanzó el 8,4 % [2]. A esto se suma un problema diagnóstico: la resonancia inicial es normal en uno de cada cuatro pacientes [7].</p>
+
+        <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:26px; font-weight:600; margin:40px 0 14px; line-height:1.25">Una vascularización con poco margen</h2>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">La médula recibe sangre de tres ejes longitudinales: la arteria espinal anterior, que irriga los dos tercios anteriores, y dos arterias espinales posteriores. Lo decisivo es que estos ejes no son autónomos, sino que dependen de refuerzos segmentarios que llegan desde las arterias vertebrales, intercostales, lumbares e ilíacas. En la región toracolumbar el aporte anterior es especialmente escaso y suele concentrarse en una arteria dominante, la de Adamkiewicz: está presente en el 85 % de las personas, nace entre T8 y L1 en el 89 % y es izquierda en tres de cada cuatro casos [1].</p>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">La visión actual, sin embargo, ha dejado atrás el paradigma de «una arteria crítica». La médula se sostiene gracias a una red colateral intra- y extraespinal (con un papel importante de la musculatura paravertebral) que se remodela en pocos días cuando se pierden aportes segmentarios. El riesgo de infarto es acumulativo: depende del número de niveles comprometidos, de si la pérdida es bilateral y contigua, y del tiempo [1]. Esto explica fenómenos clínicos tan relevantes como la isquemia diferida tras una reparación aórtica o el beneficio de reparar la aorta por etapas.</p>
+
+        <figure style="margin:32px 0; border:1px solid #DEDEDA; border-radius:10px; overflow:hidden; background:#FFFFFF">
+          <img src="./fig1-vascularizacion-medular.png" alt="Vascularización medular toracolumbar" style="width:100%; height:auto; display:block; background:#FFFFFF" />
+          <figcaption style="padding:14px 18px; font-size:14px; line-height:1.6; color:#5A6169"><strong style="color:#2B2F35">Figura 1.</strong> Vascularización medular toracolumbar. Las arterias segmentarias dan ramas radiculomedulares, que refuerzan la arteria espinal anterior (la principal es la de Adamkiewicz), y ramas radiculopiales, que alimentan la red pial posterior y la vasocorona. Fuente: Kapetanakis et al., Morphologie 2026 [1], Fig. 1.</figcaption>
+        </figure>
+
+        <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:26px; font-weight:600; margin:40px 0 14px; line-height:1.25">Por qué se produce y quién la sufre</h2>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">Cuatro mecanismos se combinan con frecuencia: la hipoperfusión global (shock, hipotensión perioperatoria), la pérdida del aporte segmentario (disección aórtica, cobertura por endoprótesis, pinzamiento quirúrgico), la embolia o trombosis local (cardioembolia, ateroembolia, embolia fibrocartilaginosa, trombofilia) y la caída de la presión de perfusión medular por edema o hipertensión del LCR. La fórmula que conviene recordar es sencilla: presión de perfusión medular = presión arterial media − presión del LCR.</p>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">Entre las causas identificadas predominan las cardiovasculares y las periprocedimiento. Dentro de las primeras, la aterosclerosis (48 %) y la patología aórtica, incluida la disección (41 %), suman casi nueve de cada diez casos [2]. En pacientes jóvenes hay que pensar en embolia fibrocartilaginosa, síndrome antifosfolípido, vasculitis o disección vertebral. Aun así, alrededor de la mitad de los infartos no iatrogénicos quedan sin causa filiada [3].</p>
+
+        <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:26px; font-weight:600; margin:40px 0 14px; line-height:1.25">Cómo reconocerla</h2>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">La presentación típica es un síndrome de arteria espinal anterior: paraparesia o tetraparesia, pérdida termoalgésica con nivel sensitivo y disfunción esfinteriana, con respeto de la sensibilidad propioceptiva y vibratoria. Lo que más ayuda a distinguirla de una mielitis es el perfil temporal: en la serie de la Clínica Mayo, el 77 % alcanzó el máximo déficit en menos de 12 horas, a menudo con dolor dorsal o cervical al inicio, y tres de cada cuatro pacientes tenían factores de riesgo vascular [7].</p>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">La RM con difusión es la prueba clave, pero hay que saber leerla en el tiempo: puede ser normal en las primeras horas y conviene repetirla a las 24–72 horas. Los hallazgos típicos son la hiperseñal T2 «en lápiz», el patrón en «ojos de búho» y la restricción en difusión; el infarto del cuerpo vertebral adyacente es muy específico. El LCR suele ser no inflamatorio. Los criterios de Zalewski integran estos elementos (nadir precoz, RM de apoyo, LCR sin inflamación) y permiten graduar el diagnóstico como definido, probable o posible [7].</p>
+
+        <figure style="margin:32px 0; border:1px solid #DEDEDA; border-radius:10px; overflow:hidden; background:#FFFFFF">
+          <img src="./fig2-ojos-de-buho-difusion.png" alt="Infarto de la arteria espinal anterior en difusión" style="width:100%; height:auto; display:block; background:#FFFFFF" />
+          <figcaption style="padding:14px 18px; font-size:14px; line-height:1.6; color:#5A6169"><strong style="color:#2B2F35">Figura 2.</strong> Infarto de la arteria espinal anterior (C6–D4) en un adulto. En los cortes sagitales de difusión (A) y ADC (B) se ve una alteración longitudinal en la médula anterior con restricción; en los axiales (C, D), la restricción se limita a las astas anteriores («ojos de búho»). La STIR (E, F) solo muestra una hiperseñal sutil, lo que ilustra por qué la difusión es la secuencia clave. Fuente: Ramineni KK et al., Curr J Neurol 2021;20:118 [10] (CC BY-NC 4.0).</figcaption>
+        </figure>
+
+        <figure style="margin:32px 0; border:1px solid #DEDEDA; border-radius:10px; overflow:hidden; background:#FFFFFF">
+          <img src="./fig3-hiperse%C3%B1al-en-lapiz.png" alt="Hiperseñal en lápiz y ojos de búho en T2" style="width:100%; height:auto; display:block; background:#FFFFFF" />
+          <figcaption style="padding:14px 18px; font-size:14px; line-height:1.6; color:#5A6169"><strong style="color:#2B2F35">Figura 3.</strong> Patrón clásico en T2: hiperseñal «en lápiz» desde D1 hasta el cono en el corte sagital (A) y focos simétricos en las astas anteriores («ojos de búho») en los axiales (B, C); la secuencia T1 (D) es normal. Es un caso neonatal tras aortoplastia, que recuerda que la causa aórtica también existe fuera del adulto. Fuente: de Holanda AC et al., Arq Neuropsiquiatr 2022;80:1184 [11] (CC BY 4.0).</figcaption>
+        </figure>
+
+        <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:26px; font-weight:600; margin:40px 0 14px; line-height:1.25">La pregunta aórtica: ¿es un síndrome aórtico agudo?</h2>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">No toda isquemia medular es aórtica, pero toda isquemia medular obliga a pensar en la aorta. La Guía ESC 2024 de enfermedad arterial periférica y aórtica incluye la paraplejia entre las complicaciones por hipoperfusión del síndrome aórtico agudo, y la clasificación TEM la codifica como malperfusión «M3 espinal» [6]. Además, su algoritmo diagnóstico se basa en la escala ADD-RS, en la que un déficit neurológico focal suma un punto y el dolor torácico, dorsal o abdominal súbito suma otro. Es decir, un paciente con paraplejia aguda y dolor tiene, por definición, una puntuación ≥ 2 (riesgo alto) y debe someterse a una TC de aorta de cuello a pelvis sin demora [6].</p>
+
+        <figure style="margin:32px 0; border:1px solid #DEDEDA; border-radius:10px; overflow:hidden; background:#FFFFFF">
+          <img src="./fig4-add-rs-esc-2024.png" alt="Algoritmo diagnóstico del síndrome aórtico agudo con la escala ADD-RS" style="width:100%; height:auto; display:block; background:#FFFFFF" />
+          <figcaption style="padding:14px 18px; font-size:14px; line-height:1.6; color:#5A6169"><strong style="color:#2B2F35">Figura 4.</strong> Diagnóstico multiparamétrico del síndrome aórtico agudo. El «déficit neurológico focal» figura entre las características de exploración de alto riesgo. Fuente: Guía ESC 2024 sobre el diagnóstico y el tratamiento de la enfermedad arterial periférica y aórtica (versión española de la SEC), figura 30 [6].</figcaption>
+        </figure>
+
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">La consecuencia práctica es clara: ante una isquemia medular con dolor, inestabilidad hemodinámica, asimetría de pulsos o isquemia en otro territorio, hay que descartar un síndrome aórtico agudo antes de antiagregar, anticoagular o, por supuesto, trombolisar.</p>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">Si se confirma, el manejo lo marca la guía. La disección tipo A requiere cirugía inmediata. En la tipo B, la paraplejia o paraparesia convierte la disección en complicada, lo que indica intervención urgente con TEVAR como primera opción cuando la anatomía es favorable [6]. Y aparece un dilema hemodinámico: el tratamiento antiimpulso del síndrome aórtico agudo busca una presión sistólica &lt; 120 mmHg y una frecuencia ≤ 60 lpm, mientras que la médula isquémica necesita presión. La guía lo resuelve de forma explícita: si hay isquemia medular o cerebral concomitante, se recomienda mantener una PAM más alta (recomendación I-B) [6].</p>
+
+        <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:26px; font-weight:600; margin:40px 0 14px; line-height:1.25">Tratamiento: fisiología a falta de ensayos</h2>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 18px">No hay ensayos aleatorizados en el infarto medular espontáneo, y el tratamiento se apoya en la fisiología y en series de casos:</p>
+        <ul style="margin:0 0 22px; padding-left:22px; display:flex; flex-direction:column; gap:12px">
+          <li style="font-size:17px; line-height:1.7; color:#2B2F35">Descartar el síndrome aórtico agudo antes de cualquier antitrombótico.</li>
+          <li style="font-size:17px; line-height:1.7; color:#2B2F35">Aumentar la perfusión: evitar la hipotensión y mantener una PAM ≥ 85–90 mmHg con volumen y vasopresores si es necesario [2].</li>
+          <li style="font-size:17px; line-height:1.7; color:#2B2F35">Drenaje de LCR, sobre todo en la isquemia periprocedimiento o tras cirugía aórtica. El metaanálisis de Aleid (34 estudios) muestra menos isquemia con drenaje (OR 0,46; IC 95 % 0,28–0,76), sin diferencias en mortalidad [4]. El ensayo de Coselli, en cirugía abierta de aneurisma toracoabdominal, redujo los déficits del 13 % al 2,6 % [9]. Sin embargo, sus complicaciones (hemorragia intracraneal, hematoma subdural, hipotensión licuoral) no son despreciables, y en la reparación endovascular el drenaje profiláctico y el sintomático obtuvieron tasas de isquemia similares (10 % frente a 10 %) [5].</li>
+          <li style="font-size:17px; line-height:1.7; color:#2B2F35">Antitrombóticos según la etiología: antiagregación en la mayoría; anticoagulación en caso de cardioembolia, disección vertebral o síndrome antifosfolípido [2].</li>
+          <li style="font-size:17px; line-height:1.7; color:#2B2F35">No usar corticoides (salvo vasculitis): no aportan beneficio y en series se asocian a peor evolución [3]. La trombólisis intravenosa se limita a casos aislados.</li>
+          <li style="font-size:17px; line-height:1.7; color:#2B2F35">Rehabilitación precoz y cuidados de vejiga, intestino, profilaxis de trombosis y dolor neuropático.</li>
+        </ul>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">En el terreno quirúrgico, la prevención es la mejor estrategia. Tras la reparación endovascular de aneurismas toracoabdominales, la isquemia medular aparece en el 11 % de los casos (permanente en el 6 %), y la estrategia por etapas la reduce a la mitad (9 % frente a 18 %) [5]. La guía ESC recomienda revascularizar la subclavia izquierda cuando su cobertura durante el TEVAR esté planificada (I-B) [6].</p>
+
+        <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:26px; font-weight:600; margin:40px 0 14px; line-height:1.25">Pronóstico</h2>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">El pronóstico es serio, pero no uniformemente sombrío. En la mayor serie con seguimiento prolongado (115 pacientes, 3 años de media), el 81 % necesitaba silla de ruedas en el momento de máximo déficit; al final del seguimiento la necesitaba el 42 % de los supervivientes, y el 41 % de quienes salieron del hospital en silla de ruedas acabaron caminando [8]. La gravedad inicial (ASIA A–B), la edad y la enfermedad arterial periférica son los principales predictores de mala evolución [2,8], y las lesiones en el territorio frontera T4–T7 son las que peor evolucionan [3].</p>
+
+        <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:26px 28px; margin:40px 0">
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#B01226; margin-bottom:16px">Puntos clave</div>
+          <ul style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:11px">
+            <li style="font-size:16px; line-height:1.65; color:#2B2F35">La médula depende de una red colateral: el riesgo isquémico es acumulativo, no de una sola arteria.</li>
+            <li style="font-size:16px; line-height:1.65; color:#2B2F35">Hay que sospecharla ante un déficit medular hiperagudo (nadir ≤ 12 h), con dolor y respeto de los cordones posteriores.</li>
+            <li style="font-size:16px; line-height:1.65; color:#2B2F35">La RM con difusión es la prueba clave y debe repetirse a las 24–72 h si la primera es normal.</li>
+            <li style="font-size:16px; line-height:1.65; color:#2B2F35">Dolor súbito + déficit focal = ADD-RS ≥ 2: TC de aorta sin demora y antes de cualquier antitrombótico.</li>
+            <li style="font-size:16px; line-height:1.65; color:#2B2F35">El tratamiento se basa en la fisiología: PAM alta, drenaje de LCR en el contexto aórtico, antitrombóticos según la etiología y no corticoides.</li>
+            <li style="font-size:16px; line-height:1.65; color:#2B2F35">En el síndrome aórtico agudo con isquemia medular se mantiene una PAM más alta, y la disección tipo B se considera complicada.</li>
+          </ul>
+        </div>
+
+        <h3 style="font-family:'Source Serif 4', Georgia, serif; font-size:20px; font-weight:600; margin:40px 0 14px">Referencias</h3>
+        <ol style="margin:0 0 28px; padding-left:22px; display:flex; flex-direction:column; gap:9px">
+          <li style="font-size:14px; line-height:1.6; color:#5A6169">Kapetanakis S, Charatsi D, Katzi F, Chatzivasiliadis M. Thoracolumbar spinal cord perfusion: clinical anatomy of radiculomedullary arteries and surgical risk zones. Morphologie. 2026;110:101126.</li>
+          <li style="font-size:14px; line-height:1.6; color:#5A6169">Khosravi Z, Minta K, Houlihan LM, Kaliaperumal C. Aetiologies, pathogenesis and clinical outcomes associated with spinal cord infarction: systematic review. Clin Neurol Neurosurg. 2025;257:109041.</li>
+          <li style="font-size:14px; line-height:1.6; color:#5A6169">Naik A, Houser SL, Moawad CM, Iyer RK, Arnold PM. Noniatrogenic spinal cord ischemia: a patient level meta-analysis of 125 case reports and series. Surg Neurol Int. 2022;13:228.</li>
+          <li style="font-size:14px; line-height:1.6; color:#5A6169">Aleid AM, et al. Efficacy and safety of cerebrospinal drains in preventing and managing spinal cord ischemia and injury: a comprehensive systematic review and meta-analysis. Neurosurg Rev. 2025;48:19.</li>
+          <li style="font-size:14px; line-height:1.6; color:#5A6169">Pini R, Faggioli G, Paraskevas KI, et al. A systematic review and meta-analysis of the occurrence of spinal cord ischemia after endovascular repair of thoracoabdominal aortic aneurysms. J Vasc Surg. 2022;75:1466-77.</li>
+          <li style="font-size:14px; line-height:1.6; color:#5A6169">Mazzolai L, Teixido-Tura G, Lanzi S, et al. 2024 ESC Guidelines for the management of peripheral arterial and aortic diseases. Eur Heart J. 2024;45:3538-700 (versión en español de la SEC, 2025).</li>
+          <li style="font-size:14px; line-height:1.6; color:#5A6169">Zalewski NL, Rabinstein AA, Krecke KN, et al. Characteristics of spontaneous spinal cord infarction and proposed diagnostic criteria. JAMA Neurol. 2019;76:56-63.</li>
+          <li style="font-size:14px; line-height:1.6; color:#5A6169">Robertson CE, Brown RD Jr, Wijdicks EF, Rabinstein AA. Recovery after spinal cord infarcts: long-term outcome in 115 patients. Neurology. 2012;78:114-21.</li>
+          <li style="font-size:14px; line-height:1.6; color:#5A6169">Coselli JS, LeMaire SA, Köksoy C, Schmittling ZC, Curling PE. Cerebrospinal fluid drainage reduces paraplegia after thoracoabdominal aortic aneurysm repair: results of a randomized clinical trial. J Vasc Surg. 2002;35:631-9.</li>
+          <li style="font-size:14px; line-height:1.6; color:#5A6169">Ramineni KK, Kandraju SS, Jakkani RK, et al. Imaging highlights of anterior spinal cord infarction: owl’s eye sign. Curr J Neurol. 2021;20:118. doi:10.18502/cjn.v20i2.6749</li>
+          <li style="font-size:14px; line-height:1.6; color:#5A6169">de Holanda AC, Nunes MF, de Medeiros FL, et al. “Owl’s eyes” sign in acute spinal cord infarction in newborn submitted to aortoplasty. Arq Neuropsiquiatr. 2022;80:1184. doi:10.1055/s-0042-1758392</li>
+        </ol>
+        <p style="font-size:13px; line-height:1.65; color:#8A919B; margin:0 0 8px; padding-top:18px; border-top:1px solid #DEDEDA">Figuras 2 y 3: reproducidas según sus licencias Creative Commons (CC BY-NC 4.0 y CC BY 4.0, respectivamente). Figuras 1 y 4: © de sus editores; se reproducen con fines docentes y deben citarse o sustituirse si el texto se publica.</p>
+      </article>
+    </sc-if>
+
+    <sc-if value="{{ isBlog }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="max-width:64ch; margin-bottom:40px">
+          <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ blogTitle }}</h2>
+          <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ blogIntro }}</p>
+        </div>
+        <div style="display:flex; flex-direction:column">
+          <sc-for list="{{ posts }}" as="p" hint-placeholder-count="3">
+            <article onClick="{{ p.open }}" style="{{ p.row }}">
+              <div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#8A919B">{{ p.date }}</div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-top:6px">{{ p.tag }}</div>
+              </div>
+              <div>
+                <h3 style="font-size:21px; font-weight:600; margin:0 0 8px; line-height:1.3">{{ p.title }}</h3>
+                <p style="font-size:16px; line-height:1.6; color:#2B2F35; margin:0 0 10px; max-width:62ch; text-wrap:pretty">{{ p.excerpt }}</p>
+                <div style="font-size:14px; color:#79808A">{{ p.author }}</div>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+        <div style="border:1px dashed #CFD0CC; border-radius:10px; padding:20px 22px; margin-top:32px; font-family:'IBM Plex Mono', monospace; font-size:12px; line-height:1.7; color:#79808A">{{ blogHint }}</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isProtocolos }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="max-width:64ch; margin-bottom:36px">
+          <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ protTitle }}</h2>
+          <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ protIntro }}</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(250px,1fr)); gap:16px">
+          <sc-for list="{{ protocolos }}" as="p" hint-placeholder-count="6">
+            <a href="{{ p.url }}" target="_blank" rel="noopener" style="{{ p.card }}" style-hover="border-color:#1F3A5F; text-decoration:none">
+              <div>
+                <div style="font-size:16px; font-weight:600; color:#0F1114; margin-bottom:6px">{{ p.title }}</div>
+                <div style="font-size:14px; line-height:1.5; color:#5A6169">{{ p.body }}</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-top:14px">{{ p.state }}</div>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCasos }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="max-width:64ch; margin-bottom:36px">
+          <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ casosTitle }}</h2>
+          <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ casosIntro }}</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:18px">
+          <sc-for list="{{ casos }}" as="c" hint-placeholder-count="3">
+            <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; overflow:hidden">
+              <div style="height:120px; background:repeating-linear-gradient(135deg,#EDEDEA 0 8px,#E5E6E2 8px 16px); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:11px; color:#9BA2AB">{{ c.image }}</div>
+              <div style="padding:18px 20px">
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:8px">{{ c.tag }}</div>
+                <div style="font-size:17px; font-weight:600; margin-bottom:6px; line-height:1.3">{{ c.title }}</div>
+                <div style="font-size:14px; line-height:1.55; color:#5A6169">{{ c.body }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCalc }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="max-width:64ch; margin-bottom:32px">
+          <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ calcTitle }}</h2>
+          <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ calcIntro }}</p>
+        </div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap; border-bottom:1px solid #DEDEDA; margin-bottom:28px">
+          <sc-for list="{{ calcTabs }}" as="c" hint-placeholder-count="4">
+            <div onClick="{{ c.go }}" style="{{ c.style }}">{{ c.label }}</div>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ isCalcNihss }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+          <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:8px 22px 18px">
+            <sc-for list="{{ nihss }}" as="i" hint-placeholder-count="15">
+              <div style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:center; padding:12px 0; border-bottom:1px solid #EAEAE6">
+                <div>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#B01226; margin-right:8px">{{ i.code }}</span>
+                  <span style="font-size:15px">{{ i.label }}</span>
+                </div>
+                <div style="display:flex; gap:6px">
+                  <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="4">
+                    <div onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.v }}</div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="position:sticky; top:150px; border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B">NIHSS</div>
+            <div style="font-family:'Source Serif 4', Georgia, serif; font-size:52px; line-height:1; color:#1F3A5F; margin:10px 0 4px">{{ nihssTotal }}</div>
+            <div style="font-size:14px; color:#2B2F35; line-height:1.5; margin-bottom:16px">{{ nihssBand }}</div>
+            <div onClick="{{ resetNihss }}" style="border:1px solid #D5D6D2; border-radius:999px; padding:8px 0; text-align:center; font-size:13px; cursor:pointer; color:#5A6169" style-hover="border-color:#1F3A5F; color:#1F3A5F">{{ resetLabel }}</div>
+            <div style="margin-top:16px; font-size:12px; line-height:1.5; color:#9BA2AB">{{ calcDisclaimer }}</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ isCalcAspects }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+          <div>
+            <p style="font-size:15px; line-height:1.6; color:#5A6169; margin:0 0 18px; max-width:62ch">{{ aspectsHelp }}</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px">
+              <div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">{{ aspectsLvl1 }}</div>
+                <div style="position:relative; border:1px solid #DEDEDA; border-radius:10px; background:#FFFFFF; padding:10px">
+                  <img src="./aspects-ganglionic-clean.png" alt="Corte ganglionar" style="width:100%; height:auto; display:block" />
+                  <sc-for list="{{ aspectsG }}" as="r" hint-placeholder-count="7">
+                    <div onClick="{{ r.pick }}" title="{{ r.name }}" style="{{ r.blob }}"></div>
+                  </sc-for>
+                </div>
+              </div>
+              <div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">{{ aspectsLvl2 }}</div>
+                <div style="position:relative; border:1px solid #DEDEDA; border-radius:10px; background:#FFFFFF; padding:10px">
+                  <img src="./aspects-supraganglionic-clean.png" alt="Corte supraganglionar" style="width:100%; height:auto; display:block" />
+                  <sc-for list="{{ aspectsS }}" as="r" hint-placeholder-count="3">
+                    <div onClick="{{ r.pick }}" title="{{ r.name }}" style="{{ r.blob }}"></div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+            <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:18px 22px">
+              <div style="font-size:14px; color:#5A6169; margin-bottom:14px">{{ aspectsPick }}</div>
+              <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:8px">
+                <sc-for list="{{ aspects }}" as="r" hint-placeholder-count="10">
+                  <div onClick="{{ r.pick }}" style="{{ r.style }}">
+                    <span style="font-weight:600">{{ r.code }}</span>
+                    <span style="font-size:12px; opacity:.8">{{ r.name }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          <div style="position:sticky; top:150px; border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B">ASPECTS</div>
+            <div style="font-family:'Source Serif 4', Georgia, serif; font-size:52px; line-height:1; color:#1F3A5F; margin:10px 0 4px">{{ aspectsTotal }}</div>
+            <div style="font-size:14px; color:#2B2F35; line-height:1.5; margin-bottom:16px">{{ aspectsBand }}</div>
+            <div onClick="{{ resetAspects }}" style="border:1px solid #D5D6D2; border-radius:999px; padding:8px 0; text-align:center; font-size:13px; cursor:pointer; color:#5A6169" style-hover="border-color:#1F3A5F; color:#1F3A5F">{{ resetLabel }}</div>
+            <div style="margin-top:16px; font-size:12px; line-height:1.5; color:#9BA2AB">{{ calcDisclaimer }}</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ isCalcIch }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+          <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:8px 22px 18px">
+            <sc-for list="{{ ich }}" as="i" hint-placeholder-count="5">
+              <div style="padding:14px 0; border-bottom:1px solid #EAEAE6">
+                <div style="font-size:15px; margin-bottom:10px">{{ i.label }}</div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap">
+                  <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="2">
+                    <div onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="position:sticky; top:150px; border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B">ICH Score</div>
+            <div style="font-family:'Source Serif 4', Georgia, serif; font-size:52px; line-height:1; color:#1F3A5F; margin:10px 0 4px">{{ ichTotal }}</div>
+            <div style="font-size:14px; color:#2B2F35; line-height:1.5; margin-bottom:16px">{{ ichBand }}</div>
+            <div onClick="{{ resetIch }}" style="border:1px solid #D5D6D2; border-radius:999px; padding:8px 0; text-align:center; font-size:13px; cursor:pointer; color:#5A6169" style-hover="border-color:#1F3A5F; color:#1F3A5F">{{ resetLabel }}</div>
+            <div style="margin-top:16px; font-size:12px; line-height:1.5; color:#9BA2AB">{{ ichNote }}</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ isCalcMrs }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+          <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:8px 22px 18px">
+            <sc-for list="{{ mrs }}" as="m" hint-placeholder-count="7">
+              <div onClick="{{ m.pick }}" style="{{ m.row }}">
+                <div style="{{ m.badge }}">{{ m.v }}</div>
+                <div>
+                  <div style="font-size:15px; font-weight:600; margin-bottom:2px">{{ m.title }}</div>
+                  <div style="font-size:14px; line-height:1.5; color:#5A6169">{{ m.body }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="position:sticky; top:150px; border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B">mRS</div>
+            <div style="font-family:'Source Serif 4', Georgia, serif; font-size:52px; line-height:1; color:#1F3A5F; margin:10px 0 4px">{{ mrsValue }}</div>
+            <div style="font-size:14px; color:#2B2F35; line-height:1.5; margin-bottom:16px">{{ mrsBand }}</div>
+            <div onClick="{{ resetMrs }}" style="border:1px solid #D5D6D2; border-radius:999px; padding:8px 0; text-align:center; font-size:13px; cursor:pointer; color:#5A6169" style-hover="border-color:#1F3A5F; color:#1F3A5F">{{ resetLabel }}</div>
+            <div style="margin-top:16px; font-size:12px; line-height:1.5; color:#9BA2AB">{{ calcDisclaimer }}</div>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isVideos }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="max-width:64ch; margin-bottom:36px">
+          <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ vidTitle }}</h2>
+          <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ vidIntro }}</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:18px; margin-bottom:34px">
+          <a href="https://www.youtube.com/@GrupoIctusSNA" target="_blank" rel="noopener" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:24px; display:block; color:inherit" style-hover="border-color:#1F3A5F; text-decoration:none">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">YOUTUBE</div>
+            <div style="font-size:20px; font-weight:600; margin-bottom:6px">Grupo Ictus SNA</div>
+            <div style="font-size:14px; color:#5A6169; line-height:1.5">{{ vidCh1 }}</div>
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#8A919B; margin-top:14px">youtube.com/@GrupoIctusSNA</div>
+          </a>
+          <a href="https://www.youtube.com/@NeurovascularHUCA" target="_blank" rel="noopener" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:24px; display:block; color:inherit" style-hover="border-color:#1F3A5F; text-decoration:none">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">YOUTUBE</div>
+            <div style="font-size:20px; font-weight:600; margin-bottom:6px">Neurovascular HUCA</div>
+            <div style="font-size:14px; color:#5A6169; line-height:1.5">{{ vidCh2 }}</div>
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#8A919B; margin-top:14px">youtube.com/@NeurovascularHUCA</div>
+          </a>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; margin-bottom:14px">{{ vidSessionsLabel }}</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:18px">
+          <sc-for list="{{ courses }}" as="c" hint-placeholder-count="2">
+            <a href="{{ c.url }}" target="_blank" rel="noopener" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:24px; display:block; color:inherit" style-hover="border-color:#1F3A5F; text-decoration:none">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">{{ c.kicker }}</div>
+              <div style="font-size:20px; font-weight:600; color:#0F1114; margin-bottom:6px; line-height:1.25">{{ c.title }}</div>
+              <div style="font-size:14px; color:#5A6169; line-height:1.55">{{ c.body }}</div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; margin-top:14px">{{ c.host }}</div>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isEnlaces }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="max-width:64ch; margin-bottom:36px">
+          <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ enlTitle }}</h2>
+          <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ enlIntro }}</p>
+        </div>
+        <sc-for list="{{ linkGroups }}" as="g" hint-placeholder-count="3">
+          <div style="margin-bottom:34px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; padding-bottom:10px; border-bottom:1px solid #DEDEDA">{{ g.name }}</div>
+            <sc-for list="{{ g.items }}" as="l" hint-placeholder-count="2">
+              <a href="{{ l.url }}" target="_blank" rel="noopener" style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:baseline; padding:16px 0; border-bottom:1px solid #EAEAE6; color:inherit" style-hover="text-decoration:none; background:#F1F1EE">
+                <div>
+                  <div style="font-size:17px; font-weight:600; color:#0F1114; margin-bottom:4px">{{ l.title }}</div>
+                  <div style="font-size:14px; line-height:1.5; color:#5A6169; max-width:70ch">{{ l.body }}</div>
+                </div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#B01226">{{ l.host }}</div>
+              </a>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isBiblio }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="max-width:64ch; margin-bottom:36px">
+          <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ bibTitle }}</h2>
+          <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ bibIntro }}</p>
+        </div>
+        <div style="max-width:760px; margin-bottom:44px">
+          <sc-for list="{{ bibEntries }}" as="b" hint-placeholder-count="1">
+            <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:26px 28px; margin-bottom:18px">
+              <div style="display:flex; justify-content:space-between; gap:20px; align-items:baseline; flex-wrap:wrap; margin-bottom:14px">
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#B01226">{{ b.month }}</div>
+                <a href="{{ b.url }}" target="_blank" rel="noopener" style="font-family:'IBM Plex Mono', monospace; font-size:12px">{{ b.doi }}</a>
+              </div>
+              <sc-for list="{{ b.fields }}" as="f" hint-placeholder-count="6">
+                <div style="display:grid; grid-template-columns:150px minmax(0,1fr); gap:18px; padding:12px 0; border-bottom:1px solid #EAEAE6; align-items:baseline">
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#5A6169">{{ f.k }}</div>
+                  <div style="{{ f.style }}">{{ f.v }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="border:1px dashed #CFD0CC; background:#FFFFFF; border-radius:12px; padding:26px 28px; max-width:760px">
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; margin-bottom:18px">{{ bibTemplateLabel }}</div>
+          <sc-for list="{{ bibFields }}" as="f" hint-placeholder-count="5">
+            <div style="display:grid; grid-template-columns:150px minmax(0,1fr); gap:18px; padding:12px 0; border-bottom:1px solid #EAEAE6; align-items:baseline">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#B01226">{{ f.k }}</div>
+              <div style="font-size:15px; line-height:1.55; color:#2B2F35">{{ f.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+  </main>
+
+  <footer style="border-top:1px solid #DEDEDA; background:#EFEFEC">
+    <div style="max-width:1080px; margin:0 auto; padding:28px; display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; font-size:13px; color:#79808A; line-height:1.6">
+      <div style="max-width:56ch">{{ footerLeft }}</div>
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:11px">CC BY-NC-SA 4.0</div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1F3A5F&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#1F3A5F&quot;,&quot;#B3261E&quot;,&quot;#1F5FA8&quot;,&quot;#0E7C66&quot;]},&quot;siteName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Ventana&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const T = {
+  tagline: { es: "Repositorio docente abierto de neurología vascular", en: "Open teaching repository in vascular neurology" },
+  heroTitle: { es: "Repositorio abierto de formación en neurología vascular", en: "An open training repository in vascular neurology" },
+  heroBody: { es: "Ventana recopila y ordena material docente sobre enfermedad cerebrovascular: protocolos de trabajo, casos comentados, sesiones clínicas grabadas, guías de práctica clínica y bibliografía revisada de forma periódica.", en: "Ventana collects and organises teaching material on cerebrovascular disease: working protocols, discussed cases, recorded clinical sessions, practice guidelines and a periodically reviewed bibliography." },
+  heroNote: { es: "Mantenido por un grupo de profesionales de neurología vascular, sin financiación comercial ni registro de usuarios. Acceso libre bajo licencia CC BY-NC-SA 4.0.", en: "Maintained by a group of vascular neurology professionals, with no commercial funding and no user registration. Open access under CC BY-NC-SA 4.0." },
+  agendaLabel: { es: "Próximas sesiones", en: "Upcoming sessions" },
+  agendaHint: { es: "Edita estas tres líneas cada mes. Si no hay sesión prevista, borra la fila.", en: "Edit these three lines monthly. Delete a row when there is no session." },
+  blogTitle: { es: "Blog", en: "Blog" },
+  blogIntro: { es: "Entradas breves: lo que aprendemos en la guardia, lecturas críticas y notas de práctica clínica.", en: "Short posts: lessons from on-call shifts, critical readings and practice notes." },
+  blogHint: { es: "PLANTILLA DE ENTRADA — fecha · etiqueta · título · 2 frases de resumen · autor. Duplica un bloque y sustituye el texto.", en: "POST TEMPLATE — date · tag · title · two-sentence summary · author. Duplicate a block and replace the text." },
+  protTitle: { es: "Protocolos y algoritmos", en: "Protocols and algorithms" },
+  protIntro: { es: "Documentos de trabajo del grupo. Cada ficha enlazará a un PDF o a una página con el algoritmo completo.", en: "Working documents of the group. Each card will link to a PDF or a page with the full algorithm." },
+  casosTitle: { es: "Casos clínicos comentados", en: "Discussed clinical cases" },
+  casosIntro: { es: "Casos anonimizados con imagen, decisión terapéutica y discusión. Sin datos identificativos de pacientes.", en: "Anonymised cases with imaging, treatment decision and discussion. No identifying patient data." },
+  calcTitle: { es: "Calculadoras", en: "Calculators" },
+  calcIntro: { es: "NIHSS operativa. Pulsa la puntuación de cada ítem; el total se actualiza a la derecha.", en: "Working NIHSS. Tap the score for each item; the total updates on the right." },
+  calcDisclaimer: { es: "Herramienta docente. No sustituye la valoración clínica ni el registro en la historia.", en: "Teaching tool. Not a substitute for clinical assessment or the medical record." },
+  resetLabel: { es: "Reiniciar", en: "Reset" },
+  vidTitle: { es: "Sesiones en vídeo", en: "Video sessions" },
+  vidIntro: { es: "Sesiones clínicas grabadas y alojadas en YouTube. Aquí se indexan por tema para poder encontrarlas.", en: "Clinical sessions recorded and hosted on YouTube, indexed here by topic." },
+  vidCh1: { es: "Sesiones del grupo de ictus de la Sociedad Neurológica Asturiana.", en: "Stroke group sessions, Sociedad Neurológica Asturiana." },
+  vidCh2: { es: "Unidad neurovascular del Hospital Universitario Central de Asturias.", en: "Neurovascular unit, Hospital Universitario Central de Asturias." },
+  vidSessionsLabel: { es: "Sesiones destacadas", en: "Featured sessions" },
+  enlTitle: { es: "Enlaces de interés", en: "Links" },
+  enlIntro: { es: "Guías, blogs y recursos externos que merecen una visita periódica.", en: "Guidelines, blogs and external resources worth revisiting." },
+  bibTitle: { es: "Bibliografía comentada", en: "Annotated bibliography" },
+  bibIntro: { es: "Un artículo al mes, leído y comentado por un miembro del grupo. Usa esta plantilla para cada entrada.", en: "One paper a month, read and discussed by a member of the group. Use this template for each entry." },
+  bibTemplateLabel: { es: "Plantilla mensual", en: "Monthly template" },
+  footerLeft: { es: "Ventana · Repositorio docente abierto de neurología vascular. Contenido docente, sin ánimo de lucro. No sustituye el juicio clínico ni los protocolos de tu centro.", en: "Ventana · Open teaching repository in vascular neurology. Non-profit educational content. It does not replace clinical judgement or your local protocols." }
+};
+
+const NAV = [
+  ["inicio", "Inicio", "Home"],
+  ["blog", "Blog", "Blog"],
+  ["protocolos", "Protocolos", "Protocols"],
+  ["casos", "Casos", "Cases"],
+  ["calc", "Calculadoras", "Calculators"],
+  ["videos", "Vídeos", "Videos"],
+  ["enlaces", "Enlaces", "Links"],
+  ["biblio", "Bibliografía", "Bibliography"]
+];
+
+const NIHSS = [
+  ["1a", 3, "Nivel de consciencia", "Level of consciousness"],
+  ["1b", 2, "Preguntas orientación", "LOC questions"],
+  ["1c", 2, "Órdenes motoras", "LOC commands"],
+  ["2", 2, "Mirada conjugada", "Best gaze"],
+  ["3", 3, "Campos visuales", "Visual fields"],
+  ["4", 3, "Parálisis facial", "Facial palsy"],
+  ["5a", 4, "Motor brazo izquierdo", "Motor arm, left"],
+  ["5b", 4, "Motor brazo derecho", "Motor arm, right"],
+  ["6a", 4, "Motor pierna izquierda", "Motor leg, left"],
+  ["6b", 4, "Motor pierna derecha", "Motor leg, right"],
+  ["7", 2, "Ataxia de miembros", "Limb ataxia"],
+  ["8", 2, "Sensibilidad", "Sensory"],
+  ["9", 3, "Lenguaje", "Best language"],
+  ["10", 2, "Disartria", "Dysarthria"],
+  ["11", 2, "Extinción / inatención", "Extinction / inattention"]
+];
+
+class Component extends DCLogic {
+  state = { tab: "inicio", lang: "es", scores: {}, calc: "nihss", aspects: {}, ich: {}, mrs: null };
+
+  t(k) { return T[k][this.state.lang]; }
+  go(id) { return () => { this.setState({ tab: id }); window.scrollTo(0, 0); }; }
+
+  renderVals() {
+    const L = this.state.lang, es = L === "es";
+    const accent = this.props.accentColor ?? "#1F3A5F";
+    const tab = this.state.tab;
+    const v = {};
+    Object.keys(T).forEach(k => { v[k] = T[k][L]; });
+
+    const pill = on => "padding:5px 12px; font-size:12px; cursor:pointer; letter-spacing:0.04em; " +
+      (on ? "background:" + accent + "; color:#fff" : "color:#79808A; background:transparent");
+    v.esBtn = pill(es); v.enBtn = pill(!es);
+    v.setEs = () => this.setState({ lang: "es" });
+    v.setEn = () => this.setState({ lang: "en" });
+
+    v.nav = NAV.map(([id, s, e]) => ({
+      label: es ? s : e,
+      go: this.go(id),
+      style: "padding:9px 14px; font-size:15px; cursor:pointer; border-radius:8px 8px 0 0; border:1px solid transparent; border-bottom:none; margin-bottom:-1px; " +
+        (tab === id || (id === "blog" && tab === "articulo")
+          ? "background:#F6F6F4; border-color:#DEDEDA; color:#0F1114; font-weight:600; box-shadow:inset 0 2px 0 " + accent
+          : "color:#5A6169")
+    }));
+
+    ["inicio", "blog", "protocolos", "casos", "calc", "videos", "enlaces", "biblio", "articulo"].forEach(id => {
+      v["is" + id.charAt(0).toUpperCase() + id.slice(1)] = tab === id;
+    });
+    v.isCalc = tab === "calc"; v.isVideos = tab === "videos"; v.isBiblio = tab === "biblio";
+
+    v.agenda = [
+      { date: es ? "PRÓX." : "NEXT", title: es ? "Isquemia medular: anatomía vascular, etiopatogenia, clínica, tratamiento y pronóstico" : "Spinal cord ischaemia: vascular anatomy, pathogenesis, clinical picture, treatment and prognosis", meta: "Carmen García-Cabo" },
+      { date: "09 NOV", title: es ? "Ictus en el paciente joven" : "Stroke in the young patient", meta: es ? "Caso cerrado · 08:30" : "Closed case · 08:30" },
+      { date: "14 DIC", title: es ? "Anticoagulación tras hemorragia intracraneal" : "Anticoagulation after intracranial haemorrhage", meta: es ? "Revisión de guías · 16:00" : "Guideline review · 16:00" }
+    ];
+
+    v.shortcuts = [
+      { n: "01", title: es ? "Sesiones grabadas" : "Recorded sessions", body: es ? "Dos canales de YouTube con sesiones clínicas del grupo." : "Two YouTube channels with the group's clinical sessions.", go: this.go("videos") },
+      { n: "02", title: es ? "Guías ESO" : "ESO guidelines", body: es ? "Directorio completo de guías europeas de ictus." : "Full directory of European stroke guidelines.", go: this.go("enlaces") },
+      { n: "03", title: es ? "NIHSS" : "NIHSS", body: es ? "Calculadora operativa, sin registro." : "Working calculator, no sign-up.", go: this.go("calc") },
+      { n: "04", title: es ? "Casos comentados" : "Discussed cases", body: es ? "Imagen, decisión y discusión, caso a caso." : "Imaging, decision and discussion, case by case.", go: this.go("casos") }
+    ];
+
+    const rowBase = "border-top:1px solid #DEDEDA; padding:26px 0; display:grid; grid-template-columns:120px minmax(0,1fr); gap:28px;";
+    v.posts = [
+      {
+        date: es ? "10 SEP 2026" : "10 SEP 2026",
+        tag: es ? "REVISIÓN" : "REVIEW",
+        title: "Isquemia medular: cuando el ictus está en la médula (y a veces en la aorta)",
+        excerpt: es
+          ? "Anatomía vascular, etiopatogenia, clínica, tratamiento y pronóstico. Por qué toda isquemia medular obliga a pensar en la aorta antes de administrar cualquier antitrombótico."
+          : "Vascular anatomy, pathogenesis, clinical picture, treatment and prognosis. Why every spinal cord infarction calls for ruling out the aorta before any antithrombotic.",
+        author: "Carmen García-Cabo",
+        open: () => { this.setState({ tab: "articulo" }); window.scrollTo(0, 0); },
+        row: rowBase + " cursor:pointer; border-radius:10px; margin:0 -12px; padding-left:12px; padding-right:12px"
+      },
+      { date: es ? "18 AGO 2026" : "18 AUG 2026", tag: es ? "LECTURA" : "READING", title: es ? "Ejemplo: qué cambia la última guía en tenecteplasa" : "Example: what the latest guideline changes on tenecteplase", excerpt: es ? "Cada entrada lleva fecha, una etiqueta, un título claro y el autor. Nada más es obligatorio." : "Each post carries a date, a tag, a clear title and the author. Nothing else is required.", author: es ? "Autor · Servicio" : "Author · Department", open: null, row: rowBase }
+    ];
+    v.isArticle = tab === "articulo";
+    v.backLabel = es ? "← Volver al blog" : "← Back to the blog";
+    v.backToBlog = () => { this.setState({ tab: "blog" }); window.scrollTo(0, 0); };
+
+    const pending = es ? "pendiente de subir" : "to be uploaded";
+    const cardBase = "border-radius:10px; padding:20px; min-height:132px; display:flex; flex-direction:column; justify-content:space-between; color:inherit; background:#FFFFFF; border:1px ";
+    v.protocolos = [
+      ["Código Ictus Asturias", "Código Ictus Asturias", es ? "Protocolo de coordinación regional. SESPA / Astursalud." : "Regional coordination protocol. SESPA / Astursalud.", "https://www.astursalud.es/noticias/-/noticias/codigo-ictus-asturias", "astursalud"],
+      [es ? "Protocolo de ictus hemorrágico" : "Haemorrhagic stroke protocol", es ? "Protocolo de ictus hemorrágico" : "Haemorrhagic stroke protocol", es ? "Manejo de la hemorragia cerebral en el Principado de Asturias. SESPA, 2019." : "Management of intracerebral haemorrhage in Asturias. SESPA, 2019.", "https://www.ispa-finba.es/wp-content/uploads/2021/09/Protocolo-definitivo-Ictus-hemorragico.pdf", "PDF · SESPA"],
+      [es ? "Terapia antitrombótica (COTAT)" : "Antithrombotic therapy (COTAT)", es ? "Terapia antitrombótica (COTAT)" : "Antithrombotic therapy (COTAT)", es ? "Comisión Clínica de Terapia Antitrombótica del HUCA. Manejo periprocedimiento y situaciones especiales." : "HUCA Antithrombotic Therapy Committee. Periprocedural management and special situations.", "https://huca.sespa.es/huca/web/contenidos/servicios/informatica/dirmedica/Documentos%20de%20inter%C3%A9s/Gu%C3%ADas%20y%20Manuales/Protocolo_COTAT.pdf", "PDF · HUCA"],
+      [es ? "Protocolos de la Unidad de Ictus" : "Stroke Unit protocols", es ? "Protocolos de la Unidad de Ictus" : "Stroke Unit protocols", es ? "Protocolos de trabajo de la Unidad de Ictus del HUCA." : "Working protocols of the HUCA Stroke Unit.", "https://protoictushuca.blogspot.com/", "blogspot"]
+    ].map(([has, title, body, url, state]) => ({
+      title, body, url,
+      state: has ? state : pending,
+      card: cardBase + (has ? "solid #DEDEDA" : "dashed #CFD0CC")
+    }));
+
+    v.casos = [1, 2, 3].map(i => ({
+      image: es ? "TAC / RM del caso " + i : "CT / MRI of case " + i,
+      tag: es ? "CASO " + i : "CASE " + i,
+      title: es ? "Título del caso" : "Case title",
+      body: es ? "Motivo de consulta, NIHSS, imagen, decisión y evolución en cuatro párrafos." : "Presentation, NIHSS, imaging, decision and outcome in four paragraphs."
+    }));
+
+    v.nihss = NIHSS.map(([code, max, s, e]) => ({
+      code, label: es ? s : e,
+      opts: Array.from({ length: max + 1 }, (_, n) => {
+        const on = this.state.scores[code] === n;
+        return {
+          v: n,
+          pick: () => this.setState(st => ({ scores: Object.assign({}, st.scores, { [code]: st.scores[code] === n ? undefined : n }) })),
+          style: "width:30px; height:30px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-size:14px; cursor:pointer; border:1px solid " +
+            (on ? accent : "#D5D6D2") + "; " + (on ? "background:" + accent + "; color:#fff" : "color:#5A6169; background:#fff")
+        };
+      })
+    }));
+    const total = Object.values(this.state.scores).reduce((a, b) => a + (b || 0), 0);
+    v.nihssTotal = total;
+    v.nihssBand = total === 0 ? (es ? "Sin déficit puntuable" : "No scored deficit")
+      : total <= 4 ? (es ? "Ictus menor" : "Minor stroke")
+      : total <= 15 ? (es ? "Moderado" : "Moderate")
+      : total <= 20 ? (es ? "Moderado-grave" : "Moderate to severe")
+      : (es ? "Grave" : "Severe");
+    v.resetNihss = () => this.setState({ scores: {} });
+
+    v.courses = [
+      {
+        kicker: "CURSO",
+        title: es ? "Tabaquismo e ictus" : "Smoking and stroke",
+        body: es ? "Sesiones del Grupo de Ictus de la Sociedad Neurológica Asturiana sobre tabaquismo como factor de riesgo vascular y su abordaje." : "Sessions from the Stroke Group of the Sociedad Neurológica Asturiana on smoking as a vascular risk factor and how to address it.",
+        url: "https://www.youtube.com/@GrupoIctusSNA/videos",
+        host: "youtube.com/@GrupoIctusSNA"
+      },
+      {
+        kicker: "CURSO",
+        title: es ? "Neurosonología" : "Neurosonology",
+        body: es ? "Sesiones de la unidad neurovascular del HUCA sobre dúplex de troncos supraaórticos, doppler transcraneal y su aplicación clínica." : "Sessions from the HUCA neurovascular unit on carotid duplex, transcranial Doppler and their clinical use.",
+        url: "https://www.youtube.com/@NeurovascularHUCA/videos",
+        host: "youtube.com/@NeurovascularHUCA"
+      },
+      {
+        kicker: "CURSO · 2021",
+        title: es ? "Jornadas de ictus del ISPA" : "ISPA stroke conference",
+        body: es ? "Curso de ictus del Instituto de Investigación Sanitaria del Principado de Asturias, edición de 2021." : "Stroke course of the Health Research Institute of the Principality of Asturias, 2021 edition.",
+        url: "https://ispa-finba.es/jornadas-ictus/",
+        host: "ispa-finba.es"
+      }
+    ];
+
+    const tabBtn = on => "padding:9px 16px; font-size:14px; cursor:pointer; border-radius:8px 8px 0 0; margin-bottom:-1px; border:1px solid " +
+      (on ? "#DEDEDA; border-bottom-color:#FFFFFF; background:#FFFFFF; color:#0F1114; font-weight:600" : "transparent; color:#5A6169");
+    v.calcTabs = [["nihss", "NIHSS"], ["aspects", "ASPECTS"], ["ich", "ICH Score"], ["mrs", es ? "Rankin modificada" : "Modified Rankin"]]
+      .map(([id, label]) => ({ label, go: () => this.setState({ calc: id }), style: tabBtn(this.state.calc === id) }));
+    v.calcIntro = {
+      nihss: es ? "NIHSS operativa. Pulsa la puntuación de cada ítem; el total se actualiza a la derecha." : "Working NIHSS. Tap the score for each item; the total updates on the right.",
+      aspects: es ? "ASPECTS sobre TC craneal sin contraste, territorio de la arteria cerebral media." : "ASPECTS on non-contrast head CT, middle cerebral artery territory.",
+      ich: es ? "ICH Score de Hemphill para hemorragia intracerebral espontánea. Cinco ítems, 0 a 6 puntos." : "Hemphill ICH Score for spontaneous intracerebral haemorrhage. Five items, 0 to 6 points.",
+      mrs: es ? "Escala de Rankin modificada. Selecciona el grado que describe la situación funcional del paciente." : "Modified Rankin Scale. Select the grade describing the patient's functional status."
+    }[this.state.calc];
+    v.isCalcNihss = this.state.calc === "nihss";
+    v.isCalcAspects = this.state.calc === "aspects";
+    v.isCalcIch = this.state.calc === "ich";
+    v.isCalcMrs = this.state.calc === "mrs";
+
+    v.aspectsHelp = es
+      ? "Resta un punto por cada región con signos precoces de isquemia. Púlsala sobre el esquema o en la lista inferior para marcarla."
+      : "Subtract one point for each region with early ischaemic change. Click it on the diagram or in the list below to mark it.";
+    v.aspectsLvl1 = es ? "NIVEL GANGLIONAR" : "GANGLIONIC LEVEL";
+    v.aspectsLvl2 = es ? "NIVEL SUPRAGANGLIONAR" : "SUPRAGANGLIONIC LEVEL";
+    v.aspectsPick = es ? "Marca las regiones afectadas:" : "Mark the affected regions:";
+    const REG = [
+      ["C", "Caudado", "Caudate", "g", 54.5, 37, 9, 9, 0],
+      ["L", "Lenticular", "Lentiform", "g", 64.5, 44, 11, 10, -15],
+      ["IC", "Cápsula interna", "Internal capsule", "g", 60, 48.5, 6, 9, -20],
+      ["I", "Ínsula", "Insula", "g", 72.5, 44, 4.5, 14, 0],
+      ["M1", "ACM anterior", "Anterior MCA", "g", 78, 28, 14, 17, 0],
+      ["M2", "ACM lateral", "Lateral MCA", "g", 85, 45, 13, 21, 0],
+      ["M3", "ACM posterior", "Posterior MCA", "g", 82, 66, 14, 19, 0],
+      ["M4", "ACM anterior sup.", "Anterior MCA sup.", "s", 72, 21, 17, 17, 0],
+      ["M5", "ACM lateral sup.", "Lateral MCA sup.", "s", 83, 47, 15, 27, 0],
+      ["M6", "ACM posterior sup.", "Posterior MCA sup.", "s", 77.5, 69, 16, 19, 0]
+    ];
+    const mkReg = ([code, s, e, lvl, x, y, w2, h2, rot]) => {
+      const on = !!this.state.aspects[code];
+      return {
+        code, name: es ? s : e, lvl,
+        pick: () => this.setState(st => ({ aspects: Object.assign({}, st.aspects, { [code]: !st.aspects[code] }) })),
+        style: "display:flex; flex-direction:column; gap:2px; padding:10px 12px; border-radius:8px; cursor:pointer; font-size:14px; border:1px solid " +
+          (on ? "#B01226; background:#B01226; color:#fff" : "#D5D6D2; background:#fff; color:#2B2F35"),
+        blob: "position:absolute; left:" + x + "%; top:" + y + "%; width:" + w2 + "%; height:" + h2 + "%;" +
+          " transform:translate(-50%,-50%) rotate(" + rot + "deg); border-radius:50%; cursor:pointer;" +
+          " mix-blend-mode:multiply; transition:background .15s, box-shadow .15s;" +
+          (on ? " background:rgba(176,18,38,.42); box-shadow:0 0 0 1.5px rgba(176,18,38,.8)" : " background:transparent")
+      };
+    };
+    v.aspects = REG.map(mkReg);
+    v.aspectsG = REG.filter(r => r[3] === "g").map(mkReg);
+    v.aspectsS = REG.filter(r => r[3] === "s").map(mkReg);
+    const aff = REG.filter(([c]) => this.state.aspects[c]).length;
+    v.aspectsTotal = 10 - aff;
+    v.aspectsBand = aff === 0 ? (es ? "Sin cambios precoces marcados" : "No early changes marked")
+      : (10 - aff) >= 6 ? (es ? "≥ 6: menor extensión del core establecido" : "≥ 6: smaller established core")
+      : (es ? "≤ 5: isquemia extensa; valorar con perfusión y tiempo" : "≤ 5: extensive ischaemia; weigh perfusion and time");
+    v.resetAspects = () => this.setState({ aspects: {} });
+
+    const ICH = [
+      ["gcs", es ? "Glasgow" : "GCS", [[2, "3–4"], [1, "5–12"], [0, "13–15"]]],
+      ["age", es ? "Edad ≥ 80 años" : "Age ≥ 80", [[1, es ? "Sí" : "Yes"], [0, "No"]]],
+      ["vol", es ? "Volumen del hematoma ≥ 30 mL" : "Haematoma volume ≥ 30 mL", [[1, es ? "Sí" : "Yes"], [0, "No"]]],
+      ["ivh", es ? "Extensión intraventricular" : "Intraventricular extension", [[1, es ? "Sí" : "Yes"], [0, "No"]]],
+      ["inf", es ? "Origen infratentorial" : "Infratentorial origin", [[1, es ? "Sí" : "Yes"], [0, "No"]]]
+    ];
+    v.ich = ICH.map(([k, label, opts]) => ({
+      label,
+      opts: opts.map(([val, text]) => {
+        const on = this.state.ich[k] === val;
+        return {
+          text,
+          pick: () => this.setState(st => ({ ich: Object.assign({}, st.ich, { [k]: st.ich[k] === val ? undefined : val }) })),
+          style: "padding:7px 16px; border-radius:8px; font-size:14px; cursor:pointer; border:1px solid " +
+            (on ? "#1F3A5F; background:#1F3A5F; color:#fff" : "#D5D6D2; background:#fff; color:#2B2F35")
+        };
+      })
+    }));
+    const ichT = Object.values(this.state.ich).reduce((a, b) => a + (b || 0), 0);
+    const ichComplete = ICH.every(([k]) => this.state.ich[k] !== undefined);
+    v.ichTotal = ichT;
+    const MORT = ["0 %", "13 %", "26 %", "72 %", "97 %", "100 %", "100 %"];
+    v.ichBand = ichComplete
+      ? (es ? "Mortalidad a 30 días en la cohorte original: " : "30-day mortality in the original cohort: ") + MORT[ichT]
+      : (es ? "Completa los cinco ítems" : "Complete all five items");
+    v.ichNote = es
+      ? "Hemphill et al., Stroke 2001. Estimación poblacional; no debe usarse para limitar el esfuerzo terapéutico de forma aislada."
+      : "Hemphill et al., Stroke 2001. Population estimate; should not on its own justify limiting treatment.";
+    v.resetIch = () => this.setState({ ich: {} });
+
+    const MRS = [
+      [es ? "Sin síntomas" : "No symptoms", es ? "Ningún síntoma residual." : "No residual symptoms."],
+      [es ? "Sin incapacidad importante" : "No significant disability", es ? "Síntomas presentes, realiza todas sus actividades habituales." : "Symptoms present, carries out all usual activities."],
+      [es ? "Incapacidad leve" : "Slight disability", es ? "No puede realizar todas sus actividades previas, pero se vale por sí mismo." : "Unable to carry out all previous activities, but independent."],
+      [es ? "Incapacidad moderada" : "Moderate disability", es ? "Requiere alguna ayuda, camina sin asistencia." : "Requires some help, walks unassisted."],
+      [es ? "Incapacidad moderada-grave" : "Moderately severe disability", es ? "No camina ni atiende sus necesidades sin ayuda." : "Unable to walk or attend to bodily needs without help."],
+      [es ? "Incapacidad grave" : "Severe disability", es ? "Encamado, incontinente, requiere cuidados constantes." : "Bedridden, incontinent, requires constant care."],
+      [es ? "Fallecimiento" : "Death", es ? "" : ""]
+    ];
+    v.mrs = MRS.map(([title, body], i) => {
+      const on = this.state.mrs === i;
+      return {
+        v: i, title, body,
+        pick: () => this.setState(st => ({ mrs: st.mrs === i ? null : i })),
+        row: "display:grid; grid-template-columns:38px minmax(0,1fr); gap:16px; align-items:start; padding:14px 12px; margin:4px -12px; border-radius:10px; cursor:pointer; background:" + (on ? "#F1F3F7" : "transparent"),
+        badge: "width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:14px; border:1px solid " +
+          (on ? "#1F3A5F; background:#1F3A5F; color:#fff" : "#D5D6D2; color:#5A6169")
+      };
+    });
+    v.mrsValue = this.state.mrs === null ? "—" : this.state.mrs;
+    v.mrsBand = this.state.mrs === null
+      ? (es ? "Selecciona un grado" : "Select a grade")
+      : this.state.mrs <= 2
+        ? (es ? "Resultado funcional favorable (0–2)" : "Favourable functional outcome (0–2)")
+        : (es ? "Dependencia funcional (3–6)" : "Functional dependence (3–6)");
+    v.resetMrs = () => this.setState({ mrs: null });
+
+    v.linkGroups = [
+      {
+        name: es ? "Guías de práctica clínica" : "Clinical practice guidelines",
+        items: [
+          { url: "https://eso-stroke.org/guidelines/eso-guideline-directory/", host: "eso-stroke.org", title: es ? "Directorio de guías de la ESO" : "ESO guideline directory", body: es ? "Todas las guías de la European Stroke Organisation, actualizadas y en acceso abierto." : "All European Stroke Organisation guidelines, updated and open access." },
+          { url: "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513", host: "ahajournals.org", title: es ? "Guía AHA/ASA de ictus isquémico agudo" : "AHA/ASA acute ischaemic stroke guideline", body: es ? "Guideline for the Early Management of Patients With Acute Ischemic Stroke. American Heart Association / American Stroke Association." : "Guideline for the Early Management of Patients With Acute Ischemic Stroke. American Heart Association / American Stroke Association." }
+        ]
+      },
+      {
+        name: es ? "Sociedades científicas" : "Scientific societies",
+        items: [{ url: "http://ictus.sen.es/?page_id=332", host: "ictus.sen.es", title: es ? "Grupo de Estudio de Enfermedades Cerebrovasculares de la SEN" : "Cerebrovascular Diseases Study Group, SEN", body: es ? "Grupo de estudio de la Sociedad Española de Neurología: documentos, actividades y recursos." : "Study group of the Spanish Society of Neurology: documents, activities and resources." }]
+      },
+      {
+        name: es ? "Blogs y formación" : "Blogs and education",
+        items: [{ url: "https://elcaminodecaplan.com/", host: es ? "blog" : "blog", title: "El camino de Caplan", body: es ? "Blog de referencia en neurología vascular en español." : "Reference Spanish-language blog on vascular neurology." }]
+      },
+      {
+        name: es ? "Canales de sesiones" : "Session channels",
+        items: [
+          { url: "https://www.youtube.com/@GrupoIctusSNA", host: "youtube", title: "Grupo Ictus SNA", body: es ? "Sesiones del grupo de ictus de la Sociedad Neurológica Asturiana." : "Stroke group sessions, Sociedad Neurológica Asturiana." },
+          { url: "https://www.youtube.com/@NeurovascularHUCA", host: "youtube", title: "Neurovascular HUCA", body: es ? "Sesiones de la unidad neurovascular del HUCA." : "Sessions from the HUCA neurovascular unit." }
+        ]
+      }
+    ];
+
+    const pend = es ? "Pendiente de completar." : "To be completed.";
+    const pStyle = "font-size:15px; line-height:1.55; color:#5A6169; font-style:italic";
+    const fStyle = "font-size:15px; line-height:1.55; color:#2B2F35";
+    v.bibEntries = [{
+      month: es ? "Septiembre 2026" : "September 2026",
+      doi: "10.1161/STROKEAHA.126.055839",
+      url: "https://www.ahajournals.org/doi/10.1161/STROKEAHA.126.055839",
+      fields: [
+        { k: es ? "Referencia" : "Reference", v: "Fleming N, Dintica C, Arynchyn A, Lloyd-Jones DM, Lackland D, Yaffe K. Social Determinants of Health in Early to Mid-Adulthood and Risk of Early-Onset Stroke. Stroke. 2026;57. doi:10.1161/STROKEAHA.126.055839", style: fStyle },
+        { k: es ? "Pregunta" : "Question", v: es ? "¿Se asocian los determinantes sociales de la salud en la juventud con el riesgo de ictus de inicio precoz?" : "Are social determinants of health in early adulthood associated with early-onset stroke risk?", style: fStyle },
+        { k: es ? "Diseño" : "Design", v: es ? "Cohorte prospectiva CARDIA: 5114 participantes de 18 a 30 años reclutados en 1985 y seguidos hasta 2022 (mediana, 37,9 años). Dieciocho determinantes agrupados en cinco dominios: económico, educativo, sanitario, vecindario y social. Desenlace: ictus o AIT incidente." : "CARDIA prospective cohort: 5114 participants aged 18–30 enrolled in 1985 and followed to 2022 (median 37.9 years). Eighteen determinants grouped into five domains: economic, education, healthcare, neighbourhood and social. Outcome: incident stroke or TIA.", style: fStyle },
+        { k: es ? "Resultado" : "Result", v: es ? "146 ictus o AIT, todos antes de los 65 años. Se asociaron al riesgo la menor renta familiar (HR 1,24 por cada 10 000 $ menos; IC 95 % 1,11–1,39), los años de educación (HR 0,93 por año; 0,87–0,99), la privación del vecindario (HR 1,21; 1,02–1,43) y carecer de seguro sanitario (HR 1,49; 1,05–2,11). El efecto fue acumulativo: HR 2,00 (1,09–3,66) con tres o más dominios adversos (P de tendencia = 0,005). La asociación con la renta fue más intensa en participantes negros y en mujeres (P de interacción = 0,02 en ambos)." : "146 strokes or TIAs, all before age 65. Lower household income (HR 1.24 per $10 000 lower; 95% CI 1.11–1.39), years of education (HR 0.93 per year; 0.87–0.99), neighbourhood deprivation (HR 1.21; 1.02–1.43) and lacking health insurance (HR 1.49; 1.05–2.11) were associated with risk. The effect was cumulative: HR 2.00 (1.09–3.66) with three or more adverse domains (P trend = 0.005). The income association was stronger in Black participants and in women (P interaction = 0.02 for both).", style: fStyle },
+        { k: es ? "Qué cambia" : "What changes", v: es ? "Aporta datos longitudinales, no transversales, en una cohorte reclutada en la juventud: las condiciones sociales de los veinte años pesan sobre el riesgo vascular décadas después. Refuerza recoger renta, cobertura sanitaria y entorno en la valoración del ictus del paciente joven, junto a los factores de riesgo clásicos." : "Provides longitudinal rather than cross-sectional data in a cohort recruited in young adulthood: social conditions in the twenties bear on vascular risk decades later. Supports recording income, health coverage and neighbourhood alongside classic risk factors in young stroke.", style: fStyle },
+        { k: es ? "Comentado por" : "Reviewed by", v: "Carmen García-Cabo", style: fStyle }
+      ]
+    }];
+    v.bibFields = [
+      { k: es ? "Referencia" : "Reference", v: es ? "Autores. Título. Revista. Año;vol:páginas. DOI." : "Authors. Title. Journal. Year;vol:pages. DOI." },
+      { k: es ? "Pregunta" : "Question", v: es ? "¿Qué intentaba responder el estudio?" : "What question did the study address?" },
+      { k: es ? "Diseño" : "Design", v: es ? "Tipo de estudio, n, población, comparador." : "Study type, n, population, comparator." },
+      { k: es ? "Resultado" : "Result", v: es ? "Medida principal con su intervalo de confianza." : "Primary outcome with confidence interval." },
+      { k: es ? "Qué cambia" : "What changes", v: es ? "Dos frases sobre el impacto en nuestra práctica." : "Two sentences on the impact on our practice." },
+      { k: es ? "Comentado por" : "Reviewed by", v: es ? "Nombre · mes" : "Name · month" }
+    ];
+
+    return v;
+  }
+}
+
+</script>
+</body>
+</html>
