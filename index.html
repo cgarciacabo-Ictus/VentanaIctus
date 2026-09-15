@@ -3,12 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VentanaIctus · Repositorio docente abierto de neurología vascular</title>
+<link rel="icon" href="./logo-sna.png">
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VentanaIctus · Repositorio docente abierto de neurología vascular</title>
+<link rel="icon" href="./logo-sna.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300..600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -17,40 +21,77 @@
   a { color:#1F3A5F; text-decoration:none; }
   a:hover { color:#14263E; text-decoration:underline; }
   * { box-sizing:border-box; }
+  @media (max-width: 760px) {
+    [data-r="head"] { position:static !important; }
+    [data-r="hbar"] { padding:4px 16px 0 !important; gap:10px !important; align-items:center !important; }
+    [data-r="logo"] { height:40px !important; width:50px !important; }
+    [data-r="logo"] svg { width:50px !important; height:40px !important; }
+    [data-r="logo"] img { width:36px !important; }
+    [data-r="brand"] { font-size:21px !important; }
+    [data-r="tagline"] { display:none !important; }
+    [data-r="strip"] { padding:6px 16px 0 !important; }
+    [data-r="strip"] > div:first-child { display:none !important; }
+    [data-r="hnav"] { padding:8px 16px 0 !important; gap:2px !important; flex-wrap:nowrap !important;
+      overflow-x:auto !important; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+    [data-r="hnav"]::-webkit-scrollbar { display:none; }
+    [data-r="hnav"] > * { font-size:14px !important; padding:8px 11px !important; white-space:nowrap !important; flex:0 0 auto; }
+    [data-r="main"] { padding:26px 16px 56px !important; }
+    [data-r="foot"] { padding:26px 16px 36px !important; }
+    [data-r="h1"] { font-size:29px !important; }
+    [data-r="pane"] { grid-template-columns:minmax(0,1fr) !important; gap:26px !important; }
+    [data-r="pane"] > * { position:static !important; top:auto !important; }
+    [data-r="calc"] { grid-template-columns:minmax(0,1fr) !important; gap:16px !important; }
+    [data-r="calc"] > *:last-child { order:-1; position:sticky !important; top:0 !important; z-index:5; }
+    [data-r="two"] { grid-template-columns:minmax(0,1fr) !important; }
+    [data-r="post"] { grid-template-columns:minmax(0,1fr) !important; gap:6px !important; }
+    [data-r="crit"] { grid-template-columns:minmax(0,1fr) !important; gap:3px !important; padding:10px 13px !important; }
+    [data-r="row"] { grid-template-columns:minmax(0,1fr) !important; gap:5px !important; }
+  }
 </style>
 </helmet>
 <div style="min-height:100vh; display:flex; flex-direction:column">
 
-  <header style="border-bottom:1px solid #DEDEDA; background:#F6F6F4; position:sticky; top:0; z-index:20">
-    <div style="max-width:1080px; margin:0 auto; padding:18px 28px 0; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap">
-      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap">
-        <img src="./logo-sna.png" alt="Grupo Ictus SNA" style="height:58px; width:auto; display:block" />
-        <div style="width:1px; height:34px; background:#DEDEDA"></div>
-        <div style="font-family:'Source Serif 4', Georgia, serif; font-size:30px; font-weight:600; letter-spacing:-0.01em">Ventana</div>
-        <div style="font-size:14px; color:#5A6169; max-width:340px; line-height:1.35">{{ tagline }}</div>
-      </div>
-      <div style="display:flex; align-items:center; gap:10px; padding-top:6px">
-        <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#8A919B; letter-spacing:0.04em">ventanaictus.org</div>
-        <div style="display:flex; border:1px solid #D5D6D2; border-radius:999px; overflow:hidden">
-          <div onClick="{{ setEs }}" style="{{ esBtn }}">ES</div>
-          <div onClick="{{ setEn }}" style="{{ enBtn }}">EN</div>
-        </div>
+  <header data-r="head" style="border-bottom:1px solid #DEDEDA; background:#F6F6F4; position:sticky; top:0; z-index:20">
+    <div data-r="strip" style="max-width:1080px; margin:0 auto; padding:7px 28px 0; display:flex; align-items:center; justify-content:flex-end; gap:10px">
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; color:#9BA2AB; letter-spacing:0.04em">ventanaictus.org</div>
+      <div style="display:flex; border:1px solid #E0E1DD; border-radius:999px; overflow:hidden">
+        <div onClick="{{ setEs }}" style="{{ esBtn }}">ES</div>
+        <div onClick="{{ setEn }}" style="{{ enBtn }}">EN</div>
       </div>
     </div>
-    <nav style="max-width:1080px; margin:0 auto; padding:14px 28px 0; display:flex; gap:4px; flex-wrap:wrap">
+    <div data-r="hbar" style="max-width:1080px; margin:0 auto; padding:6px 28px 0; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap">
+      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap">
+        <div data-r="logo" style="position:relative; height:62px; width:78px; flex:0 0 auto">
+          <svg viewBox="0 0 130 104" width="78" height="62" aria-hidden="true" style="position:absolute; inset:0; display:block">
+            <g fill="none" stroke="#0F1114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M30 8 L6 19 v62 l24 11 z" fill="#FAEAEC" />
+              <path d="M100 8 L124 19 v62 l-24 11 z" fill="#FAEAEC" />
+              <rect x="30" y="8" width="70" height="86" rx="2.5" fill="#FFFFFF" />
+              <path d="M30 51h70M65 8v86" stroke-width="2" />
+              <path d="M20 98h90" stroke-width="3" />
+            </g>
+          </svg>
+          <img src="./logo-sna.png" alt="VentanaIctus · Grupo Ictus SNA" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:56px; height:auto; display:block" />
+        </div>
+        <div style="width:1px; height:34px; background:#DEDEDA"></div>
+        <div data-r="brand" style="font-family:'Source Serif 4', Georgia, serif; font-size:30px; font-weight:600; letter-spacing:-0.01em">Ventana<span style="color:#C1121F">Ictus</span></div>
+        <div data-r="tagline" style="font-size:14px; color:#5A6169; max-width:340px; line-height:1.35">{{ tagline }}</div>
+      </div>
+    </div>
+    <nav data-r="hnav" style="max-width:1080px; margin:0 auto; padding:14px 28px 0; display:flex; gap:4px; flex-wrap:wrap">
       <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
         <div onClick="{{ item.go }}" style="{{ item.style }}">{{ item.label }}</div>
       </sc-for>
     </nav>
   </header>
 
-  <main style="flex:1; max-width:1080px; width:100%; margin:0 auto; padding:44px 28px 80px">
+  <main data-r="main" style="flex:1; max-width:1080px; width:100%; margin:0 auto; padding:44px 28px 80px">
 
     <sc-if value="{{ isInicio }}" hint-placeholder-val="{{ true }}">
       <div>
-        <div style="display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:48px; align-items:start; margin-bottom:56px">
+        <div data-r="pane" style="display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:48px; align-items:start; margin-bottom:56px">
           <div>
-            <h1 style="font-family:'Source Serif 4', Georgia, serif; font-size:38px; line-height:1.18; font-weight:600; margin:0 0 18px; letter-spacing:-0.015em; text-wrap:pretty">{{ heroTitle }}</h1>
+            <h1 data-r="h1" style="font-family:'Source Serif 4', Georgia, serif; font-size:38px; line-height:1.18; font-weight:600; margin:0 0 18px; letter-spacing:-0.015em; text-wrap:pretty">{{ heroTitle }}</h1>
             <p style="font-size:18px; line-height:1.6; color:#2B2F35; margin:0 0 14px; max-width:52ch; text-wrap:pretty">{{ heroBody }}</p>
             <p style="font-size:15px; line-height:1.6; color:#5A6169; margin:0; max-width:52ch">{{ heroNote }}</p>
           </div>
@@ -59,7 +100,7 @@
             <div style="display:flex; flex-direction:column; gap:14px">
               <sc-for list="{{ agenda }}" as="s" hint-placeholder-count="3">
                 <div style="display:flex; gap:14px; align-items:baseline">
-                  <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#B01226; min-width:52px">{{ s.date }}</div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#C1121F; min-width:52px">{{ s.date }}</div>
                   <div>
                     <div style="font-size:15px; line-height:1.35">{{ s.title }}</div>
                     <div style="font-size:13px; color:#79808A">{{ s.meta }}</div>
@@ -74,8 +115,8 @@
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px">
           <sc-for list="{{ shortcuts }}" as="c" hint-placeholder-count="4">
             <div onClick="{{ c.go }}" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:20px 22px; cursor:pointer; transition:border-color .15s, transform .15s" style-hover="border-color:#1F3A5F; transform:translateY(-2px)">
-              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">{{ c.n }}</div>
-              <div style="font-size:17px; font-weight:600; margin-bottom:6px">{{ c.title }}</div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px">{{ c.n }}</div>
+              <div style="font-size:17px; font-weight:600; margin-bottom:6px; color:#C1121F">{{ c.title }}</div>
               <div style="font-size:14px; line-height:1.5; color:#5A6169">{{ c.body }}</div>
             </div>
           </sc-for>
@@ -86,8 +127,8 @@
     <sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
       <article style="max-width:760px">
         <div onClick="{{ backToBlog }}" style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; cursor:pointer; margin-bottom:26px">{{ backLabel }}</div>
-        <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; letter-spacing:0.06em; margin-bottom:14px">REVISIÓN · SEPTIEMBRE 2026</div>
-        <h1 style="font-family:'Source Serif 4', Georgia, serif; font-size:38px; line-height:1.18; font-weight:600; margin:0 0 16px; letter-spacing:-0.01em; text-wrap:pretty">Isquemia medular: cuando el ictus está en la médula (y a veces en la aorta)</h1>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; letter-spacing:0.06em; margin-bottom:14px">REVISIÓN · SEPTIEMBRE 2026</div>
+        <h1 data-r="h1" style="font-family:'Source Serif 4', Georgia, serif; font-size:38px; line-height:1.18; font-weight:600; margin:0 0 16px; letter-spacing:-0.01em; text-wrap:pretty">Isquemia medular: cuando el ictus está en la médula (y a veces en la aorta)</h1>
         <p style="font-size:17px; line-height:1.6; color:#5A6169; margin:0 0 8px; font-style:italic">Revisión breve del estado actual y de los puntos clave del manejo · Septiembre 2026</p>
         <div style="height:1px; background:#DEDEDA; margin:28px 0 32px"></div>
 
@@ -147,7 +188,7 @@
         <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 20px">El pronóstico es serio, pero no uniformemente sombrío. En la mayor serie con seguimiento prolongado (115 pacientes, 3 años de media), el 81 % necesitaba silla de ruedas en el momento de máximo déficit; al final del seguimiento la necesitaba el 42 % de los supervivientes, y el 41 % de quienes salieron del hospital en silla de ruedas acabaron caminando [8]. La gravedad inicial (ASIA A–B), la edad y la enfermedad arterial periférica son los principales predictores de mala evolución [2,8], y las lesiones en el territorio frontera T4–T7 son las que peor evolucionan [3].</p>
 
         <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:26px 28px; margin:40px 0">
-          <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#B01226; margin-bottom:16px">Puntos clave</div>
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#C1121F; margin-bottom:16px">Puntos clave</div>
           <ul style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:11px">
             <li style="font-size:16px; line-height:1.65; color:#2B2F35">La médula depende de una red colateral: el riesgo isquémico es acumulativo, no de una sola arteria.</li>
             <li style="font-size:16px; line-height:1.65; color:#2B2F35">Hay que sospecharla ante un déficit medular hiperagudo (nadir ≤ 12 h), con dolor y respeto de los cordones posteriores.</li>
@@ -184,10 +225,10 @@
         </div>
         <div style="display:flex; flex-direction:column">
           <sc-for list="{{ posts }}" as="p" hint-placeholder-count="3">
-            <article onClick="{{ p.open }}" style="{{ p.row }}">
+            <article data-r="post" onClick="{{ p.open }}" style="{{ p.row }}">
               <div>
                 <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#8A919B">{{ p.date }}</div>
-                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-top:6px">{{ p.tag }}</div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-top:6px">{{ p.tag }}</div>
               </div>
               <div>
                 <h3 style="font-size:21px; font-weight:600; margin:0 0 8px; line-height:1.3">{{ p.title }}</h3>
@@ -214,7 +255,7 @@
                 <div style="font-size:16px; font-weight:600; color:#0F1114; margin-bottom:6px">{{ p.title }}</div>
                 <div style="font-size:14px; line-height:1.5; color:#5A6169">{{ p.body }}</div>
               </div>
-              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-top:14px">{{ p.state }}</div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-top:14px">{{ p.state }}</div>
             </a>
           </sc-for>
         </div>
@@ -232,7 +273,7 @@
             <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; overflow:hidden">
               <div style="height:120px; background:repeating-linear-gradient(135deg,#EDEDEA 0 8px,#E5E6E2 8px 16px); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:11px; color:#9BA2AB">{{ c.image }}</div>
               <div style="padding:18px 20px">
-                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:8px">{{ c.tag }}</div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:8px">{{ c.tag }}</div>
                 <div style="font-size:17px; font-weight:600; margin-bottom:6px; line-height:1.3">{{ c.title }}</div>
                 <div style="font-size:14px; line-height:1.55; color:#5A6169">{{ c.body }}</div>
               </div>
@@ -248,19 +289,26 @@
           <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ calcTitle }}</h2>
           <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ calcIntro }}</p>
         </div>
-        <div style="display:flex; gap:6px; flex-wrap:wrap; border-bottom:1px solid #DEDEDA; margin-bottom:28px">
-          <sc-for list="{{ calcTabs }}" as="c" hint-placeholder-count="4">
-            <div onClick="{{ c.go }}" style="{{ c.style }}">{{ c.label }}</div>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:32px">
+          <sc-for list="{{ calcGroups }}" as="g" hint-placeholder-count="3">
+            <div style="{{ g.style }}">
+              <div style="{{ g.labelStyle }}">{{ g.label }}</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap">
+                <sc-for list="{{ g.tabs }}" as="c" hint-placeholder-count="3">
+                  <div onClick="{{ c.go }}" style="{{ c.style }}" style-hover="border-color:#B9BBB5">{{ c.label }}</div>
+                </sc-for>
+              </div>
+            </div>
           </sc-for>
         </div>
 
         <sc-if value="{{ isCalcNihss }}" hint-placeholder-val="{{ true }}">
-        <div style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+        <div data-r="calc" style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
           <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:8px 22px 18px">
             <sc-for list="{{ nihss }}" as="i" hint-placeholder-count="15">
-              <div style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:center; padding:12px 0; border-bottom:1px solid #EAEAE6">
+              <div data-r="row" style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:center; padding:12px 0; border-bottom:1px solid #EAEAE6">
                 <div>
-                  <span style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#B01226; margin-right:8px">{{ i.code }}</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#C1121F; margin-right:8px">{{ i.code }}</span>
                   <span style="font-size:15px">{{ i.label }}</span>
                 </div>
                 <div style="display:flex; gap:6px">
@@ -282,12 +330,12 @@
         </sc-if>
 
         <sc-if value="{{ isCalcAspects }}" hint-placeholder-val="{{ true }}">
-        <div style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+        <div data-r="calc" style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
           <div>
             <p style="font-size:15px; line-height:1.6; color:#5A6169; margin:0 0 18px; max-width:62ch">{{ aspectsHelp }}</p>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px">
+            <div data-r="two" style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px">
               <div>
-                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">{{ aspectsLvl1 }}</div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px">{{ aspectsLvl1 }}</div>
                 <div style="position:relative; border:1px solid #DEDEDA; border-radius:10px; background:#FFFFFF; padding:10px">
                   <img src="./aspects-ganglionic-clean.png" alt="Corte ganglionar" style="width:100%; height:auto; display:block" />
                   <sc-for list="{{ aspectsG }}" as="r" hint-placeholder-count="7">
@@ -296,7 +344,7 @@
                 </div>
               </div>
               <div>
-                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">{{ aspectsLvl2 }}</div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px">{{ aspectsLvl2 }}</div>
                 <div style="position:relative; border:1px solid #DEDEDA; border-radius:10px; background:#FFFFFF; padding:10px">
                   <img src="./aspects-supraganglionic-clean.png" alt="Corte supraganglionar" style="width:100%; height:auto; display:block" />
                   <sc-for list="{{ aspectsS }}" as="r" hint-placeholder-count="3">
@@ -328,7 +376,7 @@
         </sc-if>
 
         <sc-if value="{{ isCalcIch }}" hint-placeholder-val="{{ true }}">
-        <div style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+        <div data-r="calc" style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
           <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:8px 22px 18px">
             <sc-for list="{{ ich }}" as="i" hint-placeholder-count="5">
               <div style="padding:14px 0; border-bottom:1px solid #EAEAE6">
@@ -351,10 +399,138 @@
         </div>
         </sc-if>
 
-        <sc-if value="{{ isCalcMrs }}" hint-placeholder-val="{{ true }}">
-        <div style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+        <sc-if value="{{ isCalcGcs }}" hint-placeholder-val="{{ false }}">
+        <div data-r="calc" style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
           <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:8px 22px 18px">
-            <sc-for list="{{ mrs }}" as="m" hint-placeholder-count="7">
+            <sc-for list="{{ gcs }}" as="i" hint-placeholder-count="3">
+              <div style="padding:14px 0; border-bottom:1px solid #EAEAE6">
+                <div style="font-size:15px; margin-bottom:10px">{{ i.label }}</div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap">
+                  <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="4">
+                    <div onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="position:sticky; top:150px; border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B">Glasgow</div>
+            <div style="font-family:'Source Serif 4', Georgia, serif; font-size:52px; line-height:1; color:#A01220; margin:10px 0 4px">{{ gcsTotal }}</div>
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:13px; color:#5A6169; margin-bottom:8px">{{ gcsDetail }}</div>
+            <div style="font-size:14px; color:#2B2F35; line-height:1.5; margin-bottom:16px">{{ gcsBand }}</div>
+            <div onClick="{{ resetGcs }}" style="border:1px solid #D5D6D2; border-radius:999px; padding:8px 0; text-align:center; font-size:13px; cursor:pointer; color:#5A6169" style-hover="border-color:#A01220; color:#A01220">{{ resetLabel }}</div>
+            <div style="margin-top:16px; font-size:12px; line-height:1.5; color:#9BA2AB">{{ gcsNote }}</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ isCalcScore }}" hint-placeholder-val="{{ false }}">
+        <div data-r="calc" style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+          <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:8px 22px 18px">
+            <sc-for list="{{ scoreItems }}" as="i" hint-placeholder-count="6">
+              <div style="padding:14px 0; border-bottom:1px solid #EAEAE6">
+                <div style="font-size:15px; margin-bottom:10px">{{ i.label }}</div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap">
+                  <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="2">
+                    <div onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="position:sticky; top:150px; border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B">{{ scoreName }}</div>
+            <div style="font-family:'Source Serif 4', Georgia, serif; font-size:52px; line-height:1; color:#1F3A5F; margin:10px 0 4px">{{ scoreTotal }}</div>
+            <div style="font-size:14px; color:#2B2F35; line-height:1.5; margin-bottom:16px">{{ scoreBand }}</div>
+            <div onClick="{{ resetScore }}" style="border:1px solid #D5D6D2; border-radius:999px; padding:8px 0; text-align:center; font-size:13px; cursor:pointer; color:#5A6169" style-hover="border-color:#1F3A5F; color:#1F3A5F">{{ resetLabel }}</div>
+            <div style="margin-top:16px; font-size:12px; line-height:1.5; color:#9BA2AB">{{ scoreNote }}</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ isCalcPcaspects }}" hint-placeholder-val="{{ false }}">
+        <div data-r="calc" style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+          <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px">
+            <p style="font-size:15px; line-height:1.6; color:#5A6169; margin:0 0 18px; max-width:62ch">{{ pcHelp }}</p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(190px,1fr)); gap:8px">
+              <sc-for list="{{ pcRegions }}" as="r" hint-placeholder-count="8">
+                <div onClick="{{ r.pick }}" style="{{ r.style }}">
+                  <span style="font-size:14px">{{ r.name }}</span>
+                  <span style="font-family:'IBM Plex Mono', monospace; font-size:12px; opacity:.75">{{ r.pts }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="position:sticky; top:150px; border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B">pc-ASPECTS</div>
+            <div style="font-family:'Source Serif 4', Georgia, serif; font-size:52px; line-height:1; color:#1F3A5F; margin:10px 0 4px">{{ pcTotal }}</div>
+            <div style="font-size:14px; color:#2B2F35; line-height:1.5; margin-bottom:16px">{{ pcBand }}</div>
+            <div onClick="{{ resetPc }}" style="border:1px solid #D5D6D2; border-radius:999px; padding:8px 0; text-align:center; font-size:13px; cursor:pointer; color:#5A6169" style-hover="border-color:#1F3A5F; color:#1F3A5F">{{ resetLabel }}</div>
+            <div style="margin-top:16px; font-size:12px; line-height:1.5; color:#9BA2AB">{{ pcNote }}</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ isCalcDosis }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px 24px; margin-bottom:22px; display:flex; gap:18px; align-items:center; flex-wrap:wrap">
+            <label for="peso" style="font-size:15px">{{ doseWeightLabel }}</label>
+            <input id="peso" type="number" min="20" max="200" step="1" value="{{ weight }}" onInput="{{ setWeight }}" placeholder="70" style="width:120px; padding:10px 14px; font-family:'IBM Plex Mono', monospace; font-size:18px; color:#0F1114; border:1px solid #D5D6D2; border-radius:8px; background:#FFFFFF" />
+            <span style="font-size:14px; color:#8A919B">kg</span>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:22px; align-items:start">
+            <sc-for list="{{ doseDrugs }}" as="d" hint-placeholder-count="2">
+              <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:24px 26px">
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#C1121F; margin-bottom:6px">{{ d.kicker }}</div>
+                <h3 style="font-family:'Source Serif 4', Georgia, serif; font-size:22px; font-weight:600; margin:0 0 4px">{{ d.name }}</h3>
+                <div style="font-size:14px; color:#5A6169; margin-bottom:18px">{{ d.rule }}</div>
+                <sc-for list="{{ d.rows }}" as="r" hint-placeholder-count="3">
+                  <div data-r="row" style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:baseline; padding:11px 0; border-bottom:1px solid #EAEAE6">
+                    <div style="font-size:14px; color:#5A6169">{{ r.k }}</div>
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:17px; color:#0F1114">{{ r.v }}</div>
+                  </div>
+                </sc-for>
+                <div style="font-size:13px; line-height:1.55; color:#5A6169; margin-top:16px">{{ d.detail }}</div>
+                <sc-if value="{{ d.capped }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:14px; padding:10px 14px; border-left:2px solid #C1121F; font-size:13px; line-height:1.5; color:#2B2F35">{{ d.cappedText }}</div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:20px; font-size:12px; line-height:1.6; color:#9BA2AB; max-width:70ch">{{ doseNote }}</div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ isCalcMrs }}" hint-placeholder-val="{{ false }}">
+        <div data-r="calc" style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+          <div>
+            <div style="display:flex; gap:6px; margin-bottom:18px">
+              <sc-for list="{{ mrsModes }}" as="m" hint-placeholder-count="2">
+                <div onClick="{{ m.go }}" style="{{ m.style }}">{{ m.label }}</div>
+              </sc-for>
+            </div>
+
+            <sc-if value="{{ mrsIsInterview }}" hint-placeholder-val="{{ true }}">
+            <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:8px 22px 18px">
+              <sc-for list="{{ mrsQuestions }}" as="q" hint-placeholder-count="6">
+                <div style="{{ q.row }}">
+                  <div style="display:flex; gap:12px; align-items:baseline; margin-bottom:10px">
+                    <span style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#C1121F">{{ q.n }}</span>
+                    <span style="font-size:15px; line-height:1.5">{{ q.text }}</span>
+                  </div>
+                  <div style="display:flex; gap:8px; padding-left:28px">
+                    <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+                      <div onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            </sc-if>
+
+            <sc-if value="{{ mrsIsDirect }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:8px 22px 18px">
+              <sc-for list="{{ mrs }}" as="m" hint-placeholder-count="7">
               <div onClick="{{ m.pick }}" style="{{ m.row }}">
                 <div style="{{ m.badge }}">{{ m.v }}</div>
                 <div>
@@ -363,10 +539,17 @@
                 </div>
               </div>
             </sc-for>
+            </div>
+            </sc-if>
           </div>
           <div style="position:sticky; top:150px; border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px">
             <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B">mRS</div>
             <div style="font-family:'Source Serif 4', Georgia, serif; font-size:52px; line-height:1; color:#1F3A5F; margin:10px 0 4px">{{ mrsValue }}</div>
+            <div style="display:flex; gap:4px; margin:0 0 14px">
+              <sc-for list="{{ mrsScale }}" as="s" hint-placeholder-count="7">
+                <div style="{{ s.style }}">{{ s.v }}</div>
+              </sc-for>
+            </div>
             <div style="font-size:14px; color:#2B2F35; line-height:1.5; margin-bottom:16px">{{ mrsBand }}</div>
             <div onClick="{{ resetMrs }}" style="border:1px solid #D5D6D2; border-radius:999px; padding:8px 0; text-align:center; font-size:13px; cursor:pointer; color:#5A6169" style-hover="border-color:#1F3A5F; color:#1F3A5F">{{ resetLabel }}</div>
             <div style="margin-top:16px; font-size:12px; line-height:1.5; color:#9BA2AB">{{ calcDisclaimer }}</div>
@@ -382,30 +565,30 @@
           <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ vidTitle }}</h2>
           <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ vidIntro }}</p>
         </div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:18px; margin-bottom:34px">
-          <a href="https://www.youtube.com/@GrupoIctusSNA" target="_blank" rel="noopener" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:24px; display:block; color:inherit" style-hover="border-color:#1F3A5F; text-decoration:none">
-            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">YOUTUBE</div>
-            <div style="font-size:20px; font-weight:600; margin-bottom:6px">Grupo Ictus SNA</div>
-            <div style="font-size:14px; color:#5A6169; line-height:1.5">{{ vidCh1 }}</div>
-            <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#8A919B; margin-top:14px">youtube.com/@GrupoIctusSNA</div>
-          </a>
-          <a href="https://www.youtube.com/@NeurovascularHUCA" target="_blank" rel="noopener" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:24px; display:block; color:inherit" style-hover="border-color:#1F3A5F; text-decoration:none">
-            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">YOUTUBE</div>
-            <div style="font-size:20px; font-weight:600; margin-bottom:6px">Neurovascular HUCA</div>
-            <div style="font-size:14px; color:#5A6169; line-height:1.5">{{ vidCh2 }}</div>
-            <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#8A919B; margin-top:14px">youtube.com/@NeurovascularHUCA</div>
-          </a>
-        </div>
         <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; margin-bottom:14px">{{ vidSessionsLabel }}</div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:18px">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:18px; margin-bottom:34px">
           <sc-for list="{{ courses }}" as="c" hint-placeholder-count="2">
             <a href="{{ c.url }}" target="_blank" rel="noopener" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:24px; display:block; color:inherit" style-hover="border-color:#1F3A5F; text-decoration:none">
-              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B01226; margin-bottom:10px">{{ c.kicker }}</div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px">{{ c.kicker }}</div>
               <div style="font-size:20px; font-weight:600; color:#0F1114; margin-bottom:6px; line-height:1.25">{{ c.title }}</div>
               <div style="font-size:14px; color:#5A6169; line-height:1.55">{{ c.body }}</div>
               <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; margin-top:14px">{{ c.host }}</div>
             </a>
           </sc-for>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:18px">
+          <a href="https://www.youtube.com/@GrupoIctusSNA" target="_blank" rel="noopener" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:24px; display:block; color:inherit" style-hover="border-color:#1F3A5F; text-decoration:none">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px">YOUTUBE</div>
+            <div style="font-size:20px; font-weight:600; margin-bottom:6px">Grupo Ictus SNA</div>
+            <div style="font-size:14px; color:#5A6169; line-height:1.5">{{ vidCh1 }}</div>
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#8A919B; margin-top:14px">youtube.com/@GrupoIctusSNA</div>
+          </a>
+          <a href="https://www.youtube.com/@NeurovascularHUCA" target="_blank" rel="noopener" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:24px; display:block; color:inherit" style-hover="border-color:#1F3A5F; text-decoration:none">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px">YOUTUBE</div>
+            <div style="font-size:20px; font-weight:600; margin-bottom:6px">Neurovascular HUCA</div>
+            <div style="font-size:14px; color:#5A6169; line-height:1.5">{{ vidCh2 }}</div>
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#8A919B; margin-top:14px">youtube.com/@NeurovascularHUCA</div>
+          </a>
         </div>
       </div>
     </sc-if>
@@ -420,16 +603,244 @@
           <div style="margin-bottom:34px">
             <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; padding-bottom:10px; border-bottom:1px solid #DEDEDA">{{ g.name }}</div>
             <sc-for list="{{ g.items }}" as="l" hint-placeholder-count="2">
-              <a href="{{ l.url }}" target="_blank" rel="noopener" style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:baseline; padding:16px 0; border-bottom:1px solid #EAEAE6; color:inherit" style-hover="text-decoration:none; background:#F1F1EE">
+              <a data-r="row" href="{{ l.url }}" target="_blank" rel="noopener" style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:baseline; padding:16px 0; border-bottom:1px solid #EAEAE6; color:inherit" style-hover="text-decoration:none; background:#F1F1EE">
                 <div>
                   <div style="font-size:17px; font-weight:600; color:#0F1114; margin-bottom:4px">{{ l.title }}</div>
                   <div style="font-size:14px; line-height:1.5; color:#5A6169; max-width:70ch">{{ l.body }}</div>
                 </div>
-                <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#B01226">{{ l.host }}</div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#C1121F">{{ l.host }}</div>
               </a>
             </sc-for>
           </div>
         </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isEvidencia }}" hint-placeholder-val="{{ false }}">
+      <div>
+
+        <sc-if value="{{ evLevel0 }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="max-width:64ch; margin-bottom:34px">
+              <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ evTitle }}</h2>
+              <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ evIntro }}</p>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px">
+              <sc-for list="{{ evAreas }}" as="a" hint-placeholder-count="4">
+                <div onClick="{{ a.go }}" style="{{ a.style }}" style-hover="border-color:#1F3A5F; transform:translateY(-2px)">
+                  <div style="{{ a.letterStyle }}">{{ a.letter }}</div>
+                  <div style="font-size:17px; font-weight:600; margin-bottom:6px; color:#C1121F">{{ a.title }}</div>
+                  <div style="font-size:14px; line-height:1.5; color:#5A6169">{{ a.count }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ evLevel1 }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div onClick="{{ evBack }}" style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; cursor:pointer; margin-bottom:24px">{{ evBackLabel }}</div>
+            <div style="max-width:64ch; margin-bottom:30px">
+              <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:27px; font-weight:600; margin:0 0 10px; color:#C1121F">{{ evAreaTitle }}</h2>
+              <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ evAreaDesc }}</p>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px">
+              <sc-for list="{{ evTopics }}" as="t" hint-placeholder-count="3">
+                <div onClick="{{ t.go }}" style="{{ t.style }}" style-hover="border-color:#1F3A5F; transform:translateY(-2px)">
+                  <div style="{{ t.letterStyle }}">{{ t.n }}</div>
+                  <div style="font-size:17px; font-weight:600; margin-bottom:6px; color:#C1121F">{{ t.title }}</div>
+                  <div style="font-size:14px; line-height:1.5; color:#5A6169">{{ t.source }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ evEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="border:1px dashed #D6D6D1; border-radius:12px; padding:28px; text-align:center; font-size:15px; color:#79808A">{{ evEmptyLabel }}</div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ evLevel2 }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div onClick="{{ evBackTopic }}" style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; cursor:pointer; margin-bottom:24px">{{ evBackTopicLabel }}</div>
+            <div style="max-width:72ch; margin-bottom:34px; padding-bottom:22px; border-bottom:1px solid #DEDEDA">
+              <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:30px; font-weight:600; margin:0 0 12px; letter-spacing:-0.01em; color:#C1121F">{{ evTopicTitle }}</h2>
+              <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap">
+                <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#C1121F">{{ evTopicSource }}</span>
+                <a href="{{ evTopicUrl }}" target="_blank" rel="noopener" style="font-size:14px; line-height:1.55; color:#5A6169">{{ evTopicCite }}</a>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px">
+              <sc-for list="{{ evSecCards }}" as="s" hint-placeholder-count="5">
+                <div onClick="{{ s.go }}" style="{{ s.style }}" style-hover="border-color:#1F3A5F; transform:translateY(-2px)">
+                  <div style="{{ s.numStyle }}">{{ s.n }}</div>
+                  <div style="font-size:17px; font-weight:600; margin-bottom:6px; color:#C1121F">{{ s.title }}</div>
+                  <div style="font-size:14px; line-height:1.5; color:#5A6169">{{ s.count }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ evLevel3 }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div onClick="{{ evBackSec }}" style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; cursor:pointer; margin-bottom:24px">{{ evBackSecLabel }}</div>
+            <div style="max-width:72ch; margin-bottom:30px; padding-bottom:20px; border-bottom:1px solid #DEDEDA">
+              <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:29px; font-weight:700; margin:0 0 10px; letter-spacing:-0.01em; color:#C1121F">{{ evSecTitle }}</h2>
+              <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap">
+                <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#79808A">{{ evTopicSource }}</span>
+                <a href="{{ evTopicUrl }}" target="_blank" rel="noopener" style="font-size:14px; line-height:1.55; color:#5A6169">{{ evTopicCite }}</a>
+              </div>
+            </div>
+            <sc-if value="{{ hasEvLead }}" hint-placeholder-val="{{ false }}">
+              <p style="font-size:17px; line-height:1.7; font-weight:700; color:#0F1114; margin:0 0 22px; max-width:72ch">{{ evSecLead }}</p>
+            </sc-if>
+            <sc-if value="{{ hasEvPanels }}" hint-placeholder-val="{{ false }}">
+              <div data-r="two" style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; margin-bottom:26px">
+                <sc-for list="{{ evPanels }}" as="p" hint-placeholder-count="2">
+                  <div style="{{ p.style }}">
+                    <div style="font-size:13px; font-weight:700; color:#C1121F; margin-bottom:2px">{{ p.title }}</div>
+                    <sc-for list="{{ p.rows }}" as="r" hint-placeholder-count="2">
+                      <div style="{{ r.style }}">
+                        <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap">
+                          <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.05em; text-transform:uppercase; color:#79808A">{{ r.k }}</div>
+                          <sc-if value="{{ r.hasBig }}" hint-placeholder-val="{{ false }}">
+                            <div style="font-family:'Source Serif 4', Georgia, serif; font-size:14px; font-weight:700; line-height:1.2; color:#C1121F">{{ r.big }}</div>
+                          </sc-if>
+                        </div>
+                        <div style="font-size:12.5px; line-height:1.4; color:#4A5158">{{ r.v }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ hasEvCols }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:16px; margin-bottom:26px; align-items:start">
+                <sc-for list="{{ evCols }}" as="c" hint-placeholder-count="3">
+                  <div style="{{ c.style }}">
+                    <div style="{{ c.titleStyle }}">{{ c.title }}</div>
+                    <ul style="margin:0; padding-left:18px; display:flex; flex-direction:column; gap:9px">
+                      <sc-for list="{{ c.items }}" as="i" hint-placeholder-count="6">
+                        <li style="font-size:14px; line-height:1.5; color:#2C3137">{{ i.t }}</li>
+                      </sc-for>
+                    </ul>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <div style="display:flex; flex-direction:column; gap:14px; max-width:78ch">
+              <sc-for list="{{ evSecBlocks }}" as="b" hint-placeholder-count="4">
+                <div>
+                  <sc-if value="{{ b.isRec }}" hint-placeholder-val="{{ false }}">
+                    <div style="{{ b.recWrap }}">
+                      <span style="{{ b.tagStyle }}">{{ b.tag }}</span>
+                      <div style="flex:1; min-width:220px; font-size:15px; line-height:1.6; color:#2C3137">{{ b.text }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ false }}">
+                    <p style="font-size:15px; line-height:1.7; color:#4A5158; margin:0; max-width:72ch">{{ b.text }}</p>
+                  </sc-if>
+                  <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-family:'Source Serif 4', Georgia, serif; font-size:19px; font-weight:700; color:#C1121F; margin:10px 0 2px">{{ b.text }}</div>
+                  </sc-if>
+                  <sc-if value="{{ b.isCalc }}" hint-placeholder-val="{{ false }}">
+                    <div onClick="{{ b.goCalc }}" style="align-self:flex-start; border:1px solid #C6D2E3; background:#EBEFF5; border-radius:10px; padding:12px 16px; font-size:15px; color:#1F3A5F; cursor:pointer">{{ b.text }} →</div>
+                  </sc-if>
+                  <sc-if value="{{ b.isList }}" hint-placeholder-val="{{ false }}">
+                    <ul style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px; max-width:72ch">
+                      <sc-for list="{{ b.items }}" as="i" hint-placeholder-count="3">
+                        <li style="font-size:15px; line-height:1.6; color:#4A5158">{{ i.t }}</li>
+                      </sc-for>
+                    </ul>
+                  </sc-if>
+                  <sc-if value="{{ b.isCrit }}" hint-placeholder-val="{{ false }}">
+                    <div style="border:1px solid #DEDEDA; border-radius:10px; background:#FFFFFF; overflow:hidden">
+                      <sc-for list="{{ b.rows }}" as="r" hint-placeholder-count="3">
+                        <div data-r="crit" style="{{ r.style }}">
+                          <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; line-height:1.45; color:#79808A">{{ r.k }}</div>
+                          <div style="font-size:15px; line-height:1.55; color:#2C3137">{{ r.v }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ hasEvSubs }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:32px">
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#79808A; margin-bottom:12px">{{ evSubsLabel }}</div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px">
+                  <sc-for list="{{ evSubCards }}" as="s" hint-placeholder-count="3">
+                    <div onClick="{{ s.go }}" style="{{ s.style }}" style-hover="border-color:#1F3A5F; transform:translateY(-2px)">
+                      <div style="{{ s.numStyle }}">{{ s.n }}</div>
+                      <div style="font-size:17px; font-weight:600; color:#C1121F">{{ s.title }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <div style="display:flex; justify-content:space-between; gap:16px; margin-top:38px; padding-top:20px; border-top:1px solid #DEDEDA">
+              <sc-if value="{{ hasEvPrev }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ evSecPrev.go }}" style="font-size:14px; color:#1F3A5F; cursor:pointer">{{ evSecPrev.label }}</div>
+              </sc-if>
+              <sc-if value="{{ hasEvNext }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ evSecNext.go }}" style="font-size:14px; color:#1F3A5F; cursor:pointer; margin-left:auto; text-align:right">{{ evSecNext.label }}</div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
+
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isEvidenciaSub }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div onClick="{{ evBackSub }}" style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; cursor:pointer; margin-bottom:24px">{{ evBackSubLabel }}</div>
+        <div style="max-width:72ch; margin-bottom:28px; padding-bottom:20px; border-bottom:1px solid #DEDEDA">
+          <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:700; margin:0 0 10px; letter-spacing:-0.01em; color:#C1121F">{{ evSubTitle }}</h2>
+          <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap">
+            <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#79808A">{{ evTopicSource }}</span>
+            <a href="{{ evTopicUrl }}" target="_blank" rel="noopener" style="font-size:14px; line-height:1.55; color:#5A6169">{{ evTopicCite }}</a>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:14px; max-width:78ch">
+          <sc-for list="{{ evSubBlocks }}" as="b" hint-placeholder-count="4">
+            <div>
+              <sc-if value="{{ b.isRec }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ b.recWrap }}">
+                  <span style="{{ b.tagStyle }}">{{ b.tag }}</span>
+                  <div style="flex:1; min-width:220px; font-size:15px; line-height:1.6; color:#2C3137">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size:15px; line-height:1.7; color:#4A5158; margin:0; max-width:72ch">{{ b.text }}</p>
+              </sc-if>
+              <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}">
+                <div style="font-family:'Source Serif 4', Georgia, serif; font-size:19px; font-weight:700; color:#C1121F; margin:10px 0 2px">{{ b.text }}</div>
+              </sc-if>
+              <sc-if value="{{ b.isCalc }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ b.goCalc }}" style="align-self:flex-start; border:1px solid #C6D2E3; background:#EBEFF5; border-radius:10px; padding:12px 16px; font-size:15px; color:#1F3A5F; cursor:pointer">{{ b.text }} →</div>
+              </sc-if>
+              <sc-if value="{{ b.isList }}" hint-placeholder-val="{{ false }}">
+                <ul style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px; max-width:72ch">
+                  <sc-for list="{{ b.items }}" as="i" hint-placeholder-count="3">
+                    <li style="font-size:15px; line-height:1.6; color:#4A5158">{{ i.t }}</li>
+                  </sc-for>
+                </ul>
+              </sc-if>
+              <sc-if value="{{ b.isCrit }}" hint-placeholder-val="{{ false }}">
+                <div style="border:1px solid #DEDEDA; border-radius:10px; background:#FFFFFF; overflow:hidden">
+                  <sc-for list="{{ b.rows }}" as="r" hint-placeholder-count="3">
+                    <div data-r="crit" style="{{ r.style }}">
+                      <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; line-height:1.45; color:#79808A">{{ r.k }}</div>
+                      <div style="font-size:15px; line-height:1.55; color:#2C3137">{{ r.v }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
       </div>
     </sc-if>
 
@@ -443,11 +854,11 @@
           <sc-for list="{{ bibEntries }}" as="b" hint-placeholder-count="1">
             <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:26px 28px; margin-bottom:18px">
               <div style="display:flex; justify-content:space-between; gap:20px; align-items:baseline; flex-wrap:wrap; margin-bottom:14px">
-                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#B01226">{{ b.month }}</div>
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#C1121F">{{ b.month }}</div>
                 <a href="{{ b.url }}" target="_blank" rel="noopener" style="font-family:'IBM Plex Mono', monospace; font-size:12px">{{ b.doi }}</a>
               </div>
               <sc-for list="{{ b.fields }}" as="f" hint-placeholder-count="6">
-                <div style="display:grid; grid-template-columns:150px minmax(0,1fr); gap:18px; padding:12px 0; border-bottom:1px solid #EAEAE6; align-items:baseline">
+                <div data-r="row" style="display:grid; grid-template-columns:150px minmax(0,1fr); gap:18px; padding:12px 0; border-bottom:1px solid #EAEAE6; align-items:baseline">
                   <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#5A6169">{{ f.k }}</div>
                   <div style="{{ f.style }}">{{ f.v }}</div>
                 </div>
@@ -459,8 +870,8 @@
         <div style="border:1px dashed #CFD0CC; background:#FFFFFF; border-radius:12px; padding:26px 28px; max-width:760px">
           <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; margin-bottom:18px">{{ bibTemplateLabel }}</div>
           <sc-for list="{{ bibFields }}" as="f" hint-placeholder-count="5">
-            <div style="display:grid; grid-template-columns:150px minmax(0,1fr); gap:18px; padding:12px 0; border-bottom:1px solid #EAEAE6; align-items:baseline">
-              <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#B01226">{{ f.k }}</div>
+            <div data-r="row" style="display:grid; grid-template-columns:150px minmax(0,1fr); gap:18px; padding:12px 0; border-bottom:1px solid #EAEAE6; align-items:baseline">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#C1121F">{{ f.k }}</div>
               <div style="font-size:15px; line-height:1.55; color:#2B2F35">{{ f.v }}</div>
             </div>
           </sc-for>
@@ -486,7 +897,7 @@ const T = {
   heroBody: { es: "Ventana recopila y ordena material docente sobre enfermedad cerebrovascular: protocolos de trabajo, casos comentados, sesiones clínicas grabadas, guías de práctica clínica y bibliografía revisada de forma periódica.", en: "Ventana collects and organises teaching material on cerebrovascular disease: working protocols, discussed cases, recorded clinical sessions, practice guidelines and a periodically reviewed bibliography." },
   heroNote: { es: "Mantenido por un grupo de profesionales de neurología vascular, sin financiación comercial ni registro de usuarios. Acceso libre bajo licencia CC BY-NC-SA 4.0.", en: "Maintained by a group of vascular neurology professionals, with no commercial funding and no user registration. Open access under CC BY-NC-SA 4.0." },
   agendaLabel: { es: "Próximas sesiones", en: "Upcoming sessions" },
-  agendaHint: { es: "Edita estas tres líneas cada mes. Si no hay sesión prevista, borra la fila.", en: "Edit these three lines monthly. Delete a row when there is no session." },
+  agendaHint: { es: "Añade una fila por sesión prevista. Si no hay ninguna, borra el bloque.", en: "Add one row per scheduled session. Delete the block when there is none." },
   blogTitle: { es: "Blog", en: "Blog" },
   blogIntro: { es: "Entradas breves: lo que aprendemos en la guardia, lecturas críticas y notas de práctica clínica.", en: "Short posts: lessons from on-call shifts, critical readings and practice notes." },
   blogHint: { es: "PLANTILLA DE ENTRADA — fecha · etiqueta · título · 2 frases de resumen · autor. Duplica un bloque y sustituye el texto.", en: "POST TEMPLATE — date · tag · title · two-sentence summary · author. Duplicate a block and replace the text." },
@@ -508,18 +919,19 @@ const T = {
   bibTitle: { es: "Bibliografía comentada", en: "Annotated bibliography" },
   bibIntro: { es: "Un artículo al mes, leído y comentado por un miembro del grupo. Usa esta plantilla para cada entrada.", en: "One paper a month, read and discussed by a member of the group. Use this template for each entry." },
   bibTemplateLabel: { es: "Plantilla mensual", en: "Monthly template" },
-  footerLeft: { es: "Ventana · Repositorio docente abierto de neurología vascular. Contenido docente, sin ánimo de lucro. No sustituye el juicio clínico ni los protocolos de tu centro.", en: "Ventana · Open teaching repository in vascular neurology. Non-profit educational content. It does not replace clinical judgement or your local protocols." }
+  footerLeft: { es: "VentanaIctus · Repositorio docente abierto de neurología vascular. Contenido docente, sin ánimo de lucro. No sustituye el juicio clínico ni los protocolos de tu centro.", en: "VentanaIctus · Open teaching repository in vascular neurology. Non-profit educational content. It does not replace clinical judgement or your local protocols." }
 };
 
 const NAV = [
   ["inicio", "Inicio", "Home"],
+  ["evidencia", "Evidencia en las guías", "Guidelines"],
+  ["calc", "Calculadoras", "Calculators"],
+  ["videos", "Sesiones en vídeo", "Video sessions"],
+  ["casos", "Casos clínicos", "Clinical cases"],
+  ["biblio", "Sesiones bibliográficas", "Journal club"],
   ["blog", "Blog", "Blog"],
   ["protocolos", "Protocolos", "Protocols"],
-  ["casos", "Casos", "Cases"],
-  ["calc", "Calculadoras", "Calculators"],
-  ["videos", "Vídeos", "Videos"],
-  ["enlaces", "Enlaces", "Links"],
-  ["biblio", "Bibliografía", "Bibliography"]
+  ["enlaces", "Enlaces", "Links"]
 ];
 
 const NIHSS = [
@@ -540,11 +952,527 @@ const NIHSS = [
   ["11", 2, "Extinción / inatención", "Extinction / inattention"]
 ];
 
+const EV_TAG = {
+  si: ["Recomendado", "#1F5C3A", "#E9F1EC"],
+  no: ["No recomendado", "#A01220", "#FAEAEC"],
+  maybe: ["Razonable", "#8A5A00", "#FBF2E3"],
+  cons: ["Consenso", "#1F3A5F", "#EBEFF5"]
+};
+
+const EV = [
+  {
+    id: "agudo", letter: "01", sub: { es: "Ictus isquémico agudo y los tratamientos · Manejo de la hemorragia cerebral · Trombosis venosa cerebral", en: "Acute ischaemic stroke and its treatments · Intracerebral haemorrhage · Cerebral venous thrombosis" }, title: { es: "Manejo agudo", en: "Acute management" },
+    desc: {
+      es: "Resumen operativo de las guías vigentes para la fase aguda: isquemia, hemorragia y trombosis venosa cerebral.",
+      en: "Working summary of current guidelines for the acute phase: ischaemia, haemorrhage and cerebral venous thrombosis."
+    },
+    topics: [
+      {
+        id: "ais", n: "1", title: { es: "Ictus isquémico agudo", en: "Acute ischaemic stroke" },
+        source: "AHA/ASA 2026", url: "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513",
+        cite: "2026 Guideline for the Early Management of Patients With Acute Ischemic Stroke. Stroke 2026;57(8):e316–e436.",
+        sections: [
+          {
+            title: "Soporte general", blocks: [
+              ["r", "si", "Ingreso en unidad de ictus con equipo multidisciplinar, monitorización y protocolos de prevención de complicaciones."],
+              ["r", "si", "Unidades móviles de ictus donde estén disponibles: la guía incorpora recomendaciones sobre su implantación por su seguridad y beneficio frente al transporte convencional."],
+              ["r", "maybe", "Traslado directo al hospital con capacidad de trombectomía más cercano cuando la red local no garantice circuitos interhospitalarios rápidos."],
+              ["c", [
+                ["TA antes de fibrinolisis", "< 185/110 mmHg"],
+                ["TA en las 24 h siguientes a fibrinolisis o trombectomía", "< 180/105 mmHg"],
+                ["Descenso intensivo a sistólica < 140 mmHg", "No recomendado tras fibrinolisis ni tras trombectomía, incluso con reperfusión completa (TICI 3)"],
+                ["Glucemia", "Objetivo 140–180 mg/dl. El control intensivo a 80–130 mg/dl no mejora el resultado clínico y aumenta la hipoglucemia grave"],
+                ["Oxígeno", "Mantener saturación > 94 %; no administrar oxígeno suplementario en normoxemia"],
+                ["Temperatura", "Tratar la hipertermia > 38 °C y buscar su causa"]
+              ]],
+              ["l",
+                "Cribado de disfagia antes de la primera ingesta oral.",
+                "Profilaxis de trombosis venosa profunda con compresión neumática intermitente.",
+                "Movilización precoz una vez estabilizado.",
+                "Inicio de la prevención secundaria durante el ingreso."]
+            ]
+          },
+          {
+            title: "Fibrinolisis: indicaciones",
+            lead: "Déficits discapacitantes, tiempo ≤ 4,5 h desde el inicio o desde la última vez que el paciente fue visto bien, glucemia normalizada y neuroimagen sin hipodensidad franca ni hemorragia. Cuanto antes mejor.",
+            blocks: [
+              ["r", "si", "Alteplasa o tenecteplasa en las primeras 4,5 h. La guía endosa ambas opciones: la tenecteplasa es no inferior y se administra en bolo único."],
+              ["r", "si", "Tratar rápido todo déficit discapacitante dentro de la ventana de 4,5 h, independientemente de la puntuación NIHSS y sin exigir imagen avanzada de selección."],
+              ["r", "maybe", "Ventana extendida de 4,5 a 9 h, ictus del despertar o de inicio desconocido: fibrinolisis en pacientes seleccionados con criterios de imagen avanzada (discordancia DWI–FLAIR o de perfusión)."],
+              ["r", "no", "Déficit no discapacitante (por ejemplo, síndrome sensitivo aislado) en la ventana de 4,5 h: los ensayos no han demostrado beneficio de la fibrinolisis; se prefiere doble antiagregación."],
+              ["r", "no", "Antitrombóticos adyuvantes a la fibrinolisis, como argatrobán o eptifibatida: sin beneficio demostrado."]
+            ],
+            panels: [
+              {
+                title: "Tensión arterial", hue: 0,
+                rows: [
+                  ["Antes del bolo", "Tratar con fármacos de acción rápida y vida media corta (labetalol, urapidilo) si está por encima; no administrar el fibrinolítico hasta conseguirlo", "< 185/110 mmHg"],
+                  ["Primeras 24 h", "< 180/105 mmHg, con monitorización estrecha. Evitar la variabilidad y la hipotensión; no descender por debajo de 140 mmHg de sistólica"]
+                ]
+              },
+              {
+                title: "Glucemia", hue: 3,
+                rows: [
+                  ["Antes de tratar", "Corregir la hipoglucemia y reevaluar el déficit: puede ser un simulador de ictus", "> 50 mg/dl"],
+                  ["Durante el ingreso", "Objetivo 140–180 mg/dl. La hiperglucemia no contraindica la fibrinolisis, pero se asocia a peor evolución"]
+                ]
+              }
+            ],
+            subs: [
+              {
+                title: "Dosis de los fármacos aceptados", blocks: [
+                  ["c", [
+                    ["Alteplasa", "0,9 mg/kg, máximo 90 mg: 10 % en bolo en 1 min y el 90 % restante en infusión de 60 min"],
+                    ["Tenecteplasa", "0,25 mg/kg, máximo 25 mg, en bolo único de 5 a 10 s"],
+                    ["Tenecteplasa en ictus menor no discapacitante", "No indicada: la fibrinolisis no ha demostrado beneficio en este escenario"]
+                  ]],
+                  ["p", "La tenecteplasa simplifica la logística del traslado interhospitalario al evitar la bomba de infusión durante el transporte."],
+                  ["calc", "Abrir la calculadora de dosis de fibrinolítico", "dosis"]
+                ]
+              },
+              {
+                title: "Qué se entiende por déficit discapacitante", blocks: [
+                  ["l",
+                    "Hemianopsia completa: ≥ 2 en el ítem 3 de la NIHSS.",
+                    "Afasia severa: ≥ 2 en el ítem 9 de la NIHSS.",
+                    "Hemiatención grave o extinción a más de una modalidad: ≥ 2 en el ítem de extinción e inatención de la NIHSS.",
+                    "Cualquier debilidad que limite el esfuerzo contra gravedad: ≥ 2 en los ítems 5 o 6 de la NIHSS.",
+                    "Cualquier déficit que el paciente o el clínico consideren incapacitante para su empleo o para las actividades de la vida diaria."],
+                  ["p", "La decisión no depende del total de la NIHSS: un déficit aislado con puntuación baja puede ser discapacitante y, a la inversa, una puntuación alta por ítems no discapacitantes no obliga a tratar."]
+                ]
+              },
+              {
+                title: "Situaciones especiales", blocks: [
+                  ["h", "Oclusión de la arteria central de la retina"],
+                  ["r", "maybe", "Fibrinolisis intravenosa en las primeras 4,5 h de la pérdida visual monocular por oclusión de la arteria central de la retina, tras confirmación oftalmológica: razonable en pacientes seleccionados, por analogía fisiopatológica con el ictus isquémico y con series observacionales favorables."],
+                  ["r", "cons", "Decisión conjunta con oftalmología, informando de que la evidencia procede de series y registros y no de ensayos aleatorizados concluyentes. No retrasar el tratamiento si se opta por él."],
+                  ["h", "Ictus isquémico pediátrico"],
+                  ["r", "cons", "Fibrinolisis intravenosa en el niño: evidencia insuficiente para una recomendación general. Puede considerarse en adolescentes con oclusión de gran vaso y déficit discapacitante, en centros con experiencia pediátrica y protocolo propio."],
+                  ["r", "si", "La guía de 2026 recomienda, por primera vez, el tratamiento endovascular en casos pediátricos seleccionados en centros con experiencia, lo que sitúa la trombectomía por delante de la fibrinolisis en la oclusión de gran vaso del niño."],
+                  ["l",
+                    "Descartar primero causas propias de la edad: arteriopatía focal cerebral, disección, cardiopatía congénita, drepanocitosis y trastornos protrombóticos.",
+                    "El retraso diagnóstico es la principal barrera: la mediana desde el inicio hasta la imagen supera con frecuencia la ventana terapéutica.",
+                    "Dosis extrapoladas del adulto por peso, sin validación en ensayos pediátricos."]
+                ]
+              }
+            ]
+          },
+          {
+            title: "Fibrinolisis: contraindicaciones",
+            lead: "Ninguna contraindicación relativa justifica por sí sola renunciar al tratamiento: la decisión pondera la gravedad del déficit frente al riesgo hemorrágico estimado, y se toma sin demorar el bolo.",
+            cols: [
+              {
+                title: "Absolutas", hue: 1,
+                items: [
+                  "Hemorragia intracraneal en la neuroimagen o sospecha de hemorragia subaracnoidea.",
+                  "Hipodensidad franca y extensa establecida en la TC.",
+                  "Traumatismo craneoencefálico grave, cirugía intracraneal o medular, o ictus isquémico en los 3 meses previos.",
+                  "Neoplasia intracraneal intraaxial, malformación vascular o aneurisma no tratado con riesgo hemorrágico.",
+                  "Hemorragia interna activa o diátesis hemorrágica conocida.",
+                  "Plaquetas < 100.000/mm³ o INR > 1,7.",
+                  "Heparina en las 48 h previas con TTPa prolongado, o anticoagulante de acción directa en las 48 h previas.",
+                  "Presión arterial > 185/110 mmHg no controlable con tratamiento.",
+                  "Glucemia < 50 mg/dl no corregida.",
+                  "Endocarditis infecciosa o disección aórtica."
+                ]
+              },
+              {
+                title: "Relativas", hue: 3,
+                items: [
+                  "Cirugía mayor en los 14 días previos.",
+                  "Punción arterial en vaso no compresible en los 7 días previos.",
+                  "Hemorragia digestiva o urinaria en los 21 días previos.",
+                  "Infarto agudo de miocardio en los 3 meses previos.",
+                  "Crisis al inicio, con déficit atribuible al ictus.",
+                  "Déficit leve o en rápida mejoría, si no es discapacitante.",
+                  "Carga elevada de microsangrados en resonancia (> 10).",
+                  "Neoplasia sistémica activa con expectativa de vida conservada.",
+                  "Punción lumbar en los 7 días previos.",
+                  "Retinopatía diabética hemorrágica."
+                ]
+              },
+              {
+                title: "Situaciones especiales", hue: 0,
+                items: [
+                  "Embarazo y puerperio: la fibrinolisis puede administrarse si el déficit es discapacitante; el fibrinolítico no atraviesa la placenta.",
+                  "Edad avanzada: no hay límite superior. El beneficio se mantiene en mayores de 80 años.",
+                  "Antiagregación previa, simple o doble: no contraindica el tratamiento.",
+                  "Anticoagulante de acción directa con reversión previa (idarucizumab en dabigatrán): la fibrinolisis es posible tras revertir.",
+                  "Ictus del despertar o inicio desconocido: elegible con criterios de imagen avanzada.",
+                  "Simuladores de ictus: el riesgo hemorrágico es muy bajo; la sospecha de simulador no debe demorar el tratamiento del déficit discapacitante.",
+                  "Aneurisma intracraneal no roto menor de 10 mm: no contraindica.",
+                  "Disección arterial cervical con ictus isquémico: la fibrinolisis es razonable."
+                ]
+              }
+            ],
+            blocks: []
+          },
+          {
+            title: "Trombectomía: indicaciones por escenario",
+            lead: "Oclusión de gran vaso confirmada por angio-TC o angio-RM, déficit discapacitante y ventana temporal abierta. La edad y el Rankin previo no son criterios de exclusión por sí mismos: condicionan el objetivo terapéutico, no la indicación.",
+            panels: [
+              {
+                title: "Edad", hue: 0,
+                rows: [
+                  ["Límite superior", "El beneficio se mantiene en mayores de 80 años con buena situación funcional previa", "No hay"],
+                  ["Pediatría", "Recomendada por primera vez en casos seleccionados, en centros con experiencia pediátrica", "≥ 18 años no es requisito"]
+                ]
+              },
+              {
+                title: "Rankin previo", hue: 2,
+                rows: [
+                  ["Indicación establecida", "Población de los ensayos pivotales de la ventana precoz", "mRS 0–1"],
+                  ["mRS previo ≥ 2", "No excluye por sí mismo: valorar el objetivo terapéutico y la expectativa funcional, con evidencia limitada a registros"]
+                ]
+              },
+              {
+                title: "Fibrinolisis previa", hue: 3,
+                rows: [
+                  ["Paciente elegible para ambos", "No omitir la fibrinolisis ni esperar a valorar su efecto antes de puncionar", "Tratar y trasladar"],
+                  ["No elegible para fibrinolisis", "La trombectomía se indica igual: la contraindicación del fibrinolítico no la excluye"]
+                ]
+              },
+              {
+                title: "Tensión arterial", hue: 4,
+                rows: [
+                  ["Durante el procedimiento y 24 h", "Evitar la hipotensión intraprocedimiento y los descensos bruscos", "< 180/105 mmHg"],
+                  ["Tras reperfusión completa", "No descender por debajo de 140 mmHg de sistólica, incluso con TICI 3"]
+                ]
+              }
+            ],
+            blocks: [],
+            subs: [
+              {
+                title: "Circulación anterior: vasos proximales (TICA y M1)", blocks: [
+                  ["h", "Menos de 6 h desde el inicio"],
+                  ["r", "si", "Trombectomía en la oclusión de carótida interna terminal o de M1 con mRS previo 0–1, NIHSS ≥ 6 y ASPECTS ≥ 6: indicación establecida, con el mayor nivel de evidencia de la guía."],
+                  ["c", [
+                    ["Ventana", "0 a 6 h desde el inicio de los síntomas"],
+                    ["Selección por imagen", "Basta la TC simple con ASPECTS y la angio-TC: no se exige perfusión"],
+                    ["Objetivo técnico", "Reperfusión TICI 2b–3, con el menor número de pases posible"],
+                    ["Tiempo", "Cada minuto de retraso reduce la probabilidad de independencia funcional"]
+                  ]],
+                  ["h", "Más de 6 h desde el inicio"],
+                  ["r", "si", "Trombectomía de 6 a 24 h en pacientes seleccionados con discordancia clínico-radiológica o de perfusión, según los criterios de DAWN y DEFUSE-3."],
+                  ["c", [
+                    ["DAWN", "6–24 h. Discordancia entre NIHSS y volumen de core según la edad: < 80 años con NIHSS ≥ 10 y core < 31 mL, o NIHSS ≥ 20 y core < 51 mL; ≥ 80 años con NIHSS ≥ 10 y core < 21 mL"],
+                    ["DEFUSE-3", "6–16 h. Core < 70 mL, cociente penumbra/core > 1,8 y mismatch > 15 mL"],
+                    ["Ictus del despertar", "Se cuenta desde la última vez que el paciente fue visto bien"],
+                    ["Más de 24 h", "Fuera de indicación: la decisión es individualizada y sin respaldo de ensayos"]
+                  ]]
+                ]
+              },
+              {
+                title: "Circulación anterior: vasos medianos y distales", blocks: [
+                  ["r", "maybe", "Oclusión de M2 proximal con déficit discapacitante: la trombectomía es razonable, con evidencia derivada de análisis de subgrupos y registros más que de ensayos específicos."],
+                  ["r", "cons", "Oclusión de vaso mediano (M2 distal, M3, A2, P2): la guía de 2026 amplía la orientación a este escenario, pero el beneficio no está establecido. Decisión individualizada según la discapacidad esperada del territorio afectado."],
+                  ["p", "Los ensayos publicados en oclusión distal no han demostrado beneficio neto frente al tratamiento médico, con un riesgo de hemorragia sintomática y de perforación superior al de los vasos proximales."],
+                  ["l",
+                    "Ponderar la relevancia funcional del territorio: una oclusión de M2 dominante con afasia global pesa más que una M3 con déficit leve.",
+                    "Valorar la accesibilidad del vaso y la experiencia del equipo con material de calibre pequeño.",
+                    "La fibrinolisis intravenosa sigue siendo el tratamiento de referencia en este escenario cuando el paciente es elegible."]
+                ]
+              },
+              {
+                title: "Circulación posterior: basilar y otros vasos", blocks: [
+                  ["h", "Oclusión de arteria basilar"],
+                  ["r", "si", "Trombectomía hasta 24 h del inicio en la oclusión de arteria basilar con NIHSS ≥ 10: recomendación fuerte, a partir de los ensayos ATTENTION y BAOCHE."],
+                  ["c", [
+                    ["Ventana", "Hasta 24 h desde el inicio o desde la última vez visto bien"],
+                    ["Gravedad", "NIHSS ≥ 10. Con NIHSS < 10 la evidencia es insuficiente"],
+                    ["Selección por imagen", "pc-ASPECTS ≥ 6 en la mayoría de los protocolos; excluir infarto extenso de tronco establecido"],
+                    ["Pronóstico", "La historia natural sin reperfusión es muy desfavorable, con mortalidad superior al 70 %"]
+                  ]],
+                  ["h", "Otros vasos posteriores"],
+                  ["r", "cons", "Oclusión de P1 o vertebral intracraneal: decisión individualizada, con evidencia limitada. Valorar el territorio en riesgo y la tolerancia clínica."],
+                  ["p", "El fenotipo fluctuante de la isquemia de tronco dificulta fijar el inicio: la fluctuación no debe interpretarse como mejoría ni retrasar la decisión."]
+                ]
+              },
+              {
+                title: "ASPECTS bajos y cores extensos", blocks: [
+                  ["r", "si", "Trombectomía en la oclusión de gran vaso de circulación anterior con ASPECTS 3–5 o core isquémico extenso: la guía de 2026 amplía la indicación a partir de SELECT2, ANGEL-ASPECT, RESCUE-Japan LIMIT y TENSION."],
+                  ["c", [
+                    ["ASPECTS", "3–5: beneficio demostrado. 0–2: evidencia insuficiente, decisión individualizada"],
+                    ["Volumen de core", "Beneficio demostrado con cores de 50 a 100 mL e incluso superiores en los ensayos recientes"],
+                    ["Ventana", "La mayor parte de la evidencia procede de la ventana de 0 a 24 h"],
+                    ["Riesgo", "Mayor tasa de transformación hemorrágica y de edema maligno: prever vigilancia neurocrítica y posible craniectomía"]
+                  ]],
+                  ["p", "El beneficio se expresa sobre todo como desplazamiento hacia grados de discapacidad moderada, no como independencia funcional: conviene explicitarlo en la información a la familia."]
+                ]
+              },
+              {
+                title: "Ictus pediátrico", blocks: [
+                  ["r", "si", "Tratamiento endovascular en casos pediátricos seleccionados con oclusión de gran vaso y déficit discapacitante, en centros con experiencia: recomendación nueva en la guía de 2026."],
+                  ["r", "cons", "Fibrinolisis intravenosa en el niño: evidencia insuficiente para una recomendación general. La trombectomía se sitúa por delante en la oclusión de gran vaso."],
+                  ["l",
+                    "Descartar causas propias de la edad: arteriopatía focal cerebral, disección, cardiopatía congénita, drepanocitosis y trastornos protrombóticos.",
+                    "El retraso diagnóstico es la principal barrera: la mediana desde el inicio hasta la imagen supera con frecuencia la ventana terapéutica.",
+                    "Material y accesos adaptados al calibre del paciente, con anestesia pediátrica disponible.",
+                    "Activar el circuito de código ictus pediátrico con el servicio de referencia desde la primera sospecha."]
+                ]
+              }
+            ]
+          },
+          {
+            title: "Manejo del AIT", blocks: [
+              ["r", "si", "Estudio urgente de todo AIT: neuroimagen, estudio vascular cervical e intracraneal, ECG con monitorización de ritmo y analítica con perfil de riesgo vascular."],
+              ["r", "si", "Doble antiagregación durante 21 días seguida de monoterapia en el AIT de alto riesgo (ABCD² ≥ 4) o el ictus menor no discapacitante (NIHSS ≤ 3), iniciada en las primeras 24 h."],
+              ["p", "El ABCD² orienta el riesgo precoz, pero no debe usarse para demorar el estudio: la evaluación es urgente con independencia de la puntuación."],
+              ["calc", "Abrir la calculadora ABCD²", "abcd2"],
+              ["r", "maybe", "Ticagrelor con aspirina como alternativa a clopidogrel con aspirina, especialmente en portadores de alelos de pérdida de función de CYP2C19."],
+              ["l",
+                "Resonancia con difusión para distinguir el AIT del infarto establecido.",
+                "Anticoagulación si se documenta fibrilación auricular, con el momento de inicio según el tamaño del infarto.",
+                "Revascularización carotídea precoz, idealmente en los primeros 14 días, en la estenosis sintomática significativa."]
+            ]
+          }
+        ]
+      },
+      {
+        id: "hic", n: "2", title: { es: "Hemorragia intracerebral aguda", en: "Acute intracerebral haemorrhage" },
+        source: "ESO/EANS 2025", url: "https://journals.sagepub.com/doi/full/10.1177/23969873251340815",
+        cite: "ESO and EANS guideline on stroke due to spontaneous intracerebral haemorrhage. Eur Stroke J 2025;10(4).",
+        sections: [
+          {
+            title: "Cuidados generales", blocks: [
+              ["r", "si", "Tratamiento en una unidad de ictus organizada frente a planta general: reduce la muerte y la dependencia. Recomendación fuerte a favor."],
+              ["r", "no", "Políticas generales de limitación del tratamiento en las primeras 24 h: evidencia débil en contra, por el riesgo de profecía autocumplida."],
+              ["r", "maybe", "Aplicación de un paquete de medidas que agrupe control tensional, reversión de la anticoagulación, glucemia y temperatura: evidencia débil a favor."],
+              ["p", "El ICH score y el max-ICH score son las herramientas de pronóstico con validación externa más amplia, pero su rendimiento está sesgado por la retirada precoz de tratamiento. La guía las sitúa como apoyo a la información al paciente y su familia, no como criterio de decisión."]
+            ]
+          },
+          {
+            title: "Estudio etiológico", blocks: [
+              ["p", "La arteriografía con sustracción digital sigue siendo la referencia para descartar una causa macrovascular: en el estudio DIAGRAM la angio-TC tuvo una sensibilidad del 74 % y una especificidad del 91 %, de modo que una angio-TC normal no excluye la causa."],
+              ["l",
+                "Angio-TC, resonancia o angio-RM en el paciente joven con hemorragia lobar o cerebelosa y sin marcadores de enfermedad de pequeño vaso.",
+                "El score DIAGRAM estima la probabilidad de causa macrovascular a partir de la edad, la localización, los signos de pequeño vaso y la angio-TC.",
+                "La resonancia aporta información sobre malformación cavernosa y angiopatía amiloide."]
+            ]
+          },
+          {
+            title: "Manejo tensional", blocks: [
+              ["r", "maybe", "Descenso precoz de la presión arterial: evidencia débil a favor. El tratamiento en las primeras 6 h reduce el crecimiento del hematoma (OR 0,76; IC 95 % 0,60–0,95), sin efecto demostrado sobre función o mortalidad a 3–6 meses."],
+              ["c", [
+                ["Objetivo", "Sistólica < 140 mmHg de forma sostenida, evitando la variabilidad"],
+                ["Ventana", "Cuanto antes mejor: la mayor parte del crecimiento del hematoma ocurre en las 3 primeras horas"],
+                ["Descenso máximo", "Evitar caídas > 70 mmHg en la primera hora. En el análisis post hoc de ATACH-II el rango óptimo fue de 55–85 mmHg en las 2 primeras horas"],
+                ["Población con evidencia", "Pacientes conscientes, con sistólica < 220 mmHg y hematomas menores de 30 mL"],
+                ["Sistólica ≥ 220 mmHg", "El descenso intensivo se asoció a más deterioro neurológico a 24 h sin reducir el crecimiento del hematoma"],
+                ["Fármacos", "De acción rápida y vida media corta: labetalol, urapidilo, nicardipino, clevidipino. Evitar vasodilatadores venosos"]
+              ]],
+              ["r", "no", "Descenso de la presión arterial en el ictus indiferenciado, antes de la neuroimagen: puede ser perjudicial si se trata de un ictus isquémico."]
+            ]
+          },
+          {
+            title: "Tratamiento hemostático", blocks: [
+              ["c", [
+                ["Sin antitrombóticos: rFVIIa", "Uso rutinario no recomendado (evidencia débil en contra)"],
+                ["Sin antitrombóticos: ácido tranexámico", "Reduce el crecimiento del hematoma a 24 h (OR 0,82; IC 95 % 0,70–0,97) sin efecto sobre muerte o dependencia a 90 días"],
+                ["Antiagregantes: transfusión de plaquetas", "No: aumenta la muerte o dependencia a 90 días (OR 2,04; IC 95 % 1,12–3,74)"],
+                ["Antiagregantes: desmopresina", "Evidencia insuficiente para recomendación"],
+                ["Antagonistas de la vitamina K", "Concentrado de complejo protrombínico con vitamina K, preferible al plasma fresco congelado"],
+                ["Inhibidores del factor Xa", "Concentrado de complejo protrombínico o andexanet alfa, ponderando el riesgo tromboembólico"],
+                ["Inhibidores directos de la trombina", "Idarucizumab en la hemorragia asociada a dabigatrán"]
+              ]],
+              ["p", "Varias recomendaciones difieren de la guía ESO de 2019 sobre reversión de anticoagulantes porque los eventos tromboembólicos pasan a considerarse un desenlace crítico en el balance de riesgos."]
+            ]
+          },
+          {
+            title: "Medidas antiedema y complicaciones", blocks: [
+              ["r", "no", "Antiinflamatorios fuera de ensayo clínico: recomendación fuerte en contra. Esta recomendación cubre el uso de corticoides como tratamiento antiedema."],
+              ["r", "no", "Antiepilépticos profilácticos en ausencia de crisis: evidencia débil en contra."],
+              ["r", "no", "Control de la temperatura y de la glucemia como medidas aisladas, fuera de un paquete de cuidados: evidencia débil en contra."],
+              ["r", "si", "Compresión neumática intermitente en el paciente inmovilizado para prevenir la trombosis venosa profunda proximal."],
+              ["r", "cons", "Monitorización de la presión intracraneal: sin evidencia suficiente. Decisión individualizada en hidrocefalia, extensión ventricular o bajo nivel de consciencia."],
+              ["p", "La guía no formula recomendación específica sobre terapia osmótica, que queda como medida de rescate mientras se decide la actitud quirúrgica."]
+            ]
+          },
+          {
+            title: "Cirugía", blocks: [
+              ["c", [
+                ["Craneotomía abierta, HIC supratentorial", "Evidencia débil a favor"],
+                ["Cirugía mínimamente invasiva, HIC supratentorial", "Evidencia débil a favor"],
+                ["Craniectomía descompresiva, HIC profunda supratentorial", "Evidencia débil a favor"],
+                ["HIC cerebelosa mayor de 15 mL", "Evacuación: evidencia débil a favor"],
+                ["Extensión intraventricular", "Drenaje ventricular externo con fibrinólisis intraventricular: evidencia débil a favor"],
+                ["Sangre intraventricular", "Evacuación quirúrgica mínimamente invasiva: evidencia débil a favor"]
+              ]]
+            ]
+          },
+          {
+            title: "Prevención secundaria", blocks: [
+              ["r", "si", "Descenso de la presión arterial a largo plazo: evidencia fuerte a favor."],
+              ["r", "maybe", "Antiagregación cuando exista una indicación establecida: evidencia débil a favor."],
+              ["r", "cons", "Anticoagulación oral en fibrilación auricular tras la hemorragia y cierre percutáneo de la orejuela: consenso de expertos, con decisión individualizada según causa y localización."],
+              ["r", "cons", "Estatinas: consenso de expertos."]
+            ]
+          }
+        ]
+      },
+      {
+        id: "tvc", n: "3", title: { es: "Trombosis venosa cerebral", en: "Cerebral venous thrombosis" },
+        source: "AHA/ASA 2024", url: "https://www.ahajournals.org/doi/10.1161/STR.0000000000000456",
+        cite: "2024 Guideline for the Management of Patients With Cerebral Venous Thrombosis. Stroke 2024.",
+        sections: [
+          {
+            title: "Diagnóstico", blocks: [
+              ["l",
+                "Angio-RM venosa o angio-TC venosa ante cefalea inusual, crisis, déficit focal, hipertensión intracraneal o hemorragia de localización atípica.",
+                "Un dímero-D normal no descarta la trombosis venosa cerebral, sobre todo en presentaciones con cefalea aislada.",
+                "Buscar factores provocadores: anticonceptivos con estrógenos, embarazo y puerperio, trombofilia, cáncer, infección local de senos u oído y síndrome antifosfolípido.",
+                "Considerar trombocitopenia trombótica inmune inducida por vacuna en el contexto adecuado, con plaquetas bajas y anticuerpos anti-PF4."]
+            ]
+          },
+          {
+            title: "Anticoagulación aguda", blocks: [
+              ["r", "si", "Anticoagulación a dosis plena desde el diagnóstico, también en presencia de hemorragia intracraneal asociada."],
+              ["r", "si", "Heparina de bajo peso molecular preferible a heparina no fraccionada, salvo insuficiencia renal grave o previsión de procedimiento inmediato."]
+            ]
+          },
+          {
+            title: "Mantenimiento y duración", blocks: [
+              ["r", "maybe", "Anticoagulantes orales de acción directa como alternativa razonable a los antagonistas de la vitamina K una vez estabilizado el paciente."],
+              ["r", "no", "Anticoagulantes de acción directa en síndrome antifosfolípido, embarazo y lactancia, y en la trombosis asociada a vacuna."],
+              ["c", [
+                ["Factor provocador transitorio", "3 a 6 meses"],
+                ["Idiopática", "6 a 12 meses"],
+                ["Trombofilia grave o recurrencia", "Indefinida"],
+                ["Seguimiento", "Imagen venosa de control para valorar la recanalización antes de suspender"]
+              ]]
+            ]
+          },
+          {
+            title: "Tratamiento endovascular y cirugía", blocks: [
+              ["r", "no", "Tratamiento endovascular de forma rutinaria: el ensayo TO-ACT no demostró beneficio."],
+              ["r", "maybe", "Trombectomía o trombólisis local en el paciente que se deteriora a pesar de una anticoagulación correcta, en centros con experiencia."],
+              ["r", "si", "Craniectomía descompresiva ante lesión con efecto de masa y herniación inminente: puede salvar la vida, y una proporción relevante de supervivientes alcanza un buen resultado funcional."]
+            ]
+          },
+          {
+            title: "Complicaciones", blocks: [
+              ["l",
+                "Crisis: antiepilépticos en quien ha convulsionado, especialmente con lesión supratentorial. No se recomienda la profilaxis sistemática en ausencia de crisis.",
+                "Hipertensión intracraneal: acetazolamida, punción lumbar evacuadora en casos seleccionados y fenestración de la vaina del nervio óptico o derivación si hay pérdida visual progresiva.",
+                "Cefalea persistente: descartar recurrencia o hipertensión intracraneal antes de atribuirla a secuela."]
+            ]
+          },
+          {
+            title: "Situaciones especiales", blocks: [
+              ["l",
+                "Embarazo y puerperio: heparina de bajo peso molecular durante el embarazo y al menos 6 semanas posparto.",
+                "Un episodio previo no contraindica un embarazo posterior; se recomienda profilaxis con heparina de bajo peso molecular.",
+                "Anticonceptivos con estrógenos: contraindicados tras el episodio.",
+                "Trombosis asociada a vacuna: anticoagulación no heparínica e inmunoglobulinas intravenosas."]
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "prim", letter: "02", sub: { es: "En preparación", en: "In preparation" }, title: { es: "Prevención primaria", en: "Primary prevention" },
+    desc: { es: "En preparación.", en: "In preparation." }, topics: []
+  },
+  {
+    id: "sec", letter: "03", sub: { es: "En preparación", en: "In preparation" }, title: { es: "Prevención secundaria", en: "Secondary prevention" },
+    desc: { es: "En preparación.", en: "In preparation." }, topics: []
+  },
+  {
+    id: "otros", letter: "04", sub: { es: "Vasculitis del SNC · Disección arterial", en: "CNS vasculitis · Arterial dissection" }, title: { es: "Otros", en: "Other" },
+    desc: { es: "Entidades menos frecuentes con guía propia.", en: "Less frequent entities with a dedicated guideline." },
+    topics: [
+      {
+        id: "pacns", n: "1", title: { es: "Vasculitis primaria del SNC", en: "Primary CNS vasculitis" },
+        source: "ESO 2024", url: "https://journals.sagepub.com/doi/10.1177/23969873231190431",
+        cite: "ESO guidelines on Primary Angiitis of the Central Nervous System. Eur Stroke J 2024;9(1).",
+        sections: [
+          {
+            title: "Definición y criterios", blocks: [
+              ["c", [
+                ["Incidencia", "2,4 casos por millón de personas y año"],
+                ["Edad mediana al diagnóstico", "50 años"],
+                ["Razón hombre/mujer", "1:1"],
+                ["PACNS definida", "Confirmación histopatológica (criterios de Birnbaum y Hellmann)"],
+                ["PACNS probable", "Arteriografía de alta probabilidad junto con resonancia y LCR compatibles"]
+              ]],
+              ["p", "El patrón angiográfico de alta probabilidad combina áreas alternantes de estenosis y dilatación segmentaria de pared lisa, oclusiones en varios vasos cerebrales y ausencia de ateromatosis proximal."],
+              ["p", "La guía subraya que los criterios diagnósticos vigentes tienen limitaciones importantes y que la afectación de vaso mediano queda mal recogida en ellos."]
+            ]
+          },
+          {
+            title: "Líquido cefalorraquídeo", blocks: [
+              ["r", "cons", "Estudio de LCR en toda sospecha clínica, orientado también a excluir alternativas como la vasculitis posinfecciosa. No limitarlo a recuento celular y proteínas; un LCR normal no excluye el diagnóstico."],
+              ["p", "En 508 pacientes con datos disponibles el LCR fue anormal en el 77,8 %: pleocitosis en el 46 % e hiperproteinorraquia en el 70 %. El diagnóstico no puede descartarse con menos de 5 células/µl."]
+            ]
+          },
+          {
+            title: "Neuroimagen", blocks: [
+              ["r", "no", "Angio-RM de forma rutinaria en lugar de arteriografía: recomendación fuerte en contra. Su principal limitación está en el vaso mediano."],
+              ["r", "si", "Arteriografía con sustracción digital si la angio-RM es normal y persiste la sospecha clínica (recomendación débil a favor)."],
+              ["r", "cons", "Imagen de pared vascular de alta resolución: técnica prometedora pero no validada. Limitada a centros expertos y nunca como único apoyo del diagnóstico."],
+              ["p", "Ningún patrón parenquimatoso en resonancia identifica un subtipo. En 660 pacientes: lesiones isquémicas múltiples 20,5 %, realce parenquimatoso 20,5 %, hemorragia o HSA 13,6 %, patrón de pequeño vaso 8,8 % y forma tumefactiva 4,1 %."]
+            ]
+          },
+          {
+            title: "Biopsia", blocks: [
+              ["r", "cons", "Proceder a biopsia cuando hay sospecha clínica, realce leptomeníngeo y arteriografía normal."],
+              ["r", "cons", "Si no hay realce leptomeníngeo, la biopsia dirigida a las lesiones que realzan con gadolinio rinde más que la biopsia ciega."]
+            ]
+          },
+          {
+            title: "Inducción", blocks: [
+              ["r", "cons", "Glucocorticoides junto con un inmunosupresor en la mayoría de los pacientes, dada la gravedad potencial, el curso recurrente y la toxicidad conocida del corticoide."],
+              ["r", "cons", "En fenotipos leves puede discutirse el uso de glucocorticoides solos, en un comité multidisciplinar con experiencia en la enfermedad."],
+              ["p", "No existe ningún ensayo aleatorizado: la evidencia procede de series retrospectivas y la calidad global es muy baja."]
+            ]
+          },
+          {
+            title: "Mantenimiento y prevención secundaria", blocks: [
+
+              ["r", "cons", "Iniciar el mantenimiento cuando no ha habido recurrencia tras la inducción y prolongarlo al menos 2 años antes de plantear la retirada."],
+              ["p", "La mejor evidencia observacional corresponde a azatioprina (2 mg/kg/día); las alternativas empleadas en las cohortes son metotrexato y micofenolato de mofetilo."],
+              ["r", "cons", "Aspirina en la afectación de vaso grande o mediano, por su posible efecto antitrombótico y antiinflamatorio complementario al corticoide."]
+            ]
+          }
+        ]
+      },
+      {
+        id: "diseccion", n: "2", title: { es: "Disección arterial cervical", en: "Cervical artery dissection" },
+        source: "", url: "", cite: "", soon: true, sections: []
+      }
+    ]
+  }
+];
+
+function evBlockRender(b, ctx) {
+  const base = { isRec: false, isP: false, isList: false, isCrit: false, isH: false, isCalc: false, tag: "", text: "", recWrap: "", tagStyle: "", items: [], rows: [], goCalc: () => {} };
+  if (b[0] === "h") return Object.assign(base, { isH: true, text: b[1] });
+  if (b[0] === "calc") return Object.assign(base, { isCalc: true, text: b[1], goCalc: ctx && ctx.goCalc ? ctx.goCalc(b[2] || "dosis") : (() => {}) });
+  if (b[0] === "r") {
+    const tg = EV_TAG[b[1]];
+    return Object.assign(base, {
+      isRec: true, tag: tg[0], text: b[2],
+      recWrap: "border:1px solid #DEDEDA; border-left:3px solid " + tg[1] + "; background:" + tg[2] + "; border-radius:0 10px 10px 0; padding:13px 16px; display:flex; gap:12px; align-items:baseline; flex-wrap:wrap",
+      tagStyle: "font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:" + tg[1] + "; white-space:nowrap"
+    });
+  }
+  if (b[0] === "p") return Object.assign(base, { isP: true, text: b[1] });
+  if (b[0] === "l") return Object.assign(base, { isList: true, items: b.slice(1).map(t => ({ t: t })) });
+  return Object.assign(base, {
+    isCrit: true,
+    rows: b[1].map((r, i) => ({
+      k: r[0], v: r[1],
+      style: "display:grid; grid-template-columns:minmax(0,210px) minmax(0,1fr); gap:18px; padding:12px 16px; align-items:baseline" + (i ? "; border-top:1px solid #EDEDEA" : "")
+    }))
+  });
+}
+
 class Component extends DCLogic {
-  state = { tab: "inicio", lang: "es", scores: {}, calc: "nihss", aspects: {}, ich: {}, mrs: null };
+  state = { tab: "inicio", lang: "es", scores: {}, calc: "nihss", aspects: {}, ich: {}, gcs: {}, mrs: null, sc: {}, pcasp: {}, weight: "", mrsMode: "interview", mrsQ: {}, ev: null, evTopic: null, evSec: null, evSub: null };
 
   t(k) { return T[k][this.state.lang]; }
-  go(id) { return () => { this.setState({ tab: id }); window.scrollTo(0, 0); }; }
+  go(id) { return () => { this.setState({ tab: id, ev: null, evTopic: null, evSec: null, evSub: null }); window.scrollTo(0, 0); }; }
 
   renderVals() {
     const L = this.state.lang, es = L === "es";
@@ -568,21 +1496,19 @@ class Component extends DCLogic {
           : "color:#5A6169")
     }));
 
-    ["inicio", "blog", "protocolos", "casos", "calc", "videos", "enlaces", "biblio", "articulo"].forEach(id => {
+    ["inicio", "blog", "protocolos", "evidencia", "casos", "calc", "videos", "enlaces", "biblio", "articulo"].forEach(id => {
       v["is" + id.charAt(0).toUpperCase() + id.slice(1)] = tab === id;
     });
     v.isCalc = tab === "calc"; v.isVideos = tab === "videos"; v.isBiblio = tab === "biblio";
 
     v.agenda = [
       { date: es ? "PRÓX." : "NEXT", title: es ? "Isquemia medular: anatomía vascular, etiopatogenia, clínica, tratamiento y pronóstico" : "Spinal cord ischaemia: vascular anatomy, pathogenesis, clinical picture, treatment and prognosis", meta: "Carmen García-Cabo" },
-      { date: "09 NOV", title: es ? "Ictus en el paciente joven" : "Stroke in the young patient", meta: es ? "Caso cerrado · 08:30" : "Closed case · 08:30" },
-      { date: "14 DIC", title: es ? "Anticoagulación tras hemorragia intracraneal" : "Anticoagulation after intracranial haemorrhage", meta: es ? "Revisión de guías · 16:00" : "Guideline review · 16:00" }
     ];
 
     v.shortcuts = [
       { n: "01", title: es ? "Sesiones grabadas" : "Recorded sessions", body: es ? "Dos canales de YouTube con sesiones clínicas del grupo." : "Two YouTube channels with the group's clinical sessions.", go: this.go("videos") },
-      { n: "02", title: es ? "Guías ESO" : "ESO guidelines", body: es ? "Directorio completo de guías europeas de ictus." : "Full directory of European stroke guidelines.", go: this.go("enlaces") },
-      { n: "03", title: es ? "NIHSS" : "NIHSS", body: es ? "Calculadora operativa, sin registro." : "Working calculator, no sign-up.", go: this.go("calc") },
+      { n: "02", title: es ? "Evidencia resumida de las guías de práctica clínica" : "Guideline evidence summaries", body: es ? "Recomendaciones por tema, con la fuente y el año." : "Recommendations by topic, with source and year.", go: this.go("evidencia") },
+      { n: "03", title: es ? "Calculadoras clínicas" : "Clinical calculators", body: es ? "Escalas y dosis de uso diario, sin registro." : "Everyday scales and dosing, no sign-up.", go: this.go("calc") },
       { n: "04", title: es ? "Casos comentados" : "Discussed cases", body: es ? "Imagen, decisión y discusión, caso a caso." : "Imaging, decision and discussion, case by case.", go: this.go("casos") }
     ];
 
@@ -598,8 +1524,7 @@ class Component extends DCLogic {
         author: "Carmen García-Cabo",
         open: () => { this.setState({ tab: "articulo" }); window.scrollTo(0, 0); },
         row: rowBase + " cursor:pointer; border-radius:10px; margin:0 -12px; padding-left:12px; padding-right:12px"
-      },
-      { date: es ? "18 AGO 2026" : "18 AUG 2026", tag: es ? "LECTURA" : "READING", title: es ? "Ejemplo: qué cambia la última guía en tenecteplasa" : "Example: what the latest guideline changes on tenecteplase", excerpt: es ? "Cada entrada lleva fecha, una etiqueta, un título claro y el autor. Nada más es obligatorio." : "Each post carries a date, a tag, a clear title and the author. Nothing else is required.", author: es ? "Autor · Servicio" : "Author · Department", open: null, row: rowBase }
+      }
     ];
     v.isArticle = tab === "articulo";
     v.backLabel = es ? "← Volver al blog" : "← Back to the blog";
@@ -670,20 +1595,224 @@ class Component extends DCLogic {
       }
     ];
 
-    const tabBtn = on => "padding:9px 16px; font-size:14px; cursor:pointer; border-radius:8px 8px 0 0; margin-bottom:-1px; border:1px solid " +
-      (on ? "#DEDEDA; border-bottom-color:#FFFFFF; background:#FFFFFF; color:#0F1114; font-weight:600" : "transparent; color:#5A6169");
-    v.calcTabs = [["nihss", "NIHSS"], ["aspects", "ASPECTS"], ["ich", "ICH Score"], ["mrs", es ? "Rankin modificada" : "Modified Rankin"]]
-      .map(([id, label]) => ({ label, go: () => this.setState({ calc: id }), style: tabBtn(this.state.calc === id) }));
+    const calcHues = [
+      ["#EBEFF5", "#C6D2E3", "#1F3A5F"],
+      ["#FAEAEC", "#EBC8CD", "#A01220"],
+      ["#E9F1EC", "#C7DDD0", "#1F5C3A"]
+    ];
+    const mkTab = h => ([id, label]) => {
+      const on = this.state.calc === id;
+      return {
+        label,
+        go: () => this.setState({ calc: id }),
+        style: "padding:9px 15px; font-size:15px; cursor:pointer; border-radius:999px; border:1px solid " +
+          (on ? h[1] : "#E6E6E2") + "; " +
+          (on ? "background:" + h[0] + "; color:" + h[2] + "; font-weight:600" : "background:#FFFFFF; color:#5A6169") +
+          "; transition:background .15s, border-color .15s"
+      };
+    };
+    v.calcGroups = [
+      {
+        label: es ? "Isquemia aguda" : "Acute ischaemia",
+        labelStyle: "font-family:'Source Serif 4', Georgia, serif; font-size:19px; font-weight:700; color:" + calcHues[0][2] + "; margin-bottom:10px",
+        style: "background:" + calcHues[0][0] + "66; border:1px solid " + calcHues[0][1] + "; border-radius:12px; padding:14px 16px",
+        tabs: [["nihss", "NIHSS"], ["aspects", "ASPECTS"], ["pcaspects", "pc-ASPECTS"], ["dosis", es ? "Dosis de fibrinolítico" : "Thrombolytic dosing"], ["abcd2", "ABCD²"]].map(mkTab(calcHues[0]))
+      },
+      {
+        label: es ? "Hemorragia aguda" : "Acute haemorrhage",
+        labelStyle: "font-family:'Source Serif 4', Georgia, serif; font-size:19px; font-weight:700; color:" + calcHues[1][2] + "; margin-bottom:10px",
+        style: "background:" + calcHues[1][0] + "66; border:1px solid " + calcHues[1][1] + "; border-radius:12px; padding:14px 16px",
+        tabs: [["ich", "ICH Score"], ["gcs", es ? "Escala de coma de Glasgow" : "Glasgow Coma Scale"]].map(mkTab(calcHues[1]))
+      },
+      {
+        label: es ? "Prevención y seguimiento" : "Prevention and follow-up",
+        labelStyle: "font-family:'Source Serif 4', Georgia, serif; font-size:19px; font-weight:700; color:" + calcHues[2][2] + "; margin-bottom:10px",
+        style: "background:" + calcHues[2][0] + "66; border:1px solid " + calcHues[2][1] + "; border-radius:12px; padding:14px 16px",
+        tabs: [["chadsvasc", "CHA₂DS₂-VASc"], ["hasbled", "HAS-BLED"], ["mrs", es ? "Rankin modificada" : "Modified Rankin"]].map(mkTab(calcHues[2]))
+      }
+    ];
     v.calcIntro = {
       nihss: es ? "NIHSS operativa. Pulsa la puntuación de cada ítem; el total se actualiza a la derecha." : "Working NIHSS. Tap the score for each item; the total updates on the right.",
       aspects: es ? "ASPECTS sobre TC craneal sin contraste, territorio de la arteria cerebral media." : "ASPECTS on non-contrast head CT, middle cerebral artery territory.",
+      pcaspects: es ? "pc-ASPECTS para la circulación posterior. Diez puntos; el mesencéfalo y la protuberancia restan dos." : "pc-ASPECTS for the posterior circulation. Ten points; midbrain and pons subtract two each.",
+      dosis: es ? "Dosis de alteplasa y tenecteplasa por peso, con el volumen a cargar en la jeringa." : "Alteplase and tenecteplase dosing by weight, with the volume to draw up.",
+      abcd2: es ? "ABCD² para estratificar el riesgo de ictus tras un accidente isquémico transitorio." : "ABCD² for stroke risk stratification after a transient ischaemic attack.",
       ich: es ? "ICH Score de Hemphill para hemorragia intracerebral espontánea. Cinco ítems, 0 a 6 puntos." : "Hemphill ICH Score for spontaneous intracerebral haemorrhage. Five items, 0 to 6 points.",
-      mrs: es ? "Escala de Rankin modificada. Selecciona el grado que describe la situación funcional del paciente." : "Modified Rankin Scale. Select the grade describing the patient's functional status."
+      gcs: es ? "Escala de coma de Glasgow. Apertura ocular, respuesta verbal y respuesta motora; total de 3 a 15." : "Glasgow Coma Scale. Eye opening, verbal and motor response; total 3 to 15.",
+      chadsvasc: es ? "CHA₂DS₂-VASc para el riesgo embólico en fibrilación auricular no valvular." : "CHA₂DS₂-VASc for embolic risk in non-valvular atrial fibrillation.",
+      hasbled: es ? "HAS-BLED para el riesgo hemorrágico del paciente anticoagulado." : "HAS-BLED for bleeding risk in the anticoagulated patient.",
+      mrs: es ? "Escala de Rankin modificada, por entrevista estructurada o por asignación directa del grado." : "Modified Rankin Scale, by structured interview or by direct grade assignment."
     }[this.state.calc];
     v.isCalcNihss = this.state.calc === "nihss";
     v.isCalcAspects = this.state.calc === "aspects";
+    v.isCalcPcaspects = this.state.calc === "pcaspects";
+    v.isCalcDosis = this.state.calc === "dosis";
     v.isCalcIch = this.state.calc === "ich";
+    v.isCalcGcs = this.state.calc === "gcs";
     v.isCalcMrs = this.state.calc === "mrs";
+
+    const yn = [[1, es ? "Sí" : "Yes"], [0, "No"]];
+    const SC = {
+      abcd2: {
+        name: "ABCD²",
+        items: [
+          ["a", es ? "Edad ≥ 60 años" : "Age ≥ 60 years", yn],
+          ["b", es ? "PA ≥ 140/90 mmHg en la primera valoración" : "BP ≥ 140/90 mmHg at first assessment", yn],
+          ["c", es ? "Clínica" : "Clinical features", [[2, es ? "Déficit motor unilateral" : "Unilateral weakness"], [1, es ? "Alteración del lenguaje sin déficit motor" : "Speech disturbance without weakness"], [0, es ? "Otra" : "Other"]]],
+          ["d", es ? "Duración de los síntomas" : "Symptom duration", [[2, "≥ 60 min"], [1, "10–59 min"], [0, "< 10 min"]]],
+          ["e", es ? "Diabetes" : "Diabetes", yn]
+        ],
+        band: (t, done) => !done ? (es ? "Completa los cinco ítems" : "Complete all five items")
+          : t <= 3 ? (es ? "0–3: riesgo bajo. Ictus a 2 días en torno al 1 %." : "0–3: low risk. Two-day stroke risk around 1%.")
+          : t <= 5 ? (es ? "4–5: riesgo moderado. Ictus a 2 días en torno al 4 %." : "4–5: moderate risk. Two-day stroke risk around 4%.")
+          : (es ? "6–7: riesgo alto. Ictus a 2 días en torno al 8 %." : "6–7: high risk. Two-day stroke risk around 8%."),
+        note: es ? "Johnston et al., Lancet 2007. Las guías actuales recomiendan estudio urgente de todo AIT con independencia de la puntuación." : "Johnston et al., Lancet 2007. Current guidelines recommend urgent workup of every TIA whatever the score."
+      },
+      chadsvasc: {
+        name: "CHA₂DS₂-VASc",
+        items: [
+          ["c", es ? "Insuficiencia cardíaca o disfunción ventricular" : "Heart failure or ventricular dysfunction", yn],
+          ["h", es ? "Hipertensión arterial" : "Hypertension", yn],
+          ["a", es ? "Edad" : "Age", [[2, "≥ 75"], [1, "65–74"], [0, "< 65"]]],
+          ["d", es ? "Diabetes" : "Diabetes", yn],
+          ["s", es ? "Ictus, AIT o tromboembolismo previos" : "Prior stroke, TIA or thromboembolism", [[2, es ? "Sí" : "Yes"], [0, "No"]]],
+          ["v", es ? "Enfermedad vascular (coronaria, periférica o placa aórtica)" : "Vascular disease (coronary, peripheral or aortic plaque)", yn],
+          ["sc", es ? "Sexo femenino" : "Female sex", yn]
+        ],
+        band: (t, done) => {
+          const risk = ["0,2 %", "0,6 %", "2,2 %", "3,2 %", "4,8 %", "7,2 %", "9,7 %", "11,2 %", "10,8 %", "12,2 %"][t];
+          if (!done) return es ? "Completa los siete ítems" : "Complete all seven items";
+          return (es ? "Ictus anual estimado: " : "Estimated annual stroke risk: ") + risk +
+            (t === 0 ? (es ? ". Sin indicación de anticoagulación." : ". No anticoagulation indicated.")
+              : t === 1 ? (es ? ". Valorar anticoagulación individualmente." : ". Consider anticoagulation individually.")
+              : (es ? ". Anticoagulación indicada salvo contraindicación." : ". Anticoagulation indicated unless contraindicated."));
+        },
+        note: es ? "Lip et al., Chest 2010; riesgos según Friberg et al. En mujeres, el sexo solo modifica el riesgo si hay otro factor presente." : "Lip et al., Chest 2010; risks from Friberg et al. In women, sex modifies risk only when another factor is present."
+      },
+      hasbled: {
+        name: "HAS-BLED",
+        items: [
+          ["h", es ? "Hipertensión no controlada (sistólica > 160 mmHg)" : "Uncontrolled hypertension (systolic > 160 mmHg)", yn],
+          ["a1", es ? "Función renal alterada (diálisis, trasplante o Cr > 2,26 mg/dL)" : "Abnormal renal function (dialysis, transplant or Cr > 2.26 mg/dL)", yn],
+          ["a2", es ? "Función hepática alterada (cirrosis o bilirrubina y transaminasas elevadas)" : "Abnormal liver function (cirrhosis or raised bilirubin and transaminases)", yn],
+          ["s", es ? "Ictus previo" : "Prior stroke", yn],
+          ["b", es ? "Sangrado previo o predisposición (anemia)" : "Prior bleeding or predisposition (anaemia)", yn],
+          ["l", es ? "INR inestable (tiempo en rango terapéutico < 60 %)" : "Labile INR (time in therapeutic range < 60%)", yn],
+          ["e", es ? "Edad > 65 años" : "Age > 65 years", yn],
+          ["d1", es ? "Antiagregantes o antiinflamatorios concomitantes" : "Concomitant antiplatelets or NSAIDs", yn],
+          ["d2", es ? "Consumo de alcohol ≥ 8 unidades por semana" : "Alcohol ≥ 8 units per week", yn]
+        ],
+        band: (t, done) => !done ? (es ? "Completa los nueve ítems" : "Complete all nine items")
+          : t <= 2 ? (es ? "0–2: riesgo hemorrágico bajo-moderado." : "0–2: low to moderate bleeding risk.")
+          : (es ? "≥ 3: riesgo alto. Corregir los factores modificables y vigilar más estrechamente." : "≥ 3: high risk. Correct modifiable factors and follow up more closely."),
+        note: es ? "Pisters et al., Chest 2010. Una puntuación alta no contraindica la anticoagulación: señala qué factores hay que corregir." : "Pisters et al., Chest 2010. A high score does not contraindicate anticoagulation: it flags which factors to correct."
+      }
+    };
+    const cur = SC[this.state.calc];
+    v.isCalcScore = !!cur;
+    if (cur) {
+      const st = this.state.sc[this.state.calc] || {};
+      v.scoreName = cur.name;
+      v.scoreItems = cur.items.map(([k, label, opts]) => ({
+        label,
+        opts: opts.map(([val, text]) => {
+          const on = st[k] === val;
+          return {
+            text,
+            pick: () => this.setState(s => {
+              const prev = s.sc[this.state.calc] || {};
+              const next = Object.assign({}, prev, { [k]: prev[k] === val ? undefined : val });
+              return { sc: Object.assign({}, s.sc, { [this.state.calc]: next }) };
+            }),
+            style: "padding:7px 16px; border-radius:8px; font-size:14px; cursor:pointer; border:1px solid " +
+              (on ? "#1F3A5F; background:#1F3A5F; color:#fff" : "#D5D6D2; background:#fff; color:#2B2F35")
+          };
+        })
+      }));
+      const tot = cur.items.reduce((a, [k]) => a + (st[k] || 0), 0);
+      const done = cur.items.every(([k]) => st[k] !== undefined);
+      v.scoreTotal = tot;
+      v.scoreBand = cur.band(tot, done);
+      v.scoreNote = cur.note;
+      v.resetScore = () => this.setState(s => ({ sc: Object.assign({}, s.sc, { [this.state.calc]: {} }) }));
+    }
+
+    const PC = [
+      ["thL", es ? "Tálamo izquierdo" : "Left thalamus", 1],
+      ["thR", es ? "Tálamo derecho" : "Right thalamus", 1],
+      ["cbL", es ? "Cerebelo izquierdo" : "Left cerebellum", 1],
+      ["cbR", es ? "Cerebelo derecho" : "Right cerebellum", 1],
+      ["pcaL", es ? "Territorio ACP izquierdo" : "Left PCA territory", 1],
+      ["pcaR", es ? "Territorio ACP derecho" : "Right PCA territory", 1],
+      ["mid", es ? "Mesencéfalo" : "Midbrain", 2],
+      ["pons", es ? "Protuberancia" : "Pons", 2]
+    ];
+    v.pcHelp = es
+      ? "Resta los puntos de cada estructura con hipodensidad en la TC o restricción en la difusión. Partiendo de 10, el mesencéfalo y la protuberancia restan dos puntos y el resto uno."
+      : "Subtract the points of each structure with hypodensity on CT or restriction on diffusion. Starting from 10, midbrain and pons subtract two points each and the rest one.";
+    v.pcRegions = PC.map(([k, name, pts]) => {
+      const on = !!this.state.pcasp[k];
+      return {
+        name, pts: "−" + pts,
+        pick: () => this.setState(s => ({ pcasp: Object.assign({}, s.pcasp, { [k]: !s.pcasp[k] }) })),
+        style: "display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 14px; border-radius:8px; cursor:pointer; border:1px solid " +
+          (on ? "#C1121F; background:#C1121F; color:#fff" : "#D5D6D2; background:#fff; color:#2B2F35")
+      };
+    });
+    const pcLost = PC.reduce((a, [k, n, p]) => a + (this.state.pcasp[k] ? p : 0), 0);
+    v.pcTotal = 10 - pcLost;
+    v.pcBand = pcLost === 0 ? (es ? "Sin lesiones marcadas" : "No lesions marked")
+      : (10 - pcLost) >= 8 ? (es ? "≥ 8: menor extensión lesional; mejor pronóstico funcional." : "≥ 8: smaller lesion extent; better functional prognosis.")
+      : (es ? "< 8: lesión extensa de circulación posterior; pronóstico desfavorable." : "< 8: extensive posterior circulation lesion; unfavourable prognosis.");
+    v.pcNote = es
+      ? "Puetz et al., Stroke 2011. Validada en oclusión de la basilar; el umbral de 8 es el más usado en los estudios de trombectomía."
+      : "Puetz et al., Stroke 2011. Validated in basilar occlusion; the threshold of 8 is the one most used in thrombectomy studies.";
+    v.resetPc = () => this.setState({ pcasp: {} });
+
+    const kg = parseFloat(this.state.weight);
+    const ok = !isNaN(kg) && kg > 0;
+    const n1 = x => (Math.round(x * 10) / 10).toLocaleString(es ? "es-ES" : "en-GB");
+    const dash = "—";
+    v.weight = this.state.weight;
+    v.doseWeightLabel = es ? "Peso del paciente" : "Patient weight";
+    v.setWeight = e => this.setState({ weight: e.target.value });
+    const altT = ok ? Math.min(0.9 * kg, 90) : 0;
+    const tnkT = ok ? Math.min(0.25 * kg, 25) : 0;
+    v.doseDrugs = [
+      {
+        kicker: es ? "PERFUSIÓN" : "INFUSION",
+        name: es ? "Alteplasa (rtPA)" : "Alteplase (rtPA)",
+        rule: es ? "0,9 mg/kg · máximo 90 mg" : "0.9 mg/kg · maximum 90 mg",
+        rows: [
+          { k: es ? "Dosis total" : "Total dose", v: ok ? n1(altT) + " mg" : dash },
+          { k: es ? "Bolo (10 %, en 1 min)" : "Bolus (10%, over 1 min)", v: ok ? n1(altT * 0.1) + " mg" : dash },
+          { k: es ? "Perfusión (90 %, en 60 min)" : "Infusion (90%, over 60 min)", v: ok ? n1(altT * 0.9) + " mg" : dash }
+        ],
+        detail: es
+          ? "Reconstituida a 1 mg/mL, los miligramos equivalen a mililitros: el bolo son " + (ok ? n1(altT * 0.1) + " mL" : "— mL") + " y la perfusión " + (ok ? n1(altT * 0.9) + " mL en una hora" : "— mL en una hora") + "."
+          : "Reconstituted at 1 mg/mL, milligrams equal millilitres: the bolus is " + (ok ? n1(altT * 0.1) + " mL" : "— mL") + " and the infusion " + (ok ? n1(altT * 0.9) + " mL over one hour" : "— mL over one hour") + ".",
+        capped: ok && 0.9 * kg > 90,
+        cappedText: es ? "Peso por encima de 100 kg: la dosis queda limitada al máximo de 90 mg." : "Weight above 100 kg: the dose is capped at the 90 mg maximum."
+      },
+      {
+        kicker: es ? "BOLO ÚNICO" : "SINGLE BOLUS",
+        name: es ? "Tenecteplasa (TNK)" : "Tenecteplase (TNK)",
+        rule: es ? "0,25 mg/kg · máximo 25 mg" : "0.25 mg/kg · maximum 25 mg",
+        rows: [
+          { k: es ? "Dosis total" : "Total dose", v: ok ? n1(tnkT) + " mg" : dash },
+          { k: es ? "Bolo intravenoso (5–10 s)" : "Intravenous bolus (5–10 s)", v: ok ? n1(tnkT) + " mg" : dash },
+          { k: es ? "Volumen a 5 mg/mL" : "Volume at 5 mg/mL", v: ok ? n1(tnkT / 5) + " mL" : dash }
+        ],
+        detail: es
+          ? "Vial de 25 mg reconstituido con 5 mL de agua estéril (5 mg/mL). Se administra en bolo único, sin perfusión posterior."
+          : "A 25 mg vial reconstituted with 5 mL of sterile water (5 mg/mL). Given as a single bolus, with no subsequent infusion.",
+        capped: ok && 0.25 * kg > 25,
+        cappedText: es ? "Peso por encima de 100 kg: la dosis queda limitada al máximo de 25 mg." : "Weight above 100 kg: the dose is capped at the 25 mg maximum."
+      }
+    ];
+    v.doseNote = es
+      ? "Comprueba siempre la dosis con la ficha técnica y el protocolo de tu centro antes de administrarla. La dosis de 0,4 mg/kg de tenecteplasa no ha demostrado beneficio frente a 0,25 mg/kg."
+      : "Always check the dose against the product information and your centre's protocol before giving it. The 0.4 mg/kg tenecteplase dose has not shown benefit over 0.25 mg/kg.";
 
     v.aspectsHelp = es
       ? "Resta un punto por cada región con signos precoces de isquemia. Púlsala sobre el esquema o en la lista inferior para marcarla."
@@ -709,7 +1838,7 @@ class Component extends DCLogic {
         code, name: es ? s : e, lvl,
         pick: () => this.setState(st => ({ aspects: Object.assign({}, st.aspects, { [code]: !st.aspects[code] }) })),
         style: "display:flex; flex-direction:column; gap:2px; padding:10px 12px; border-radius:8px; cursor:pointer; font-size:14px; border:1px solid " +
-          (on ? "#B01226; background:#B01226; color:#fff" : "#D5D6D2; background:#fff; color:#2B2F35"),
+          (on ? "#C1121F; background:#C1121F; color:#fff" : "#D5D6D2; background:#fff; color:#2B2F35"),
         blob: "position:absolute; left:" + x + "%; top:" + y + "%; width:" + w2 + "%; height:" + h2 + "%;" +
           " transform:translate(-50%,-50%) rotate(" + rot + "deg); border-radius:50%; cursor:pointer;" +
           " mix-blend-mode:multiply; transition:background .15s, box-shadow .15s;" +
@@ -757,6 +1886,56 @@ class Component extends DCLogic {
       : "Hemphill et al., Stroke 2001. Population estimate; should not on its own justify limiting treatment.";
     v.resetIch = () => this.setState({ ich: {} });
 
+    const GCS = [
+      ["eye", es ? "Apertura ocular" : "Eye opening", [
+        [4, es ? "Espontánea" : "Spontaneous"],
+        [3, es ? "A la llamada" : "To voice"],
+        [2, es ? "Al dolor" : "To pain"],
+        [1, es ? "Ninguna" : "None"]
+      ]],
+      ["verbal", es ? "Respuesta verbal" : "Verbal response", [
+        [5, es ? "Orientada" : "Oriented"],
+        [4, es ? "Confusa" : "Confused"],
+        [3, es ? "Palabras inapropiadas" : "Inappropriate words"],
+        [2, es ? "Sonidos incomprensibles" : "Incomprehensible sounds"],
+        [1, es ? "Ninguna" : "None"]
+      ]],
+      ["motor", es ? "Respuesta motora" : "Motor response", [
+        [6, es ? "Obedece órdenes" : "Obeys commands"],
+        [5, es ? "Localiza el dolor" : "Localises pain"],
+        [4, es ? "Retirada al dolor" : "Withdraws from pain"],
+        [3, es ? "Flexión anómala" : "Abnormal flexion"],
+        [2, es ? "Extensión anómala" : "Abnormal extension"],
+        [1, es ? "Ninguna" : "None"]
+      ]]
+    ];
+    v.gcs = GCS.map(([k, label, opts]) => ({
+      label,
+      opts: opts.map(([val, text]) => {
+        const on = this.state.gcs[k] === val;
+        return {
+          text: val + " · " + text,
+          pick: () => this.setState(st => ({ gcs: Object.assign({}, st.gcs, { [k]: st.gcs[k] === val ? undefined : val }) })),
+          style: "padding:7px 16px; border-radius:8px; font-size:14px; cursor:pointer; border:1px solid " +
+            (on ? "#A01220; background:#A01220; color:#fff" : "#D5D6D2; background:#fff; color:#2B2F35")
+        };
+      })
+    }));
+    const gcsComplete = GCS.every(([k]) => this.state.gcs[k] !== undefined);
+    const gcsT = Object.values(this.state.gcs).reduce((a, b) => a + (b || 0), 0);
+    v.gcsTotal = gcsComplete ? gcsT : "—";
+    v.gcsBand = !gcsComplete ? (es ? "Completa los tres apartados" : "Complete all three components")
+      : gcsT >= 14 ? (es ? "Leve (14–15)" : "Mild (14–15)")
+      : gcsT >= 9 ? (es ? "Moderado (9–13)" : "Moderate (9–13)")
+      : (es ? "Grave (≤ 8): valorar aislamiento de la vía aérea" : "Severe (≤ 8): consider airway protection");
+    v.gcsDetail = gcsComplete
+      ? "O" + (this.state.gcs.eye || 0) + " V" + (this.state.gcs.verbal || 0) + " M" + (this.state.gcs.motor || 0)
+      : "";
+    v.gcsNote = es
+      ? "Teasdale y Jennett, 1974. Rango de 3 a 15. Registrar los tres componentes por separado: el desglose informa más que el total. Anotar si el paciente está intubado o sedado."
+      : "Teasdale and Jennett, 1974. Range 3 to 15. Record the three components separately: the breakdown is more informative than the total.";
+    v.resetGcs = () => this.setState({ gcs: {} });
+
     const MRS = [
       [es ? "Sin síntomas" : "No symptoms", es ? "Ningún síntoma residual." : "No residual symptoms."],
       [es ? "Sin incapacidad importante" : "No significant disability", es ? "Síntomas presentes, realiza todas sus actividades habituales." : "Symptoms present, carries out all usual activities."],
@@ -776,13 +1955,66 @@ class Component extends DCLogic {
           (on ? "#1F3A5F; background:#1F3A5F; color:#fff" : "#D5D6D2; color:#5A6169")
       };
     });
-    v.mrsValue = this.state.mrs === null ? "—" : this.state.mrs;
-    v.mrsBand = this.state.mrs === null
-      ? (es ? "Selecciona un grado" : "Select a grade")
-      : this.state.mrs <= 2
+    const interview = this.state.mrsMode === "interview";
+    v.mrsIsInterview = interview;
+    v.mrsIsDirect = !interview;
+    v.mrsModes = [["interview", es ? "Entrevista estructurada" : "Structured interview"], ["direct", es ? "Asignación directa" : "Direct assignment"]]
+      .map(([id, label]) => {
+        const on = this.state.mrsMode === id;
+        return {
+          label, go: () => this.setState({ mrsMode: id }),
+          style: "padding:8px 16px; border-radius:999px; font-size:14px; cursor:pointer; border:1px solid " +
+            (on ? "#1F3A5F; background:#1F3A5F; color:#fff" : "#D5D6D2; background:#fff; color:#5A6169")
+        };
+      });
+
+    const MRSQ = [
+      [6, es ? "¿El paciente ha fallecido?" : "Has the patient died?"],
+      [5, es ? "¿Está encamado, incontinente y precisa cuidados de enfermería y vigilancia constantes?" : "Is the patient bedridden, incontinent and in need of constant nursing care and attention?"],
+      [4, es ? "¿Necesita la ayuda de otra persona para caminar o para el cuidado personal básico: aseo, vestido o comida?" : "Does the patient need help from another person to walk or for basic self-care: washing, dressing or eating?"],
+      [3, es ? "¿Camina sin ayuda pero necesita a otra persona para las actividades instrumentales: cocinar, limpiar, hacer la compra, manejar el dinero o el transporte?" : "Does the patient walk unaided but need another person for instrumental activities: cooking, cleaning, shopping, handling money or transport?"],
+      [2, es ? "¿Ha tenido que abandonar alguna de sus actividades previas —trabajo, aficiones o vida social— a causa de la enfermedad?" : "Has the patient had to give up any previous activity — work, hobbies or social life — because of the illness?"],
+      [1, es ? "¿Persiste algún síntoma que no le impide realizar sus actividades habituales?" : "Are there any remaining symptoms that do not prevent usual activities?"]
+    ];
+    let resolved = null, stop = false;
+    for (const [grade, q] of MRSQ) {
+      const a = this.state.mrsQ[grade];
+      if (a === 1) { resolved = grade; break; }
+      if (a === undefined) { stop = true; break; }
+    }
+    if (resolved === null && !stop) resolved = 0;
+    v.mrsQuestions = MRSQ.map(([grade, text], idx) => {
+      const a = this.state.mrsQ[grade];
+      const after = resolved !== null && resolved !== 0 && grade < resolved;
+      return {
+        n: String(idx + 1).padStart(2, "0"),
+        text,
+        row: "padding:16px 0; border-bottom:1px solid #EAEAE6;" + (after ? " opacity:.4" : ""),
+        opts: [[1, es ? "Sí" : "Yes"], [0, "No"]].map(([val, label]) => ({
+          text: label,
+          pick: () => this.setState(s => ({ mrsQ: Object.assign({}, s.mrsQ, { [grade]: s.mrsQ[grade] === val ? undefined : val }) })),
+          style: "min-width:64px; text-align:center; padding:7px 16px; border-radius:8px; font-size:14px; cursor:pointer; border:1px solid " +
+            (a === val ? "#1F3A5F; background:#1F3A5F; color:#fff" : "#D5D6D2; background:#fff; color:#2B2F35")
+        }))
+      };
+    });
+
+    const mrsVal = interview ? resolved : this.state.mrs;
+    v.mrsValue = mrsVal === null || mrsVal === undefined ? "—" : mrsVal;
+    v.mrsScale = [0, 1, 2, 3, 4, 5, 6].map(i => {
+      const on = mrsVal === i;
+      return {
+        v: i,
+        style: "flex:1; text-align:center; padding:5px 0; border-radius:5px; font-family:'IBM Plex Mono', monospace; font-size:12px; border:1px solid " +
+          (on ? "#1F3A5F; background:#1F3A5F; color:#fff" : "#E2E2DE; background:#FAFAF8; color:#9BA2AB")
+      };
+    });
+    v.mrsBand = mrsVal === null || mrsVal === undefined
+      ? (interview ? (es ? "Responde las preguntas en orden" : "Answer the questions in order") : (es ? "Selecciona un grado" : "Select a grade"))
+      : mrsVal <= 2
         ? (es ? "Resultado funcional favorable (0–2)" : "Favourable functional outcome (0–2)")
         : (es ? "Dependencia funcional (3–6)" : "Functional dependence (3–6)");
-    v.resetMrs = () => this.setState({ mrs: null });
+    v.resetMrs = () => this.setState({ mrs: null, mrsQ: {} });
 
     v.linkGroups = [
       {
@@ -799,6 +2031,13 @@ class Component extends DCLogic {
       {
         name: es ? "Blogs y formación" : "Blogs and education",
         items: [{ url: "https://elcaminodecaplan.com/", host: es ? "blog" : "blog", title: "El camino de Caplan", body: es ? "Blog de referencia en neurología vascular en español." : "Reference Spanish-language blog on vascular neurology." }]
+      },
+      {
+        name: es ? "Herramientas y atlas" : "Tools and atlases",
+        items: [
+          { url: "https://neurotools.es/vascular/index.html", host: "neurotools.es", title: "Neurotools — Neurología vascular", body: es ? "Colección de escalas y calculadoras de neurología vascular de uso clínico." : "Collection of clinical scales and calculators for vascular neurology." },
+          { url: "https://atlas-anatomia-ucsg.farmacotips.chatgpt.site/neuro/#/?lang=es", host: "atlas-anatomia-ucsg", title: es ? "Atlas de anatomía neurológica" : "Neuroanatomy atlas", body: es ? "Atlas interactivo de anatomía del sistema nervioso, con navegación por regiones." : "Interactive atlas of nervous system anatomy, navigable by region." }
+        ]
       },
       {
         name: es ? "Canales de sesiones" : "Session channels",
@@ -833,6 +2072,167 @@ class Component extends DCLogic {
       { k: es ? "Qué cambia" : "What changes", v: es ? "Dos frases sobre el impacto en nuestra práctica." : "Two sentences on the impact on our practice." },
       { k: es ? "Comentado por" : "Reviewed by", v: es ? "Nombre · mes" : "Name · month" }
     ];
+
+    v.evTitle = es ? "Evidencia en las guías clínicas" : "Evidence from clinical guidelines";
+    v.evIntro = es
+      ? "Resumen por temas de las guías vigentes, con la fuente y el año en cada apartado. Elige un bloque para entrar. No sustituye al documento original ni a los protocolos de tu centro."
+      : "Topic-by-topic summary of current guidelines, with the source and year of each section. The content of this section is written in Spanish.";
+    const evArea = EV.find(a => a.id === this.state.ev) || null;
+    const evTopic = evArea ? (evArea.topics.find(t => t.id === this.state.evTopic) || null) : null;
+    const evSecIdx = this.state.evSec;
+    const evSec = evTopic && evSecIdx != null ? evTopic.sections[evSecIdx] : null;
+    v.evLevel0 = !evArea;
+    v.evLevel1 = !!evArea && !evTopic;
+    v.evLevel2 = !!evTopic && !evSec;
+    v.evLevel3 = !!evSec;
+
+    const evCard = "border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:20px 22px; cursor:pointer; transition:border-color .15s, transform .15s";
+    const evCardOff = "border:1px solid #E6E6E2; background:#FAFAF8; border-radius:12px; padding:20px 22px";
+    const evLetter = "font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px";
+    v.evAreas = EV.map(a => {
+      const n = a.topics.length;
+      return {
+        letter: a.letter,
+        title: a.title[L],
+        count: a.sub[L],
+        style: n ? evCard : evCardOff,
+        letterStyle: evLetter,
+        go: n ? (() => { this.setState({ ev: a.id, evTopic: null }); window.scrollTo(0, 0); }) : (() => {})
+      };
+    });
+
+    v.evBack = () => { this.setState({ ev: null, evTopic: null }); window.scrollTo(0, 0); };
+    v.evBackLabel = es ? "← Evidencia en las guías clínicas" : "← Guidelines";
+    v.evAreaTitle = evArea ? evArea.letter + ". " + evArea.title[L] : "";
+    v.evAreaDesc = evArea ? evArea.desc[L] : "";
+    v.evEmpty = !!evArea && !evArea.topics.length;
+    v.evEmptyLabel = es ? "Este bloque está en preparación." : "This block is in preparation.";
+    v.evTopics = evArea ? evArea.topics.map(t => ({
+      n: evArea.letter + "." + t.n,
+      title: t.title[L],
+      source: t.soon ? (es ? "En preparación" : "In preparation") : t.source,
+      style: t.soon ? evCardOff : evCard,
+      letterStyle: evLetter,
+      go: t.soon ? (() => {}) : (() => { this.setState({ evTopic: t.id, evSec: null }); window.scrollTo(0, 0); })
+    })) : [];
+
+    const evHues = [
+      ["#EBEFF5", "#C6D2E3"],
+      ["#FAEAEC", "#EBC8CD"],
+      ["#E9F1EC", "#C7DDD0"],
+      ["#FBF2E3", "#EBDCBE"],
+      ["#F0EDF4", "#D5CDE0"],
+      ["#EAF1F2", "#C8DCDE"]
+    ];
+    v.evSecCards = evTopic ? evTopic.sections.map((s, i) => {
+      const h = evHues[i % evHues.length];
+      const nBlocks = s.blocks.length;
+      return {
+        n: String(i + 1).padStart(2, "0"),
+        title: s.title,
+        count: es ? nBlocks + (nBlocks === 1 ? " apartado" : " apartados") : nBlocks + (nBlocks === 1 ? " item" : " items"),
+        style: "background:" + h[0] + "; border:1px solid " + h[1] + "; border-radius:12px; padding:20px 22px; cursor:pointer; transition:transform .15s, border-color .15s",
+        numStyle: "font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px",
+        go: () => { this.setState({ evSec: i, evSub: null }); window.scrollTo(0, 0); }
+      };
+    }) : [];
+
+    const evCtx = { goCalc: which => () => { this.setState({ tab: "calc", calc: which, ev: null, evTopic: null, evSec: null, evSub: null }); window.scrollTo(0, 0); } };
+    const evSubIdx = this.state.evSub;
+    const evSub = evSec && evSec.subs && evSubIdx != null ? evSec.subs[evSubIdx] : null;
+    v.evLevel3 = !!evSec && !evSub;
+    v.evLevel4 = !!evSub;
+    v.evSecTitle = evSec ? evSec.title : "";
+    v.evSecLead = evSec && evSec.lead ? evSec.lead : "";
+    v.hasEvLead = !!(evSec && evSec.lead);
+    v.evSecBlocks = evSec ? evSec.blocks.map(b => evBlockRender(b, evCtx)) : [];
+    v.evPanels = evSec && evSec.panels ? evSec.panels.map(p => {
+      const h = evHues[p.hue];
+      return {
+        title: p.title,
+        style: "background:" + h[0] + "; border:1px solid " + h[1] + "; border-radius:9px; padding:9px 14px",
+        rows: p.rows.map((r, i) => ({
+          k: r[0], v: r[1], big: r[2] || "", hasBig: !!r[2],
+          style: "padding:4px 0" + (i ? "; border-top:1px solid " + h[1] : "")
+        }))
+      };
+    }) : [];
+    v.hasEvPanels = v.evPanels.length > 0;
+    v.evCols = evSec && evSec.cols ? evSec.cols.map(c => {
+      const h = evHues[c.hue];
+      return {
+        title: c.title,
+        style: "background:" + h[0] + "; border:1px solid " + h[1] + "; border-radius:12px; padding:18px 20px; min-width:0",
+        titleStyle: "font-size:16px; font-weight:700; color:#C1121F; margin:0 0 12px; padding-bottom:10px; border-bottom:1px solid " + h[1],
+        items: c.items.map(t => ({ t: t }))
+      };
+    }) : [];
+    v.hasEvCols = v.evCols.length > 0;
+    v.evSubCards = evSec && evSec.subs ? evSec.subs.map((s, i) => {
+      const h = evHues[(i + 2) % evHues.length];
+      return {
+        n: String(i + 1).padStart(2, "0"),
+        title: s.title,
+        style: "background:" + h[0] + "; border:1px solid " + h[1] + "; border-radius:12px; padding:18px 20px; cursor:pointer; transition:transform .15s, border-color .15s",
+        numStyle: "font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px",
+        go: () => { this.setState({ evSub: i }); window.scrollTo(0, 0); }
+      };
+    }) : [];
+    v.hasEvSubs = v.evSubCards.length > 0;
+    v.evSubsLabel = es ? "Detalle" : "Detail";
+    v.evSubTitle = evSub ? evSub.title : "";
+    v.evSubBlocks = evSub ? evSub.blocks.map(b => evBlockRender(b, evCtx)) : [];
+    v.evBackSub = () => { this.setState({ evSub: null }); window.scrollTo(0, 0); };
+    v.evBackSubLabel = evSec ? "← " + evSec.title : "←";
+    v.isEvidenciaSub = this.state.tab === "evidencia" && !!evSub;
+    v.evBackSec = () => { this.setState({ evSec: null, evSub: null }); window.scrollTo(0, 0); };
+    v.evBackSecLabel = evTopic ? "← " + evTopic.title[L] : "←";
+    v.evSecPrev = null; v.evSecNext = null;
+    if (evTopic && evSecIdx != null) {
+      if (evSecIdx > 0) v.evSecPrev = { label: "← " + evTopic.sections[evSecIdx - 1].title, go: () => { this.setState({ evSec: evSecIdx - 1, evSub: null }); window.scrollTo(0, 0); } };
+      if (evSecIdx < evTopic.sections.length - 1) v.evSecNext = { label: evTopic.sections[evSecIdx + 1].title + " →", go: () => { this.setState({ evSec: evSecIdx + 1, evSub: null }); window.scrollTo(0, 0); } };
+    }
+    v.hasEvPrev = !!v.evSecPrev; v.hasEvNext = !!v.evSecNext;
+
+    v.evBackTopic = () => { this.setState({ evTopic: null, evSec: null, evSub: null }); window.scrollTo(0, 0); };
+    v.evBackTopicLabel = evArea ? "← " + evArea.letter + ". " + evArea.title[L] : "←";
+    v.evTopicTitle = evTopic ? evTopic.title[L] : "";
+    v.evTopicSource = evTopic ? evTopic.source : "";
+    v.evTopicCite = evTopic ? evTopic.cite : "";
+    v.evTopicUrl = evTopic ? evTopic.url : "#";
+    v.evSourceLabel = es ? "Fuente" : "Source";
+    v.evTocLabel = es ? "En este apartado" : "In this section";
+    v.evSecNav = evTopic ? evTopic.sections.map((s, i) => ({
+      label: s.title,
+      href: "#ev-" + evTopic.id + "-" + i,
+      style: "display:block; font-size:14px; line-height:1.45; color:#5A6169; text-decoration:none; padding:6px 0 6px 12px; border-left:2px solid #E6E6E2"
+    })) : [];
+    const evBlock = evBlockRender;
+    const evBlockUnused = b => {
+      const base = { isRec: false, isP: false, isList: false, isCrit: false, tag: "", text: "", recWrap: "", tagStyle: "", items: [], rows: [] };
+      if (b[0] === "r") {
+        const tg = EV_TAG[b[1]];
+        return Object.assign(base, {
+          isRec: true, tag: tg[0], text: b[2],
+          recWrap: "border:1px solid #DEDEDA; border-left:3px solid " + tg[1] + "; background:" + tg[2] + "; border-radius:0 10px 10px 0; padding:13px 16px; display:flex; gap:12px; align-items:baseline; flex-wrap:wrap",
+          tagStyle: "font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:" + tg[1] + "; white-space:nowrap"
+        });
+      }
+      if (b[0] === "p") return Object.assign(base, { isP: true, text: b[1] });
+      if (b[0] === "l") return Object.assign(base, { isList: true, items: b.slice(1).map(t => ({ t: t })) });
+      return Object.assign(base, {
+        isCrit: true,
+        rows: b[1].map((r, i) => ({
+          k: r[0], v: r[1],
+          style: "display:grid; grid-template-columns:minmax(0,210px) minmax(0,1fr); gap:18px; padding:12px 16px; align-items:baseline" + (i ? "; border-top:1px solid #EDEDEA" : "")
+        }))
+      });
+    };
+    v.evSections = evTopic ? evTopic.sections.map((s, i) => ({
+      anchor: "ev-" + evTopic.id + "-" + i,
+      title: s.title,
+      blocks: s.blocks.map(evBlock)
+    })) : [];
 
     return v;
   }
