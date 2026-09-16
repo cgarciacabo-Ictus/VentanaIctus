@@ -41,8 +41,17 @@
     [data-r="pane"] { grid-template-columns:minmax(0,1fr) !important; gap:26px !important; }
     [data-r="pane"] > * { position:static !important; top:auto !important; }
     [data-r="calc"] { grid-template-columns:minmax(0,1fr) !important; gap:16px !important; }
-    [data-r="calc"] > *:last-child { order:-1; position:sticky !important; top:0 !important; z-index:5; }
-    [data-r="two"] { grid-template-columns:minmax(0,1fr) !important; }
+    [data-r="calc"] > *:last-child { order:-1; position:sticky !important; top:0 !important; z-index:5;
+      display:flex !important; flex-wrap:wrap !important; align-items:center !important; gap:4px 12px !important;
+      padding:10px 14px !important; box-shadow:0 2px 10px rgba(15,17,20,0.06); }
+    [data-r="calc"] > *:last-child > * { margin:0 !important; }
+    [data-r="calc"] > *:last-child > div:nth-child(2) { font-size:30px !important; }
+    [data-r="calc"] > *:last-child > div:last-child { flex:1 0 100% !important; order:9 !important;
+      font-size:11px !important; line-height:1.35 !important; margin-top:2px !important; }
+    [data-r="calc"] > *:last-child > div:nth-last-child(2) { padding:6px 14px !important; font-size:12px !important; margin-left:auto !important; }
+    [data-r="sq"] { min-width:44px !important; min-height:44px !important; font-size:15px !important; }
+    [data-r="opt"] { min-height:44px !important; padding:11px 18px !important; display:flex !important; align-items:center !important; }
+    [data-r="two"] { grid-template-columns:minmax(0,1fr) !important; gap:10px !important; }
     [data-r="post"] { grid-template-columns:minmax(0,1fr) !important; gap:6px !important; }
     [data-r="crit"] { grid-template-columns:minmax(0,1fr) !important; gap:3px !important; padding:10px 13px !important; }
     [data-r="row"] { grid-template-columns:minmax(0,1fr) !important; gap:5px !important; }
@@ -313,7 +322,7 @@
                 </div>
                 <div style="display:flex; gap:6px">
                   <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="4">
-                    <div onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.v }}</div>
+                    <div data-r="sq" onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.v }}</div>
                   </sc-for>
                 </div>
               </div>
@@ -383,7 +392,7 @@
                 <div style="font-size:15px; margin-bottom:10px">{{ i.label }}</div>
                 <div style="display:flex; gap:8px; flex-wrap:wrap">
                   <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="2">
-                    <div onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
+                    <div data-r="opt" onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
                   </sc-for>
                 </div>
               </div>
@@ -407,7 +416,7 @@
                 <div style="font-size:15px; margin-bottom:10px">{{ i.label }}</div>
                 <div style="display:flex; gap:8px; flex-wrap:wrap">
                   <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="4">
-                    <div onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
+                    <div data-r="opt" onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
                   </sc-for>
                 </div>
               </div>
@@ -432,7 +441,7 @@
                 <div style="font-size:15px; margin-bottom:10px">{{ i.label }}</div>
                 <div style="display:flex; gap:8px; flex-wrap:wrap">
                   <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="2">
-                    <div onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
+                    <div data-r="opt" onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
                   </sc-for>
                 </div>
               </div>
@@ -520,7 +529,7 @@
                   </div>
                   <div style="display:flex; gap:8px; padding-left:28px">
                     <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
-                      <div onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
+                      <div data-r="opt" onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
                     </sc-for>
                   </div>
                 </div>
@@ -742,6 +751,29 @@
                   </sc-if>
                   <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}">
                     <div style="font-family:'Source Serif 4', Georgia, serif; font-size:19px; font-weight:700; color:#C1121F; margin:10px 0 2px">{{ b.text }}</div>
+                  </sc-if>
+                  <sc-if value="{{ b.isFlow }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex; flex-direction:column; align-items:stretch; gap:0">
+                      <sc-for list="{{ b.levels }}" as="lv" hint-placeholder-count="4">
+                        <div>
+                          <sc-if value="{{ lv.notFirst }}" hint-placeholder-val="{{ false }}">
+                            <div style="display:flex; justify-content:center; align-items:center; height:22px">
+                              <div style="width:1px; height:100%; background:#C9CBC5"></div>
+                            </div>
+                          </sc-if>
+                          <div data-r="two" style="{{ lv.style }}">
+                            <sc-for list="{{ lv.boxes }}" as="bx" hint-placeholder-count="2">
+                              <div style="{{ bx.style }}">
+                                <div style="{{ bx.tStyle }}">{{ bx.t }}</div>
+                                <sc-if value="{{ bx.hasD }}" hint-placeholder-val="{{ false }}">
+                                  <div style="font-size:13px; line-height:1.45; color:#4A5158; margin-top:4px">{{ bx.d }}</div>
+                                </sc-if>
+                              </div>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </sc-for>
+                    </div>
                   </sc-if>
                   <sc-if value="{{ b.isCalc }}" hint-placeholder-val="{{ false }}">
                     <div onClick="{{ b.goCalc }}" style="align-self:flex-start; border:1px solid #C6D2E3; background:#EBEFF5; border-radius:10px; padding:12px 16px; font-size:15px; color:#1F3A5F; cursor:pointer">{{ b.text }} →</div>
@@ -1439,7 +1471,136 @@ const EV = [
       },
       {
         id: "diseccion", n: "2", title: { es: "Disección arterial cervical", en: "Cervical artery dissection" },
-        source: "", url: "", cite: "", soon: true, sections: []
+        source: "AHA/ASA 2024", url: "https://www.ahajournals.org/doi/10.1161/STR.0000000000000457",
+        cite: "Yaghi S, Engelter S, Del Brutto VJ, et al. Treatment and Outcomes of Cervical Artery Dissection in Adults: A Scientific Statement From the American Heart Association. Stroke 2024;55(3):e91–e106.",
+        sections: [
+          {
+            title: "Concepto y epidemiología",
+            lead: "Declaración científica, no guía con grados de recomendación: la mayor parte de las afirmaciones proceden de series observacionales y de dos ensayos de pequeño tamaño. El documento se centra en la disección sin traumatismo mayor del cuello.",
+            panels: [
+              {
+                title: "Peso como causa de ictus", hue: 0,
+                rows: [
+                  ["De todos los ictus isquémicos", "Causa infrecuente en la población general", "2 %"],
+                  ["En menores de 50 años", "Primera causa a considerar en el ictus del adulto joven", "Hasta el 25 %"]
+                ]
+              },
+              {
+                title: "Momento del ictus", hue: 1,
+                rows: [
+                  ["Tras el inicio de los síntomas", "El intervalo descrito va de unos minutos a 31 días", "82 % en la 1.ª semana"],
+                  ["Implicación", "El riesgo se concentra en los primeros días: el estudio y el tratamiento antitrombótico son urgentes"]
+                ]
+              }
+            ],
+            blocks: [
+              ["p", "El mecanismo habitual es un desgarro de la íntima o la rotura de los vasa vasorum, que genera un hematoma intramural. De ahí derivan las cuatro consecuencias que se buscan en la imagen: trombo intraluminal, estenosis, oclusión y aneurisma disecante."],
+              ["l",
+                "Los términos «espontánea» o «no traumática» son imprecisos: con frecuencia hay un traumatismo menor precipitante que solo aparece si se pregunta de forma dirigida.",
+                "Desencadenantes típicos por los que conviene preguntar: manipulación cervical, pintar un techo, movimientos cervicales bruscos, latigazo leve, tos o vómitos intensos.",
+                "La mayoría de los pacientes no tienen una enfermedad de base identificable."]
+            ],
+            subs: [
+              {
+                title: "Causas subyacentes y estudio genético", blocks: [
+                  ["r", "cons", "Considerar un trastorno del tejido conectivo en el diagnóstico diferencial, y valorar el estudio genético según la presentación: disecciones múltiples o recurrentes, historia familiar o rasgos sindrómicos."],
+                  ["l",
+                    "Síndrome de Ehlers-Danlos vascular (tipo IV).",
+                    "Síndrome de Marfan.",
+                    "Osteogénesis imperfecta.",
+                    "Displasia fibromuscular.",
+                    "Poliquistosis renal autosómica dominante."],
+                  ["p", "En ausencia de estos datos, el rendimiento del estudio genético sistemático es bajo. La displasia fibromuscular, en cambio, se busca de forma activa porque condiciona el cribado de otros territorios vasculares."]
+                ]
+              }
+            ]
+          },
+          {
+            title: "Presentación clínica",
+            lead: "Los síntomas son con frecuencia inespecíficos, y eso hace que el diagnóstico se retrase. La clave es sospecharla ante dolor cervical o cefalea de características nuevas en un adulto joven.",
+            blocks: [
+              ["c", [
+                ["Dolor", "Cervical o craneal, de inicio nuevo y carácter distinto al habitual. A menudo precede al ictus en días"],
+                ["Disección carotídea", "Dolor cervical anterior o periorbitario, síndrome de Horner parcial (ptosis y miosis sin anhidrosis), acúfeno pulsátil, parálisis de pares craneales bajos"],
+                ["Disección vertebral", "Dolor cervical posterior u occipital, síntomas de circulación posterior, isquemia medular"],
+                ["Isquemia", "Cerebral, retiniana o medular, por mecanismo embólico distal más que hemodinámico"],
+                ["Otros", "Cefalea, mareo, acúfeno, radiculopatía cervical"]
+              ]],
+              ["r", "cons", "Ante dolor cervical o cefalea de novo con cualquier síntoma neurológico focal, o con síndrome de Horner o acúfeno pulsátil, indicar estudio vascular cervical sin esperar a la aparición del déficit."],
+              ["p", "La disección de segmentos intracraneales puede presentarse como hemorragia subaracnoidea, a diferencia de la extracraneal: es una distinción con consecuencias directas sobre el tratamiento antitrombótico."]
+            ]
+          },
+          {
+            title: "Diagnóstico por imagen",
+            lead: "Ninguna técnica aislada es concluyente en todos los casos: la decisión depende de la disponibilidad, del segmento sospechado y de si el paciente está en fase hiperaguda.",
+            blocks: [
+              ["c", [
+                ["Angio-TC", "Disponible en urgencias y rápida. Buen rendimiento en el hematoma intramural y el aneurisma disecante; es la técnica habitual dentro del código ictus"],
+                ["RM y angio-RM", "Secuencias T1 con saturación grasa (sangre negra) para el hematoma intramural. Mejor rendimiento en la disección vertebral y en el seguimiento, sin radiación ni contraste yodado"],
+                ["Ecografía cervical", "Útil como apoyo y para el seguimiento, pero no descarta el diagnóstico: los segmentos distales, que son los más afectados, no se visualizan"],
+                ["Arteriografía convencional", "Reservada para los casos dudosos o cuando se plantea tratamiento endovascular"]
+              ]],
+              ["r", "cons", "Una ecografía normal no excluye la disección. Si la sospecha clínica persiste, completar con angio-TC o resonancia con secuencias de pared."],
+              ["r", "maybe", "Repetir la imagen vascular a los 3–6 meses para documentar la recanalización y la evolución de un posible aneurisma disecante: la decisión sobre la duración del tratamiento se apoya en ese control."]
+            ]
+          },
+          {
+            title: "Tratamiento en fase hiperaguda",
+            lead: "La disección no es una contraindicación para el tratamiento de reperfusión: en el ictus isquémico atribuible a disección cervical, la fibrinolisis y la trombectomía son razonables en el paciente por lo demás elegible.",
+            blocks: [
+              ["r", "maybe", "Fibrinolisis intravenosa con alteplasa o tenecteplasa en el paciente elegible: las series y los metaanálisis observacionales no muestran un exceso de hemorragia intracraneal sintomática atribuible a la disección."],
+              ["r", "maybe", "Trombectomía mecánica en la oclusión de gran vaso asociada a disección, con las mismas indicaciones de ventana y selección que en el resto de las oclusiones."],
+              ["r", "cons", "Implantación de stent cervical en fase aguda: opción en casos seleccionados, sobre todo cuando la disección impide el acceso al trombo intracraneal o hay compromiso hemodinámico con déficit fluctuante. Obliga a doble antiagregación posterior."],
+              ["r", "no", "Fibrinolisis en la disección con extensión intracraneal y hemorragia subaracnoidea asociada, o con rotura arterial franca."],
+              ["p", "El objetivo del tratamiento endovascular en este contexto es el trombo distal, no la disección en sí: la lesión de la pared se trata con antitrombóticos salvo que impida la revascularización."]
+            ]
+          },
+          {
+            title: "Antitrombóticos y prevención secundaria",
+            lead: "La antiagregación y la anticoagulación no han demostrado diferencias en la prevención del ictus recurrente. La elección se individualiza según el perfil de riesgo hemorrágico y las características de la lesión.",
+            blocks: [
+              ["flow", [
+                [["Disección arterial cervical confirmada", "Ictus, AIT o disección sintomática sin isquemia establecida", "#C6D2E3", "#EBEFF5", "#1F3A5F"]],
+                [["Descartar extensión intracraneal con hemorragia subaracnoidea", "Si la hay: no iniciar antitrombóticos. Manejo del sangrado y valoración endovascular o quirúrgica de la lesión", "#EBC8CD", "#FAEAEC", "#A01220"]],
+                [["Iniciar antitrombótico sin demora", "El riesgo de ictus se concentra en la primera semana tras el inicio de los síntomas", "#C7DDD0", "#E9F1EC", "#1F5C3A"]],
+                [
+                  ["Antiagregación", "Opción razonable en la mayoría. Simple, o doble si se ha implantado stent cervical", "#C7DDD0", "#E9F1EC", "#1F5C3A"],
+                  ["Anticoagulación", "Trombo intraluminal, oclusión completa, infartos múltiples o recurrencia con antiagregación", "#EBDCBE", "#FBF2E3", "#8A5A00"]
+                ],
+                [["Reevaluar a los 3–6 meses con imagen vascular", "", "#DEDEDA", "#FFFFFF", "#0F1114"]],
+                [
+                  ["Recanalización y pared normalizada", "Valorar suspender o mantener antiagregación simple según riesgo vascular", "#DEDEDA", "#FFFFFF", "#0F1114"],
+                  ["Lesión persistente o aneurisma disecante", "Prolongar la antiagregación y mantener seguimiento de imagen", "#DEDEDA", "#FFFFFF", "#0F1114"]
+                ]
+              ]],
+              ["r", "cons", "Antiagregación como opción razonable en la mayoría de los pacientes, y anticoagulación en escenarios de mayor riesgo embólico: trombo intraluminal, oclusión completa, infartos múltiples o recurrencia a pesar de la antiagregación."],
+              ["r", "cons", "Tras 3–6 meses, mantener antiagregación simple a largo plazo si persisten factores de riesgo vascular o alteraciones de la pared en la imagen."],
+              ["c", [
+                ["CADISS", "Ensayo aleatorizado abierto: sin diferencia entre antiagregación y anticoagulación en ictus o muerte a 3 meses, con tasas de recurrencia muy bajas en los dos brazos"],
+                ["TREAT-CAD", "No demostró la no inferioridad de la aspirina frente a los antagonistas de la vitamina K en un desenlace combinado clínico y radiológico"],
+                ["Lectura conjunta", "Ninguna de las dos estrategias es claramente superior; el tamaño de los ensayos es pequeño y los desenlaces, heterogéneos"],
+                ["Duración habitual", "3 a 6 meses, reevaluando con imagen. Si persiste la lesión o hay aneurisma disecante, prolongar la antiagregación"]
+              ]],
+              ["l",
+                "Evitar la manipulación cervical y los deportes de contacto durante la fase de cicatrización.",
+                "Control de la presión arterial: la hipertensión es el factor de riesgo modificable más consistente de recurrencia.",
+                "Informar del riesgo asociado a los ejercicios con extensión o rotación cervical forzada."]
+            ]
+          },
+          {
+            title: "Evolución y recurrencia",
+            lead: "El pronóstico funcional es favorable en la mayoría de los pacientes, y la recurrencia es poco frecuente y se concentra en los primeros meses.",
+            blocks: [
+              ["l",
+                "La mayoría de los pacientes alcanza independencia funcional; el pronóstico depende del infarto inicial, no de la lesión de la pared.",
+                "La recanalización ocurre sobre todo en los primeros 3 a 6 meses y es habitual.",
+                "El aneurisma disecante residual rara vez se rompe y no suele requerir tratamiento específico.",
+                "La recurrencia de la disección es infrecuente; el riesgo es mayor en los primeros meses y en la disección multivaso o con arteriopatía subyacente."],
+              ["r", "cons", "Predictores de recurrencia descritos: antecedente familiar de disección, disección en varios vasos, displasia fibromuscular y edad joven. En estos casos, seguimiento clínico y de imagen más prolongado."],
+              ["p", "El dolor cervical o la cefalea persistentes son frecuentes en el seguimiento y no implican por sí mismos actividad de la lesión, pero obligan a descartar recurrencia antes de atribuirlos a secuela."]
+            ]
+          }
+        ]
       }
     ]
   }
@@ -1448,6 +1609,21 @@ const EV = [
 function evBlockRender(b, ctx) {
   const base = { isRec: false, isP: false, isList: false, isCrit: false, isH: false, isCalc: false, tag: "", text: "", recWrap: "", tagStyle: "", items: [], rows: [], goCalc: () => {} };
   if (b[0] === "h") return Object.assign(base, { isH: true, text: b[1] });
+  if (b[0] === "flow") {
+    return Object.assign(base, {
+      isFlow: true,
+      levels: b[1].map((lv, li) => ({
+        notFirst: li > 0,
+        style: "display:grid; grid-template-columns:repeat(" + lv.length + ", minmax(0,1fr)); gap:12px",
+        boxes: lv.map(bx => ({
+          t: bx[0], d: bx[1], hasD: !!bx[1],
+          style: "border:1px solid " + (bx[2] || "#DEDEDA") + "; background:" + (bx[3] || "#FFFFFF") +
+            "; border-radius:10px; padding:12px 15px; min-width:0",
+          tStyle: "font-size:14.5px; font-weight:700; color:" + (bx[4] || "#0F1114") + "; line-height:1.35"
+        }))
+      }))
+    });
+  }
   if (b[0] === "calc") return Object.assign(base, { isCalc: true, text: b[1], goCalc: ctx && ctx.goCalc ? ctx.goCalc(b[2] || "dosis") : (() => {}) });
   if (b[0] === "r") {
     const tg = EV_TAG[b[1]];
