@@ -41,7 +41,20 @@
     [data-r="pane"] { grid-template-columns:minmax(0,1fr) !important; gap:26px !important; }
     [data-r="pane"] > * { position:static !important; top:auto !important; }
     [data-r="calc"] { grid-template-columns:minmax(0,1fr) !important; gap:16px !important; }
-    [data-r="calc"] > *:last-child { order:-1; position:sticky !important; top:0 !important; z-index:5;
+    [data-r="chead"] { margin-bottom:14px !important; }
+    [data-r="chead"] h2 { font-size:22px !important; margin-bottom:4px !important; }
+    [data-r="chead"] p { font-size:14px !important; line-height:1.5 !important; }
+    [data-r="cgroups"] { flex-direction:row !important; flex-wrap:nowrap !important; overflow-x:auto !important; gap:8px !important;
+      margin:0 -16px 12px !important; padding:8px 16px !important; position:sticky !important; top:0 !important; z-index:6;
+      background:#F6F6F4; border-bottom:1px solid #E6E6E2; scrollbar-width:none; -webkit-overflow-scrolling:touch; scroll-snap-type:x proximity; }
+    [data-r="cgroups"]::-webkit-scrollbar { display:none; }
+    [data-r="cgroup"] { flex:0 0 auto !important; display:flex !important; align-items:center !important; gap:8px !important;
+      padding:6px 8px 6px 12px !important; border-radius:999px !important; scroll-snap-align:start; }
+    [data-r="cgroup"] > div:first-child { font-family:'IBM Plex Mono', monospace !important; font-size:10px !important; font-weight:500 !important;
+      letter-spacing:0.06em; text-transform:uppercase; margin:0 !important; white-space:nowrap !important; }
+    [data-r="ctabs"] { flex-wrap:nowrap !important; gap:5px !important; }
+    [data-r="ctab"] { white-space:nowrap !important; font-size:13.5px !important; padding:8px 12px !important; min-height:36px; display:flex; align-items:center; }
+    [data-r="calc"] > *:last-child { order:-1; position:sticky !important; top:62px !important; z-index:5;
       display:flex !important; flex-wrap:wrap !important; align-items:center !important; gap:4px 12px !important;
       padding:10px 14px !important; box-shadow:0 2px 10px rgba(15,17,20,0.06); }
     [data-r="calc"] > *:last-child > * { margin:0 !important; }
@@ -52,6 +65,8 @@
     [data-r="sq"] { min-width:44px !important; min-height:44px !important; font-size:15px !important; }
     [data-r="opt"] { min-height:44px !important; padding:11px 18px !important; display:flex !important; align-items:center !important; }
     [data-r="two"] { grid-template-columns:minmax(0,1fr) !important; gap:10px !important; }
+    [data-r="bcats"] { flex-wrap:nowrap !important; overflow-x:auto !important; margin:-6px -16px 18px !important; padding:0 16px 4px !important; scrollbar-width:none; }
+    [data-r="bcats"]::-webkit-scrollbar { display:none; }
     [data-r="post"] { grid-template-columns:minmax(0,1fr) !important; gap:6px !important; }
     [data-r="crit"] { grid-template-columns:minmax(0,1fr) !important; gap:3px !important; padding:10px 13px !important; }
     [data-r="row"] { grid-template-columns:minmax(0,1fr) !important; gap:5px !important; }
@@ -232,12 +247,20 @@
           <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ blogTitle }}</h2>
           <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ blogIntro }}</p>
         </div>
+        <div data-r="bcats" style="display:flex; gap:8px; flex-wrap:wrap; margin:-12px 0 24px">
+          <sc-for list="{{ blogCats }}" as="c" hint-placeholder-count="5">
+            <div onClick="{{ c.go }}" style="{{ c.style }}" style-hover="border-color:#B9BBB5">{{ c.label }}</div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ blogEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="border-top:1px solid #DEDEDA; padding:28px 0; font-size:15px; color:#79808A">{{ blogEmptyLabel }}</div>
+        </sc-if>
         <div style="display:flex; flex-direction:column">
           <sc-for list="{{ posts }}" as="p" hint-placeholder-count="3">
             <article data-r="post" onClick="{{ p.open }}" style="{{ p.row }}">
               <div>
                 <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#8A919B">{{ p.date }}</div>
-                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-top:6px">{{ p.tag }}</div>
+                <div style="{{ p.tagStyle }}">{{ p.tag }}</div>
               </div>
               <div>
                 <h3 style="font-size:21px; font-weight:600; margin:0 0 8px; line-height:1.3">{{ p.title }}</h3>
@@ -294,17 +317,17 @@
 
     <sc-if value="{{ isCalc }}" hint-placeholder-val="{{ true }}">
       <div>
-        <div style="max-width:64ch; margin-bottom:32px">
+        <div data-r="chead" style="max-width:64ch; margin-bottom:32px">
           <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ calcTitle }}</h2>
           <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ calcIntro }}</p>
         </div>
-        <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:32px">
+        <div data-r="cgroups" style="display:flex; flex-direction:column; gap:12px; margin-bottom:32px">
           <sc-for list="{{ calcGroups }}" as="g" hint-placeholder-count="3">
-            <div style="{{ g.style }}">
+            <div data-r="cgroup" style="{{ g.style }}">
               <div style="{{ g.labelStyle }}">{{ g.label }}</div>
-              <div style="display:flex; gap:8px; flex-wrap:wrap">
+              <div data-r="ctabs" style="display:flex; gap:8px; flex-wrap:wrap">
                 <sc-for list="{{ g.tabs }}" as="c" hint-placeholder-count="3">
-                  <div onClick="{{ c.go }}" style="{{ c.style }}" style-hover="border-color:#B9BBB5">{{ c.label }}</div>
+                  <div data-r="ctab" data-on="{{ c.on }}" onClick="{{ c.go }}" style="{{ c.style }}" style-hover="border-color:#B9BBB5">{{ c.label }}</div>
                 </sc-for>
               </div>
             </div>
@@ -625,6 +648,211 @@
       </div>
     </sc-if>
 
+    <sc-if value="{{ isCriterios }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <sc-if value="{{ critIndex }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="max-width:64ch; margin-bottom:32px">
+              <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ critTitle }}</h2>
+              <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ critIntro }}</p>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:16px">
+              <sc-for list="{{ critCards }}" as="c" hint-placeholder-count="2">
+                <div onClick="{{ c.go }}" style="{{ c.style }}" style-hover="border-color:#1F3A5F; transform:translateY(-2px)">
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px">{{ c.n }}</div>
+                  <div style="font-size:17px; font-weight:600; margin-bottom:6px; color:#C1121F">{{ c.title }}</div>
+                  <div style="font-size:14px; line-height:1.5; color:#5A6169">{{ c.sub }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ critBoston }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div onClick="{{ critBack }}" style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; cursor:pointer; margin-bottom:24px">{{ critBackLabel }}</div>
+            <div style="max-width:72ch; margin-bottom:28px; padding-bottom:20px; border-bottom:1px solid #DEDEDA">
+              <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:29px; font-weight:700; margin:0 0 10px; color:#C1121F">Angiopatía amiloide cerebral · Boston 2.0</h2>
+              <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap">
+                <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#79808A">Fuente</span>
+                <a href="https://doi.org/10.1016/S1474-4422(22)00208-3" target="_blank" rel="noopener" style="font-size:14px; line-height:1.55; color:#5A6169">Charidimou A, Boulouis G, Frosch MP, et al. The Boston criteria version 2.0 for cerebral amyloid angiopathy: a multicentre, retrospective, MRI–neuropathology diagnostic accuracy study. Lancet Neurol 2022;21:714–725.</a>
+              </div>
+            </div>
+            <div data-r="calc" style="display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:32px; align-items:start">
+              <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:6px 22px 18px">
+                <sc-for list="{{ bosQ }}" as="q" hint-placeholder-count="6">
+                  <div style="padding:16px 0; border-bottom:1px solid #EDEDEA">
+                    <div style="font-size:15.5px; font-weight:600; color:#0F1114; margin-bottom:4px">{{ q.label }}</div>
+                    <sc-if value="{{ q.hasHelp }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:13.5px; line-height:1.5; color:#5A6169; margin-bottom:10px; max-width:66ch">{{ q.help }}</div>
+                    </sc-if>
+                    <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:6px">
+                      <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+                        <div data-r="opt" onClick="{{ o.go }}" style="{{ o.style }}">{{ o.t }}</div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="position:sticky; top:24px; border:1px solid #EBC8CD; background:#FAEAEC; border-radius:12px; padding:18px 20px">
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#A01220">Categoría</div>
+                <div style="{{ bosResStyle }}">{{ bosRes }}</div>
+                <div onClick="{{ bosReset }}" style="font-size:13px; color:#1F3A5F; cursor:pointer; margin-bottom:10px">Reiniciar</div>
+                <div style="font-size:13.5px; line-height:1.5; color:#2C3137">{{ bosNote }}</div>
+              </div>
+            </div>
+            <div style="margin-top:36px; max-width:78ch">
+              <div style="font-family:'Source Serif 4', Georgia, serif; font-size:21px; font-weight:700; color:#C1121F; margin-bottom:14px">Categorías con confirmación patológica</div>
+              <div style="border:1px solid #DEDEDA; border-radius:10px; background:#FFFFFF; overflow:hidden">
+                <sc-for list="{{ bosPath }}" as="r" hint-placeholder-count="2">
+                  <div data-r="crit" style="display:grid; grid-template-columns:minmax(0,220px) minmax(0,1fr); gap:18px; padding:12px 16px; border-bottom:1px solid #EDEDEA; align-items:baseline">
+                    <div style="font-size:14.5px; font-weight:700; color:#0F1114">{{ r.k }}</div>
+                    <div style="font-size:14.5px; line-height:1.55; color:#2C3137">{{ r.d }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <p style="font-size:14px; line-height:1.6; color:#5A6169; margin:16px 0 0">Frente a la versión 1.5, Boston 2.0 incorpora los marcadores de sustancia blanca y la HSA de la convexidad, y amplía la presentación a los episodios neurológicos focales transitorios y al deterioro cognitivo. Mejora la sensibilidad para AAC probable manteniendo una especificidad similar.</p>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ critOxford }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div onClick="{{ critBack }}" style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; cursor:pointer; margin-bottom:24px">{{ critBackLabel }}</div>
+            <div style="max-width:72ch; margin-bottom:22px; padding-bottom:20px; border-bottom:1px solid #DEDEDA">
+              <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:29px; font-weight:700; margin:0 0 10px; color:#C1121F">Clasificación de Oxfordshire (OCSP)</h2>
+              <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap">
+                <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#79808A">Fuente</span>
+                <a href="https://doi.org/10.1016/0140-6736(91)93206-O" target="_blank" rel="noopener" style="font-size:14px; line-height:1.55; color:#5A6169">Bamford J, Sandercock P, Dennis M, Burn J, Warlow C. Classification and natural history of clinically identifiable subtypes of cerebral infarction. Lancet 1991;337:1521–1526.</a>
+              </div>
+            </div>
+            <p style="font-size:15px; line-height:1.65; color:#4A5158; margin:0 0 22px; max-width:72ch">Clasificación clínica, a pie de cama y sin necesidad de imagen, que predice el territorio afectado, el mecanismo probable y el pronóstico. Se aplica a la exploración en el momento de máximo déficit.</p>
+            <div data-r="calc" style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start; margin-bottom:36px">
+              <div style="display:flex; flex-direction:column; gap:8px">
+                <sc-for list="{{ oxfF }}" as="f" hint-placeholder-count="6">
+                  <div data-r="opt" onClick="{{ f.go }}" style="{{ f.style }}">
+                    <div style="{{ f.box }}">{{ f.mark }}</div>
+                    <div>
+                      <div style="font-size:15px; font-weight:600; color:#0F1114">{{ f.label }}</div>
+                      <sc-if value="{{ f.hasHelp }}" hint-placeholder-val="{{ false }}">
+                        <div style="font-size:13.5px; line-height:1.45; color:#5A6169; margin-top:2px">{{ f.help }}</div>
+                      </sc-if>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="{{ oxPanel }}">
+                <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#5A6169">Síndrome</div>
+                <div style="{{ oxResStyle }}">{{ oxRes }}</div>
+                <div style="font-size:14px; font-weight:600; color:#0F1114; margin-bottom:8px">{{ oxName }}</div>
+                <div onClick="{{ oxReset }}" style="font-size:13px; color:#1F3A5F; cursor:pointer; margin-bottom:8px">Reiniciar</div>
+                <div style="font-size:13.5px; line-height:1.5; color:#2C3137">{{ oxWhy }}</div>
+              </div>
+            </div>
+            <div style="font-family:'Source Serif 4', Georgia, serif; font-size:21px; font-weight:700; color:#C1121F; margin-bottom:14px">Criterios de cada síndrome</div>
+            <div data-r="two" style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px">
+              <sc-for list="{{ oxCards }}" as="x" hint-placeholder-count="4">
+                <div style="{{ x.style }}">
+                  <div style="display:flex; gap:10px; align-items:baseline; margin-bottom:10px; flex-wrap:wrap">
+                    <span style="{{ x.kStyle }}">{{ x.k }}</span>
+                    <span style="font-size:15px; font-weight:700; color:#0F1114">{{ x.name }}</span>
+                  </div>
+                  <ul style="margin:0 0 12px; padding-left:18px; display:flex; flex-direction:column; gap:5px">
+                    <sc-for list="{{ x.crit }}" as="c" hint-placeholder-count="3">
+                      <li style="font-size:14px; line-height:1.5; color:#2C3137">{{ c.t }}</li>
+                    </sc-for>
+                  </ul>
+                  <div style="font-size:13.5px; line-height:1.5; color:#4A5158; margin-bottom:10px">{{ x.mech }}</div>
+                  <div style="display:flex; gap:18px; flex-wrap:wrap; padding-top:10px; border-top:1px solid rgba(15,17,20,0.08)">
+                    <sc-for list="{{ x.prog }}" as="p" hint-placeholder-count="2">
+                      <div>
+                        <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.05em; text-transform:uppercase; color:#5A6169">{{ p.a }}</div>
+                        <div style="font-size:18px; font-weight:700; color:#0F1114">{{ p.b }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <p style="font-size:13.5px; line-height:1.6; color:#5A6169; margin:22px 0 0; max-width:78ch">Datos pronósticos de la cohorte original del OCSP. Por convención, el sufijo I (infarct) se sustituye por S (syndrome), como en TACS o LACS, cuando aún no se dispone de imagen que confirme el infarto.</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ critAscod }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div onClick="{{ critBack }}" style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; cursor:pointer; margin-bottom:24px">{{ critBackLabel }}</div>
+            <div style="max-width:72ch; margin-bottom:22px; padding-bottom:20px; border-bottom:1px solid #DEDEDA">
+              <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:29px; font-weight:700; margin:0 0 10px; color:#C1121F">Etiología del ictus isquémico · ASCOD</h2>
+              <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap">
+                <span style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#79808A">Fuente</span>
+                <a href="https://doi.org/10.1159/000351751" target="_blank" rel="noopener" style="font-size:14px; line-height:1.55; color:#5A6169">Amarenco P, Bogousslavsky J, Caplan LR, Donnan GA, Wolf ME, Hennerici MG. The ASCOD phenotyping of ischemic stroke (updated ASCO phenotyping). Cerebrovasc Dis 2013;36:1–5.</a>
+              </div>
+            </div>
+            <p style="font-size:15px; line-height:1.65; color:#4A5158; margin:0 0 22px; max-width:72ch">ASCOD no obliga a elegir una sola causa: gradúa cada una de las cinco categorías y describe el fenotipo completo del paciente. 1 = causa potencial; 2 = causalidad incierta; 3 = enfermedad presente pero probablemente no causal; 0 = ausente; 9 = estudio insuficiente para graduar.</p>
+
+            <div style="position:sticky; top:0; z-index:6; background:#F6F6F4; padding:10px 0; margin-bottom:18px; border-bottom:1px solid #E6E6E2; display:flex; gap:14px; align-items:center; flex-wrap:wrap">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:#1F3A5F; letter-spacing:0.02em">{{ ascCode }}</div>
+              <div style="flex:1; min-width:200px; font-size:13.5px; line-height:1.45; color:#2C3137">{{ ascNote }}</div>
+              <div onClick="{{ ascReset }}" style="font-size:13px; color:#1F3A5F; cursor:pointer">Reiniciar</div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:30px">
+              <sc-for list="{{ ascod }}" as="cat" hint-placeholder-count="5">
+                <section>
+                  <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:12px">
+                    <span style="font-family:'Source Serif 4', Georgia, serif; font-size:30px; font-weight:700; color:#C1121F; line-height:1">{{ cat.k }}</span>
+                    <span style="font-family:'Source Serif 4', Georgia, serif; font-size:20px; font-weight:700; color:#0F1114">{{ cat.name }}</span>
+                  </div>
+                  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:10px">
+                    <sc-for list="{{ cat.grades }}" as="g" hint-placeholder-count="5">
+                      <div onClick="{{ g.go }}" style="{{ g.style }}" style-hover="border-color:#9AA3AE">
+                        <div style="display:flex; gap:8px; align-items:baseline; margin-bottom:6px">
+                          <span style="{{ g.gStyle }}">{{ g.g }}</span>
+                          <span style="font-size:13.5px; font-weight:600; color:#0F1114">{{ g.label }}</span>
+                        </div>
+                        <ul style="margin:0; padding-left:16px; display:flex; flex-direction:column; gap:4px">
+                          <sc-for list="{{ g.crit }}" as="c" hint-placeholder-count="2">
+                            <li style="font-size:13px; line-height:1.45; color:#4A5158">{{ c.t }}</li>
+                          </sc-for>
+                        </ul>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ cat.cardio }}" hint-placeholder-val="{{ false }}">
+                    <div data-r="two" style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px; margin-top:16px">
+                      <div style="border:1px solid #EBC8CD; border-radius:12px; overflow:hidden; background:#FFFFFF">
+                        <div style="background:#FAEAEC; padding:11px 16px; font-size:15px; font-weight:700; color:#A01220">Fuentes cardioembólicas mayores · alto riesgo</div>
+                        <sc-for list="{{ ceMajor }}" as="r" hint-placeholder-count="6">
+                          <div style="padding:9px 16px; border-top:1px solid #F1E3E5">
+                            <div style="font-size:14px; font-weight:600; color:#0F1114">{{ r.k }}</div>
+                            <sc-if value="{{ r.hasD }}" hint-placeholder-val="{{ false }}">
+                              <div style="font-size:13px; line-height:1.4; color:#5A6169">{{ r.d }}</div>
+                            </sc-if>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="border:1px solid #EBDCBE; border-radius:12px; overflow:hidden; background:#FFFFFF">
+                        <div style="background:#FBF2E3; padding:11px 16px; font-size:15px; font-weight:700; color:#8A5A00">Fuentes cardioembólicas menores · riesgo medio o bajo</div>
+                        <sc-for list="{{ ceMinor }}" as="r" hint-placeholder-count="6">
+                          <div style="padding:9px 16px; border-top:1px solid #F3EAD8">
+                            <div style="font-size:14px; font-weight:600; color:#0F1114">{{ r.k }}</div>
+                            <sc-if value="{{ r.hasD }}" hint-placeholder-val="{{ false }}">
+                              <div style="font-size:13px; line-height:1.4; color:#5A6169">{{ r.d }}</div>
+                            </sc-if>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+                </section>
+              </sc-for>
+            </div>
+            <p style="font-size:13.5px; line-height:1.6; color:#5A6169; margin:28px 0 0; max-width:78ch">Nivel de evidencia de cada grado: A, demostración directa con la prueba de referencia; B, prueba indirecta o de menor sensibilidad o especificidad; C, evidencia débil en ausencia de pruebas específicas. Las tablas de fuentes cardioembólicas siguen la división clásica de alto y medio riesgo (TOAST) que ASCOD emplea para los grados C1 a C3.</p>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
     <sc-if value="{{ isEvidencia }}" hint-placeholder-val="{{ false }}">
       <div>
 
@@ -932,7 +1160,7 @@ const T = {
   agendaHint: { es: "Añade una fila por sesión prevista. Si no hay ninguna, borra el bloque.", en: "Add one row per scheduled session. Delete the block when there is none." },
   blogTitle: { es: "Blog", en: "Blog" },
   blogIntro: { es: "Entradas breves: lo que aprendemos en la guardia, lecturas críticas y notas de práctica clínica.", en: "Short posts: lessons from on-call shifts, critical readings and practice notes." },
-  blogHint: { es: "PLANTILLA DE ENTRADA — fecha · etiqueta · título · 2 frases de resumen · autor. Duplica un bloque y sustituye el texto.", en: "POST TEMPLATE — date · tag · title · two-sentence summary · author. Duplicate a block and replace the text." },
+  blogHint: { es: "PLANTILLA DE ENTRADA — fecha · categoría (revision, farma, actualidad u opinion) · título · 2 frases de resumen · autor. Duplica un bloque y sustituye el texto.", en: "POST TEMPLATE — date · tag · title · two-sentence summary · author. Duplicate a block and replace the text." },
   protTitle: { es: "Protocolos y algoritmos", en: "Protocols and algorithms" },
   protIntro: { es: "Documentos de trabajo del grupo. Cada ficha enlazará a un PDF o a una página con el algoritmo completo.", en: "Working documents of the group. Each card will link to a PDF or a page with the full algorithm." },
   casosTitle: { es: "Casos clínicos comentados", en: "Discussed clinical cases" },
@@ -958,6 +1186,7 @@ const NAV = [
   ["inicio", "Inicio", "Home"],
   ["evidencia", "Evidencia en las guías", "Guidelines"],
   ["calc", "Calculadoras", "Calculators"],
+  ["criterios", "Criterios diagnósticos", "Diagnostic criteria"],
   ["videos", "Sesiones en vídeo", "Video sessions"],
   ["casos", "Casos clínicos", "Clinical cases"],
   ["biblio", "Sesiones bibliográficas", "Journal club"],
@@ -1644,11 +1873,110 @@ function evBlockRender(b, ctx) {
   });
 }
 
+
+const BOSTON_Q = [
+  ["age", "Edad ≥ 50 años", [[1, "Sí"], [0, "No"]]],
+  ["pres", "Presentación clínica compatible", [[1, "Sí"], [0, "No"]], "Hemorragia intracerebral espontánea, episodios neurológicos focales transitorios, o deterioro cognitivo o demencia."],
+  ["lob", "Lesiones hemorrágicas estrictamente lobares en T2* / SWI", [[0, "Ninguna"], [1, "Una"], [2, "Dos o más"]], "Cuentan hemorragia intracerebral, microsangrados y focos de siderosis cortical superficial o de hemorragia subaracnoidea de la convexidad, en cualquier combinación. Una lesión cerebelosa no cuenta como lobar ni como profunda."],
+  ["wm", "Marcador de sustancia blanca", [[1, "Presente"], [0, "Ausente"]], "Espacios perivasculares visibles graves en el centro semioval (> 20 en un hemisferio) o patrón multispot de hiperintensidades de sustancia blanca (> 10 puntos subcorticales en FLAIR, bilaterales)."],
+  ["deep", "Lesiones hemorrágicas profundas", [[0, "No"], [1, "Sí"]], "Hemorragia o microsangrados en ganglios basales, tálamo o tronco del encéfalo."],
+  ["other", "Otra causa de las lesiones hemorrágicas", [[0, "No"], [1, "Sí"]], "Traumatismo, transformación hemorrágica de un infarto, malformación vascular, tumor, coagulopatía, vasculitis del SNC u otras."]
+];
+
+const ASCOD = [
+  { k: "A", name: "Aterosclerosis", grades: [
+    [1, "Causa potencial", ["Estenosis aterosclerótica ipsilateral del 50–99 %, intra o extracraneal, en la arteria que irriga el territorio isquémico.", "Estenosis ipsilateral < 50 % con trombo intraluminal.", "Trombo móvil en el arco aórtico.", "Oclusión con evidencia de lesión aterosclerótica."]],
+    [2, "Causalidad incierta", ["Estenosis ipsilateral del 30–49 %.", "Placa del arco aórtico ≥ 4 mm sin trombo móvil."]],
+    [3, "Presente, probablemente no causal", ["Placa sin estenosis relevante, estenosis contralateral o en otro territorio.", "Placa del arco aórtico < 4 mm.", "Antecedente de infarto de miocardio, revascularización coronaria o enfermedad arterial periférica."]],
+    [0, "Ausente", ["Estudio vascular completo sin aterosclerosis."]],
+    [9, "Estudio insuficiente", ["No se ha realizado estudio vascular cervical e intracraneal adecuado."]]
+  ]},
+  { k: "S", name: "Enfermedad de pequeño vaso", grades: [
+    [1, "Causa potencial", ["Infarto profundo < 15 mm en el territorio de una perforante, con síndrome lacunar compatible, y al menos otro infarto lacunar antiguo, leucoaraiosis grave, microsangrados o espacios perivasculares dilatados graves.", "AIT lacunares repetidos y estereotipados en la última semana."]],
+    [2, "Causalidad incierta", ["Infarto profundo único < 15 mm sin otros marcadores de pequeño vaso.", "Síndrome lacunar clínico sin lesión en la imagen."]],
+    [3, "Presente, probablemente no causal", ["Leucoaraiosis, microsangrados, espacios perivasculares dilatados o lacunas antiguas en otro territorio, sin relación con el evento actual."]],
+    [0, "Ausente", ["Resonancia sin signos de enfermedad de pequeño vaso."]],
+    [9, "Estudio insuficiente", ["Sin resonancia ni TC de calidad suficiente."]]
+  ]},
+  { k: "C", name: "Patología cardiaca", cardio: true, grades: [
+    [1, "Causa potencial", ["Fuente cardioembólica mayor (ver tabla), sin otra causa más probable.", "Infartos en varios territorios arteriales o sistémicos apoyan el mecanismo."]],
+    [2, "Causalidad incierta", ["Fuente de riesgo intermedio o bajo con perfil sugestivo (ver tabla de fuentes menores).", "Foramen oval permeable con aneurisma del septo, o con TVP o TEP concomitantes pero no previos al ictus."]],
+    [3, "Presente, probablemente no causal", ["Fuente menor aislada sin rasgos que apoyen el mecanismo: foramen oval permeable aislado, calcificación del anillo mitral, válvula aórtica calcificada, hiperexcitabilidad auricular."]],
+    [0, "Ausente", ["ECG, monitorización prolongada del ritmo y ecocardiografía transtorácica y transesofágica sin hallazgos."]],
+    [9, "Estudio insuficiente", ["Sin ECG, monitorización o ecocardiograma."]]
+  ]},
+  { k: "O", name: "Otras causas", grades: [
+    [1, "Causa potencial", ["Dolicoectasia con aneurisma complicado, vasculitis del SNC o sistémica, síndrome de moyamoya, disección no cervical, vasoconstricción cerebral reversible.", "Trastornos protrombóticos: síndrome antifosfolípido, policitemia, trombocitemia > 800.000/mm³, CID, cáncer activo con hipercoagulabilidad.", "Otras: drepanocitosis, enfermedad de Fabry, CADASIL, meningitis, endocarditis no infecciosa."]],
+    [2, "Causalidad incierta", ["Condición asociada al ictus con relación temporal o topográfica dudosa: migraña con aura, aneurisma sacular en el territorio, trastorno protrombótico de bajo riesgo."]],
+    [3, "Presente, probablemente no causal", ["Malformación arteriovenosa o aneurisma sacular en otro territorio, trombofilia leve sin relación con el evento."]],
+    [0, "Ausente", ["Estudio dirigido negativo."]],
+    [9, "Estudio insuficiente", ["No se ha realizado el estudio que la sospecha clínica exige."]]
+  ]},
+  { k: "D", name: "Disección", grades: [
+    [1, "Causa potencial", ["Disección arterial demostrada por hematoma mural, doble luz o signo del colgajo intimal, en la arteria que irriga el territorio isquémico."]],
+    [2, "Causalidad incierta", ["Datos indirectos: antecedente sugestivo, dolor cervical o síndrome de Horner, con imagen no concluyente."]],
+    [3, "Presente, probablemente no causal", ["Displasia fibromuscular, kinking o dolicoectasia sin disección en arterias que no irrigan el territorio afectado."]],
+    [0, "Ausente", ["Estudio vascular sin signos de disección."]],
+    [9, "Estudio insuficiente", ["Sin secuencias de pared o estudio vascular adecuado."]]
+  ]}
+];
+
+const OXF_F = [
+  ["motor", "Déficit motor o sensitivo en al menos dos de: cara, brazo, pierna"],
+  ["cort", "Disfunción cortical superior", "Afasia, discalculia, alteración visuoespacial o negligencia."],
+  ["hemi", "Hemianopsia homónima"],
+  ["restr", "Déficit motor o sensitivo restringido", "Una sola región: monoparesia, afectación limitada a la mano o a la cara."],
+  ["lac", "Síndrome lacunar clásico", "Motor puro, sensitivo puro, sensitivomotor o hemiparesia atáxica (incluye disartria–mano torpe)."],
+  ["post", "Signos de circulación posterior", "Par craneal ipsilateral con déficit contralateral, déficit bilateral, trastorno de la mirada conjugada, síndrome cerebeloso sin vía larga ipsilateral o ceguera cortical."]
+];
+const OXF = [
+  { k: "TACI", name: "Infarto total de circulación anterior", bg: "#FAEAEC", bd: "#EBC8CD", c: "#A01220",
+    crit: ["Los tres a la vez: déficit motor o sensitivo en al menos dos de cara, brazo y pierna; hemianopsia homónima; y disfunción cortical superior.", "Si hay bajo nivel de consciencia que impide explorarlas, se asume la presencia de disfunción cortical y hemianopsia."],
+    prog: [["Mortalidad a 1 año", "60 %"], ["Independencia a 1 año", "4 %"]], mech: "Oclusión de la carótida interna distal o de M1, habitualmente embólica." },
+  { k: "PACI", name: "Infarto parcial de circulación anterior", bg: "#FBF2E3", bd: "#EBDCBE", c: "#8A5A00",
+    crit: ["Dos de los tres componentes del TACI.", "Disfunción cortical superior aislada.", "Déficit motor o sensitivo restringido a una región (monoparesia, mano o cara)."],
+    prog: [["Mortalidad a 1 año", "16 %"], ["Independencia a 1 año", "55 %"]], mech: "Oclusión de ramas de la cerebral media; mayor riesgo de recurrencia precoz." },
+  { k: "LACI", name: "Infarto lacunar", bg: "#EBEFF5", bd: "#C6D2E3", c: "#1F3A5F",
+    crit: ["Síndrome motor puro, sensitivo puro, sensitivomotor o hemiparesia atáxica.", "Afectación de al menos dos de cara, brazo y pierna (o brazo y pierna).", "Sin disfunción cortical superior, sin hemianopsia y sin alteración de consciencia."],
+    prog: [["Mortalidad a 1 año", "11 %"], ["Independencia a 1 año", "60 %"]], mech: "Oclusión de una arteria perforante; se correlaciona con enfermedad de pequeño vaso." },
+  { k: "POCI", name: "Infarto de circulación posterior", bg: "#E9F1EC", bd: "#C7DDD0", c: "#1F5C3A",
+    crit: ["Parálisis de un par craneal ipsilateral con déficit motor o sensitivo contralateral.", "Déficit motor o sensitivo bilateral.", "Trastorno de la mirada conjugada.", "Disfunción cerebelosa sin déficit de vía larga ipsilateral.", "Hemianopsia homónima aislada o ceguera cortical."],
+    prog: [["Mortalidad a 1 año", "19 %"], ["Independencia a 1 año", "62 %"]], mech: "Territorio vertebrobasilar; mayor riesgo de recurrencia en el primer año." }
+];
+
+const CE_MAJOR = [
+  ["Fibrilación o flutter auricular", "Actual o antecedente, persistente o paroxístico, incluido el detectado en la monitorización prolongada"],
+  ["Estenosis mitral reumática", "Con o sin fibrilación auricular"],
+  ["Prótesis valvular mecánica", ""],
+  ["Infarto agudo de miocardio reciente", "< 4 semanas"],
+  ["Trombo intracavitario", "Ventrículo o aurícula izquierda"],
+  ["Enfermedad del nodo sinusal", ""],
+  ["Miocardiopatía dilatada", "O fracción de eyección < 35 %"],
+  ["Acinesia ventricular izquierda segmentaria", "Con fracción de eyección reducida"],
+  ["Endocarditis infecciosa", ""],
+  ["Tumor intracardiaco", "Mixoma auricular, fibroelastoma papilar"],
+  ["Foramen oval permeable con trombo in situ", "O con TVP o TEP previos al ictus"]
+];
+const CE_MINOR = [
+  ["Foramen oval permeable", "Aislado o con aneurisma del septo interauricular"],
+  ["Aneurisma del septo interauricular", ""],
+  ["Contraste ecográfico espontáneo", "En aurícula izquierda"],
+  ["Calcificación del anillo mitral", ""],
+  ["Prolapso de la válvula mitral", ""],
+  ["Estenosis aórtica calcificada", ""],
+  ["Infarto de miocardio de 4 semanas a 6 meses", ""],
+  ["Segmento acinético no apical", "Con fracción de eyección conservada"],
+  ["Insuficiencia cardiaca congestiva", "Fracción de eyección entre 35 y 40 %"],
+  ["Hiperexcitabilidad auricular", "Extrasistolia frecuente, rachas de taquicardia auricular"],
+  ["Fibrilación auricular de muy corta duración", "Episodios < 30 s en la monitorización"],
+  ["Filamentos valvulares (strands)", ""]
+];
+
 class Component extends DCLogic {
-  state = { tab: "inicio", lang: "es", scores: {}, calc: "nihss", aspects: {}, ich: {}, gcs: {}, mrs: null, sc: {}, pcasp: {}, weight: "", mrsMode: "interview", mrsQ: {}, ev: null, evTopic: null, evSec: null, evSub: null };
+  state = { blogCat: "all", crit: null, bos: {}, asc: {}, oxf: {}, tab: "inicio", lang: "es", scores: {}, calc: "nihss", aspects: {}, ich: {}, gcs: {}, mrs: null, sc: {}, pcasp: {}, weight: "", mrsMode: "interview", mrsQ: {}, ev: null, evTopic: null, evSec: null, evSub: null };
 
   t(k) { return T[k][this.state.lang]; }
-  go(id) { return () => { this.setState({ tab: id, ev: null, evTopic: null, evSec: null, evSub: null }); window.scrollTo(0, 0); }; }
+  go(id) { return () => { this.setState({ crit: null, tab: id, ev: null, evTopic: null, evSec: null, evSub: null }); window.scrollTo(0, 0); }; }
 
   renderVals() {
     const L = this.state.lang, es = L === "es";
@@ -1666,13 +1994,17 @@ class Component extends DCLogic {
     v.nav = NAV.map(([id, s, e]) => ({
       label: es ? s : e,
       go: this.go(id),
-      style: "padding:9px 14px; font-size:15px; cursor:pointer; border-radius:8px 8px 0 0; border:1px solid transparent; border-bottom:none; margin-bottom:-1px; " +
-        (tab === id || (id === "blog" && tab === "articulo")
-          ? "background:#F6F6F4; border-color:#DEDEDA; color:#0F1114; font-weight:600; box-shadow:inset 0 2px 0 " + accent
-          : "color:#5A6169")
+      style: (() => {
+        const on = tab === id || (id === "blog" && tab === "articulo");
+        const bc = on ? "#DEDEDA" : "transparent";
+        return "padding:9px 14px; font-size:15px; cursor:pointer; border-radius:8px 8px 0 0; margin-bottom:-1px; " +
+          "border-top:1px solid " + bc + "; border-left:1px solid " + bc + "; border-right:1px solid " + bc + "; border-bottom:0 solid transparent; " +
+          "background:" + (on ? "#F6F6F4" : "transparent") + "; color:" + (on ? "#0F1114" : "#5A6169") + "; font-weight:" + (on ? "600" : "400") +
+          "; box-shadow:" + (on ? "inset 0 2px 0 " + accent : "none");
+      })()
     }));
 
-    ["inicio", "blog", "protocolos", "evidencia", "casos", "calc", "videos", "enlaces", "biblio", "articulo"].forEach(id => {
+    ["inicio", "blog", "protocolos", "evidencia", "criterios", "casos", "calc", "videos", "enlaces", "biblio", "articulo"].forEach(id => {
       v["is" + id.charAt(0).toUpperCase() + id.slice(1)] = tab === id;
     });
     v.isCalc = tab === "calc"; v.isVideos = tab === "videos"; v.isBiblio = tab === "biblio";
@@ -1692,7 +2024,8 @@ class Component extends DCLogic {
     v.posts = [
       {
         date: es ? "10 SEP 2026" : "10 SEP 2026",
-        tag: es ? "REVISIÓN" : "REVIEW",
+        cat: "revision",
+        tag: es ? "REVISIÓN DE PATOLOGÍA" : "DISEASE REVIEW",
         title: "Isquemia medular: cuando el ictus está en la médula (y a veces en la aorta)",
         excerpt: es
           ? "Anatomía vascular, etiopatogenia, clínica, tratamiento y pronóstico. Por qué toda isquemia medular obliga a pensar en la aorta antes de administrar cualquier antitrombótico."
@@ -1700,8 +2033,39 @@ class Component extends DCLogic {
         author: "Carmen García-Cabo",
         open: () => { this.setState({ tab: "articulo" }); window.scrollTo(0, 0); },
         row: rowBase + " cursor:pointer; border-radius:10px; margin:0 -12px; padding-left:12px; padding-right:12px"
+      },
+      {
+        cat: "opinion",
+        date: es ? "20 MAY 2025" : "20 MAY 2025",
+        title: "¿A quién pertenece la ciencia? Reflexión de tres neurólogos",
+        excerpt: es
+          ? "Artículo de opinión publicado en la sección de Salud de La Nueva España. Se abre en el diario original."
+          : "Opinion piece published in the Health section of La Nueva España. Opens on the newspaper's website.",
+        author: "Carmen García-Cabo, Lorena Benavente y Sergio Calleja · La Nueva España ↗",
+        open: () => { window.open("https://www.lne.es/salud/2025/05/20/pertenece-ciencia-reflexion-tres-neurologos-117564180.html", "_blank", "noopener"); },
+        row: rowBase + " cursor:pointer; border-radius:10px; margin:0 -12px; padding-left:12px; padding-right:12px"
       }
     ];
+    const BLOG_CATS = [
+      ["revision", es ? "Revisión de patología" : "Disease review", "#FAEAEC", "#EBC8CD", "#A01220"],
+      ["farma", es ? "Farmacología" : "Pharmacology", "#EBEFF5", "#C6D2E3", "#1F3A5F"],
+      ["actualidad", es ? "Actualidad" : "News", "#E9F1EC", "#C7DDD0", "#1F5C3A"],
+      ["opinion", es ? "Opinión" : "Opinion", "#FBF2E3", "#EBDCBE", "#8A5A00"]
+    ];
+    const bc = this.state.blogCat;
+    const allPosts = v.posts;
+    const catPill = (on, bg, bd, col) => "padding:8px 15px; font-size:14.5px; cursor:pointer; border-radius:999px; white-space:nowrap; border:1px solid " +
+      (on ? bd : "#E6E6E2") + "; background:" + (on ? bg : "#FFFFFF") + "; color:" + (on ? col : "#5A6169") + "; font-weight:" + (on ? "600" : "400");
+    v.blogCats = [["all", es ? "Todas" : "All", "#F0F0ED", "#CFD0CC", "#0F1114"]].concat(BLOG_CATS).map(([id, label, bg, bd, col]) => {
+      const n = id === "all" ? allPosts.length : allPosts.filter(p => p.cat === id).length;
+      return { label: label + " · " + n, style: catPill(bc === id, bg, bd, col), go: () => this.setState({ blogCat: id }) };
+    });
+    v.posts = allPosts.filter(p => bc === "all" || p.cat === bc).map(p => {
+      const c = BLOG_CATS.find(x => x[0] === p.cat) || BLOG_CATS[0];
+      return Object.assign({}, p, { tag: c[1].toUpperCase(), tagStyle: "font-family:'IBM Plex Mono', monospace; font-size:11px; line-height:1.4; color:" + c[4] + "; margin-top:6px" });
+    });
+    v.blogEmpty = v.posts.length === 0;
+    v.blogEmptyLabel = es ? "Todavía no hay entradas en esta categoría." : "No posts in this category yet.";
     v.isArticle = tab === "articulo";
     v.backLabel = es ? "← Volver al blog" : "← Back to the blog";
     v.backToBlog = () => { this.setState({ tab: "blog" }); window.scrollTo(0, 0); };
@@ -1780,7 +2144,22 @@ class Component extends DCLogic {
       const on = this.state.calc === id;
       return {
         label,
-        go: () => this.setState({ calc: id }),
+        go: () => {
+          this.setState({ calc: id });
+          if (window.innerWidth < 760) {
+            const g = document.querySelector('[data-r="cgroups"]');
+            if (g) {
+              const y = g.getBoundingClientRect().top + window.scrollY;
+              if (window.scrollY > y) window.scrollTo(0, y);
+            }
+            setTimeout(() => {
+              const t = document.querySelector('[data-r="ctab"][data-on="1"]');
+              const s = document.querySelector('[data-r="cgroups"]');
+              if (t && s) s.scrollLeft += t.getBoundingClientRect().left - s.getBoundingClientRect().left - 16;
+            }, 30);
+          }
+        },
+        on: on ? "1" : "0",
         style: "padding:9px 15px; font-size:15px; cursor:pointer; border-radius:999px; border:1px solid " +
           (on ? h[1] : "#E6E6E2") + "; " +
           (on ? "background:" + h[0] + "; color:" + h[2] + "; font-weight:600" : "background:#FFFFFF; color:#5A6169") +
@@ -2409,6 +2788,113 @@ class Component extends DCLogic {
       title: s.title,
       blocks: s.blocks.map(evBlock)
     })) : [];
+
+    v.critTitle = es ? "Criterios diagnósticos" : "Diagnostic criteria";
+    v.critIntro = es
+      ? "Criterios de uso clínico con su versión vigente y la referencia original. Marca los hallazgos del paciente y el resultado se actualiza al momento."
+      : "Clinical criteria in their current version, with the original reference. The content of this section is written in Spanish.";
+    const cst = this.state.crit;
+    v.critIndex = !cst;
+    v.critBoston = cst === "boston";
+    v.critAscod = cst === "ascod";
+    v.critBack = () => { this.setState({ crit: null }); window.scrollTo(0, 0); };
+    v.critBackLabel = es ? "← Criterios diagnósticos" : "← Diagnostic criteria";
+    const cCard = (bg, bd) => "background:" + bg + "; border:1px solid " + bd + "; border-radius:12px; padding:20px 22px; cursor:pointer; transition:transform .15s, border-color .15s";
+    const O = this.state.oxf;
+    v.oxfF = OXF_F.map(([id, label, help]) => {
+      const on = !!O[id];
+      return {
+        label, help: help || "", hasHelp: !!help,
+        style: "display:flex; gap:12px; align-items:flex-start; padding:12px 14px; border-radius:10px; cursor:pointer; border:1px solid " + (on ? "#1F3A5F" : "#E6E6E2") + "; background:" + (on ? "#EBEFF5" : "#FFFFFF"),
+        box: "flex:0 0 auto; width:20px; height:20px; margin-top:1px; border-radius:5px; border:1.5px solid " + (on ? "#1F3A5F" : "#B9BBB5") + "; background:" + (on ? "#1F3A5F" : "#FFFFFF") + "; color:#FFFFFF; font-size:13px; line-height:17px; text-align:center",
+        mark: on ? "✓" : "",
+        go: () => this.setState(s => ({ oxf: Object.assign({}, s.oxf, { [id]: !s.oxf[id] }) }))
+      };
+    });
+    const n3 = (O.motor ? 1 : 0) + (O.cort ? 1 : 0) + (O.hemi ? 1 : 0);
+    let ox = null, oxWhy = "Marca los hallazgos de la exploración.";
+    if (O.post) { ox = "POCI"; oxWhy = "Signos de territorio vertebrobasilar."; }
+    else if (n3 === 3) { ox = "TACI"; oxWhy = "Déficit en dos o más regiones, disfunción cortical y hemianopsia."; }
+    else if (n3 === 2) { ox = "PACI"; oxWhy = "Dos de los tres componentes del TACI."; }
+    else if (O.cort) { ox = "PACI"; oxWhy = "Disfunción cortical superior sin los otros componentes."; }
+    else if (O.restr) { ox = "PACI"; oxWhy = "Déficit motor o sensitivo restringido a una región."; }
+    else if (O.hemi) { ox = "POCI"; oxWhy = "Hemianopsia homónima aislada."; }
+    else if (O.lac || O.motor) { ox = "LACI"; oxWhy = "Síndrome lacunar sin disfunción cortical ni hemianopsia."; }
+    const oxD = OXF.find(x => x.k === ox);
+    v.oxRes = ox || "—";
+    v.oxName = oxD ? oxD.name : "";
+    v.oxWhy = oxWhy;
+    v.oxResStyle = "font-family:'IBM Plex Mono', monospace; font-size:32px; font-weight:600; line-height:1.1; margin:4px 0 4px; color:" + (oxD ? oxD.c : "#79808A");
+    v.oxPanel = "position:sticky; top:24px; border-radius:12px; padding:18px 20px; border:1px solid " + (oxD ? oxD.bd : "#DEDEDA") + "; background:" + (oxD ? oxD.bg : "#FFFFFF");
+    v.oxReset = () => this.setState({ oxf: {} });
+    v.oxCards = OXF.map(x => ({
+      k: x.k, name: x.name, mech: x.mech,
+      crit: x.crit.map(t => ({ t })),
+      prog: x.prog.map(([a, b]) => ({ a, b })),
+      style: "border:1px solid " + x.bd + "; background:" + x.bg + "; border-radius:12px; padding:18px 20px; min-width:0" + (x.k === ox ? "; box-shadow:inset 0 0 0 1.5px " + x.c : ""),
+      kStyle: "font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:" + x.c
+    }));
+    v.critOxford = cst === "oxford";
+
+    v.critCards = [
+      { n: "01", title: es ? "Angiopatía amiloide cerebral" : "Cerebral amyloid angiopathy", sub: es ? "Criterios de Boston 2.0 (2022)" : "Boston criteria 2.0 (2022)", style: cCard("#FAEAEC", "#EBC8CD"), go: () => { this.setState({ crit: "boston" }); window.scrollTo(0, 0); } },
+      { n: "02", title: es ? "Etiología del ictus isquémico" : "Ischaemic stroke aetiology", sub: es ? "Clasificación ASCOD (2013)" : "ASCOD classification (2013)", style: cCard("#EBEFF5", "#C6D2E3"), go: () => { this.setState({ crit: "ascod" }); window.scrollTo(0, 0); } },
+      { n: "03", title: es ? "Clasificación topográfica" : "Topographic classification", sub: es ? "Oxfordshire Community Stroke Project (1991)" : "Oxfordshire Community Stroke Project (1991)", style: cCard("#E9F1EC", "#C7DDD0"), go: () => { this.setState({ crit: "oxford" }); window.scrollTo(0, 0); } }
+    ];
+
+    const B = this.state.bos;
+    const optStyle = on => "padding:8px 14px; font-size:14px; border-radius:8px; cursor:pointer; border:1px solid " + (on ? "#1F3A5F" : "#DEDEDA") + "; background:" + (on ? "#1F3A5F" : "#FFFFFF") + "; color:" + (on ? "#FFFFFF" : "#2C3137");
+    v.bosQ = BOSTON_Q.map(([id, label, opts, help]) => ({
+      label, help: help || "", hasHelp: !!help,
+      opts: opts.map(([val, t]) => ({ t, style: optStyle(B[id] === val), go: () => this.setState(s => ({ bos: Object.assign({}, s.bos, { [id]: val }) })) }))
+    }));
+    const bDone = BOSTON_Q.every(q => B[q[0]] !== undefined);
+    let bRes, bNote, bCol;
+    if (B.age === 0 || B.pres === 0) { bRes = "No aplicable"; bNote = "Los criterios de RM se aplican a pacientes de 50 años o más con presentación clínica compatible."; bCol = "#5A6169"; }
+    else if (B.deep === 1) { bRes = "No cumple criterios"; bNote = "La presencia de lesiones hemorrágicas profundas excluye la AAC probable o posible por RM; valorar enfermedad de pequeño vaso hipertensiva o patrón mixto."; bCol = "#5A6169"; }
+    else if (B.other === 1) { bRes = "No cumple criterios"; bNote = "Existe otra causa que explica las lesiones hemorrágicas."; bCol = "#5A6169"; }
+    else if (B.lob === 2 || (B.lob === 1 && B.wm === 1)) { bRes = "AAC probable"; bNote = "Dos o más lesiones hemorrágicas lobares, o una lesión lobar con un marcador de sustancia blanca, sin lesiones profundas ni otra causa."; bCol = "#C1121F"; }
+    else if (B.lob === 1 || B.wm === 1) { bRes = "AAC posible"; bNote = "Una lesión hemorrágica lobar o un marcador de sustancia blanca, sin lesiones profundas ni otra causa."; bCol = "#8A5A00"; }
+    else if (B.lob === 0 && B.wm === 0) { bRes = "No cumple criterios"; bNote = "Sin lesiones hemorrágicas lobares ni marcadores de sustancia blanca."; bCol = "#5A6169"; }
+    else { bRes = "—"; bNote = "Completa los ítems para obtener la categoría."; bCol = "#79808A"; }
+    if (!bDone && bRes !== "No aplicable" && bRes !== "No cumple criterios" && bRes !== "AAC probable") { bRes = "—"; bNote = "Completa los ítems para obtener la categoría."; bCol = "#79808A"; }
+    v.bosRes = bRes; v.bosNote = bNote;
+    v.bosResStyle = "font-family:'Source Serif 4', Georgia, serif; font-size:30px; font-weight:700; line-height:1.15; color:" + bCol + "; margin:4px 0 10px";
+    v.bosReset = () => this.setState({ bos: {} });
+    v.bosPath = [
+      ["AAC definida", "Examen post mortem completo: presentación compatible, AAC grave con vasculopatía y ausencia de otra lesión diagnóstica."],
+      ["AAC probable con apoyo patológico", "Datos clínicos y tejido (hematoma evacuado o biopsia cortical): presentación compatible, algún grado de AAC en la muestra y ausencia de otra lesión diagnóstica."]
+    ].map(([k, d]) => ({ k, d }));
+
+    const A = this.state.asc;
+    const gCol = { 1: ["#FAEAEC", "#C1121F"], 2: ["#FBF2E3", "#8A5A00"], 3: ["#EBEFF5", "#1F3A5F"], 0: ["#F4F4F1", "#5A6169"], 9: ["#F4F4F1", "#79808A"] };
+    v.ascod = ASCOD.map(cat => {
+      const sel = A[cat.k];
+      return {
+        k: cat.k, name: cat.name, cardio: !!cat.cardio,
+        grades: cat.grades.map(([g, label, crit]) => {
+          const on = sel === g;
+          const c = gCol[g];
+          return {
+            g: cat.k + g, label, crit: crit.map(t => ({ t })),
+            style: "border:1px solid " + (on ? c[1] : "#E6E6E2") + "; background:" + (on ? c[0] : "#FFFFFF") + "; border-radius:10px; padding:12px 14px; cursor:pointer; min-width:0; transition:border-color .15s, background .15s" + (on ? "; box-shadow:inset 0 0 0 1px " + c[1] : ""),
+            gStyle: "font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; color:" + c[1],
+            go: () => this.setState(s => ({ asc: Object.assign({}, s.asc, { [cat.k]: g }) }))
+          };
+        })
+      };
+    });
+    v.ascCode = ASCOD.map(c => c.k + (A[c.k] === undefined ? "–" : A[c.k])).join(" · ");
+    const ones = ASCOD.filter(c => A[c.k] === 1).map(c => c.name.toLowerCase());
+    const allSet = ASCOD.every(c => A[c.k] !== undefined);
+    v.ascNote = !allSet ? "Asigna un grado a cada categoría."
+      : ones.length === 1 ? "Una causa potencial: " + ones[0] + "."
+      : ones.length > 1 ? "Varias causas potenciales concurrentes: " + ones.join(", ") + "."
+      : ASCOD.some(c => A[c.k] === 9) ? "Sin causa potencial identificada con estudio incompleto: completar las categorías con grado 9."
+      : "Sin causa potencial identificada tras estudio completo.";
+    v.ascReset = () => this.setState({ asc: {} });
+    v.ceMajor = CE_MAJOR.map(([k, d]) => ({ k, d, hasD: !!d }));
+    v.ceMinor = CE_MINOR.map(([k, d]) => ({ k, d, hasD: !!d }));
 
     return v;
   }
