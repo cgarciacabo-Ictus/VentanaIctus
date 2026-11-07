@@ -625,6 +625,47 @@
       </div>
     </sc-if>
 
+    <sc-if value="{{ isNihss }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="max-width:64ch; margin-bottom:36px">
+          <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ nihssTitle }}</h2>
+          <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ nihssIntro }}</p>
+        </div>
+        <sc-if value="{{ nihssEmpty }}" hint-placeholder-val="{{ true }}">
+          <div style="border:1px dashed #DEDEDA; border-radius:12px; padding:28px; font-size:15px; color:#8A919B">{{ nihssEmptyText }}</div>
+        </sc-if>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:18px">
+          <sc-for list="{{ nihssVideos }}" as="c" hint-placeholder-count="0">
+            <a href="{{ c.url }}" target="_blank" rel="noopener" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:24px; display:block; color:inherit" style-hover="border-color:#1F3A5F; text-decoration:none">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px">{{ c.kicker }}</div>
+              <div style="font-size:20px; font-weight:600; color:#0F1114; margin-bottom:6px; line-height:1.25">{{ c.title }}</div>
+              <div style="font-size:14px; color:#5A6169; line-height:1.55">{{ c.body }}</div>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPacientes }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="max-width:64ch; margin-bottom:36px">
+          <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ pacTitle }}</h2>
+          <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ pacIntro }}</p>
+        </div>
+        <div style="border-top:1px solid #DEDEDA">
+          <sc-for list="{{ pacItems }}" as="l" hint-placeholder-count="1">
+            <a data-r="row" href="{{ l.url }}" target="_blank" rel="noopener" style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:baseline; padding:16px 0; border-bottom:1px solid #EAEAE6; color:inherit" style-hover="text-decoration:none; background:#F1F1EE">
+              <div>
+                <div style="font-size:17px; font-weight:600; color:#0F1114; margin-bottom:4px">{{ l.title }}</div>
+                <div style="font-size:14px; line-height:1.5; color:#5A6169; max-width:70ch">{{ l.body }}</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#C1121F">{{ l.host }}</div>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
     <sc-if value="{{ isEnlaces }}" hint-placeholder-val="{{ true }}">
       <div>
         <div style="max-width:64ch; margin-bottom:36px">
@@ -1187,11 +1228,13 @@ const NAV = [
   ["evidencia", "Evidencia en las guías", "Guidelines"],
   ["calc", "Calculadoras", "Calculators"],
   ["criterios", "Criterios diagnósticos", "Diagnostic criteria"],
+  ["nihss", "Formación NIHSS", "NIHSS training"],
   ["videos", "Sesiones en vídeo", "Video sessions"],
   ["casos", "Casos clínicos", "Clinical cases"],
   ["biblio", "Sesiones bibliográficas", "Journal club"],
   ["blog", "Blog", "Blog"],
   ["protocolos", "Protocolos", "Protocols"],
+  ["pacientes", "Material para pacientes", "Patient materials"],
   ["enlaces", "Enlaces", "Links"]
 ];
 
@@ -2004,7 +2047,7 @@ class Component extends DCLogic {
       })()
     }));
 
-    ["inicio", "blog", "protocolos", "evidencia", "criterios", "casos", "calc", "videos", "enlaces", "biblio", "articulo"].forEach(id => {
+    ["inicio", "blog", "protocolos", "evidencia", "criterios", "casos", "calc", "videos", "nihss", "pacientes", "enlaces", "biblio", "articulo"].forEach(id => {
       v["is" + id.charAt(0).toUpperCase() + id.slice(1)] = tab === id;
     });
     v.isCalc = tab === "calc"; v.isVideos = tab === "videos"; v.isBiblio = tab === "biblio";
@@ -2570,6 +2613,24 @@ class Component extends DCLogic {
         ? (es ? "Resultado funcional favorable (0–2)" : "Favourable functional outcome (0–2)")
         : (es ? "Dependencia funcional (3–6)" : "Functional dependence (3–6)");
     v.resetMrs = () => this.setState({ mrs: null, mrsQ: {} });
+
+    v.nihssTitle = es ? "Formación en vídeo de la NIHSS" : "NIHSS video training";
+    v.nihssIntro = es ? "Vídeos de exploración ítem a ítem de la escala NIHSS para entrenamiento y preparación de la certificación." : "Item-by-item NIHSS examination videos for training and certification practice.";
+    v.nihssVideos = [
+      { url: "https://www.angels-initiative.com/lms/group/54", kicker: es ? "ACADEMIA ANGELS · 90 MIN" : "ANGELS ACADEMY · 90 MIN", title: es ? "Curso online de la NIHSS" : "NIHSS online training course", body: es ? "Tres módulos con vídeo de evaluación, módulo de profundización y segunda evaluación. Certificado al completar todas las actividades. Requiere registro gratuito." : "Three modules: evaluation video, in-depth module and second evaluation. Certificate on completion. Free registration required." },
+      { url: "https://www.angels-initiative.com/lms/group/87", kicker: es ? "ACADEMIA ANGELS · 15 MIN" : "ANGELS ACADEMY · 15 MIN", title: es ? "NIHSS: segunda evaluación" : "NIHSS second evaluation", body: es ? "Vídeo de paciente para puntuar tras el curso y comprobar la mejora en la precisión." : "Patient video to score after the course and check your improvement in accuracy." },
+      { url: "https://www.youtube.com/watch?v=L-Q7OqVKO-w", kicker: "YOUTUBE", title: "Escala NIH en español", body: es ? "Escala NIH y escala de Rankin explicadas en español por Carlos Cantú, Nelson Novarro, Arnold Hoppe, Tony Álvarez y Sheila Martins." : "NIH and Rankin scales explained in Spanish by Carlos Cantú, Nelson Novarro, Arnold Hoppe, Tony Álvarez and Sheila Martins." }
+    ];
+    v.nihssEmpty = v.nihssVideos.length === 0;
+    v.nihssEmptyText = es ? "Próximamente." : "Coming soon.";
+    v.pacTitle = es ? "Material para pacientes" : "Patient materials";
+    v.pacIntro = es ? "Herramientas y documentos para entregar o preparar con el paciente y su familia." : "Tools and documents to share with patients and their families.";
+    v.pacItems = [
+      { url: "https://sergiocalleja.github.io/Generador-de-informes-de-ACOD/", host: "sergiocalleja.github.io", title: es ? "Generador de informes de ACOD" : "DOAC report generator", body: es ? "Genera un informe para el paciente con la información de su anticoagulante oral de acción directa." : "Generates a patient report with information about their direct oral anticoagulant." },
+      { url: "docs/folleto-recursos-sociales-ictus.pdf", host: "PDF · 2 págs.", title: es ? "Recursos sociales para pacientes con ictus" : "Social resources for stroke patients", body: es ? "Tríptico de la Unidad de Ictus: trámites tras el alta, servicios sociales, recursos de asesoramiento y limitación a la conducción." : "Stroke Unit leaflet: post-discharge procedures, social services, advice resources and driving restrictions (in Spanish)." },
+      { url: "docs/preguntas-respuestas-ictus.pdf", host: "PDF · 96 págs.", title: es ? "Preguntas y respuestas sobre el ictus" : "Questions and answers about stroke", body: es ? "Libro de la Escuela de cuidados para pacientes y familiares." : "Care school book for patients and families (in Spanish)." },
+      { url: "docs/folleto-completo.pdf", host: "PDF · 24 págs.", title: es ? "Sexualidades. Ictus y enfermedades neurológicas" : "Sexualities. Stroke and neurological diseases", body: es ? "Guía de Enrique Oltra y Andrea Rodríguez sobre la sexualidad tras el ictus." : "Guide by Enrique Oltra and Andrea Rodríguez on sexuality after stroke (in Spanish)." }
+    ];
 
     v.linkGroups = [
       {
