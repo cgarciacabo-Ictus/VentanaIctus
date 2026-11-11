@@ -148,6 +148,40 @@
       </div>
     </sc-if>
 
+    <sc-if value="{{ isWsc25 }}" hint-placeholder-val="{{ false }}">
+      <article style="max-width:760px">
+        <div onClick="{{ backToBlog }}" style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; cursor:pointer; margin-bottom:26px">{{ backLabel }}</div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#1F5C3A; letter-spacing:0.06em; margin-bottom:14px">ACTUALIDAD · CONGRESOS</div>
+        <h1 data-r="h1" style="font-family:'Source Serif 4', Georgia, serif; font-size:38px; line-height:1.18; font-weight:600; margin:0 0 16px; letter-spacing:-0.01em; text-wrap:pretty">Lo mejor del 17th World Stroke Congress: los ensayos</h1>
+        <p style="font-size:17px; line-height:1.6; color:#5A6169; margin:0 0 8px; font-style:italic">Barcelona, 22–24 de octubre de 2025 · Lorena Benavente</p>
+        <div style="height:1px; background:#DEDEDA; margin:28px 0 32px"></div>
+        <p style="font-size:17px; line-height:1.75; color:#2B2F35; margin:0 0 12px">Resumen de los ensayos presentados en el congreso, ordenados por día. En cada uno se recoge el diseño, el resultado principal y, cuando lo hay, un comentario crítico.</p>
+        <sc-for list="{{ wscDays }}" as="d" hint-placeholder-count="3">
+          <div>
+            <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:26px; font-weight:600; margin:44px 0 6px; line-height:1.25">{{ d.day }}</h2>
+            <sc-for list="{{ d.trials }}" as="t" hint-placeholder-count="4">
+              <section style="border-top:1px solid #DEDEDA; padding:22px 0 6px">
+                <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-bottom:12px">
+                  <h3 style="font-size:20px; font-weight:600; margin:0; color:#0F1114">{{ t.name }}</h3>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#8A919B">{{ t.who }}</div>
+                </div>
+                <div style="display:grid; grid-template-columns:110px minmax(0,1fr); gap:8px 18px; font-size:16px; line-height:1.65; color:#2B2F35">
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.06em; color:#8A919B; padding-top:4px">DISEÑO</div>
+                  <div style="text-wrap:pretty">{{ t.design }}</div>
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.06em; color:#8A919B; padding-top:4px">RESULTADO</div>
+                  <div style="text-wrap:pretty">{{ t.result }}</div>
+                  <sc-if value="{{ t.comment }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.06em; color:#A01220; padding-top:4px">COMENTARIO</div>
+                    <div style="font-style:italic; color:#5A6169; text-wrap:pretty">{{ t.comment }}</div>
+                  </sc-if>
+                </div>
+              </section>
+            </sc-for>
+          </div>
+        </sc-for>
+      </article>
+    </sc-if>
+
     <sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
       <article style="max-width:760px">
         <div onClick="{{ backToBlog }}" style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; cursor:pointer; margin-bottom:26px">{{ backLabel }}</div>
@@ -533,6 +567,31 @@
         </div>
         </sc-if>
 
+        <sc-if value="{{ isCalcBarthel }}" hint-placeholder-val="{{ false }}">
+        <div data-r="calc" style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
+          <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:8px 22px 18px">
+            <sc-for list="{{ barthel }}" as="i" hint-placeholder-count="10">
+              <div style="padding:14px 0; border-bottom:1px solid #EAEAE6">
+                <div style="font-size:15px; margin-bottom:10px">{{ i.label }}</div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap">
+                  <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="3">
+                    <div data-r="opt" onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="position:sticky; top:150px; border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B">Barthel</div>
+            <div style="font-family:'Source Serif 4', Georgia, serif; font-size:52px; line-height:1; color:#A01220; margin:10px 0 4px">{{ barthelTotal }}</div>
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:13px; color:#5A6169; margin-bottom:8px">{{ barthelDetail }}</div>
+            <div style="font-size:14px; color:#2B2F35; line-height:1.5; margin-bottom:16px">{{ barthelBand }}</div>
+            <div onClick="{{ resetBarthel }}" style="border:1px solid #D5D6D2; border-radius:999px; padding:8px 0; text-align:center; font-size:13px; cursor:pointer; color:#5A6169" style-hover="border-color:#A01220; color:#A01220">{{ resetLabel }}</div>
+            <div style="margin-top:16px; font-size:12px; line-height:1.5; color:#9BA2AB">{{ barthelNote }}</div>
+          </div>
+        </div>
+        </sc-if>
+
         <sc-if value="{{ isCalcMrs }}" hint-placeholder-val="{{ false }}">
         <div data-r="calc" style="display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:32px; align-items:start">
           <div>
@@ -654,7 +713,7 @@
         </div>
         <div style="border-top:1px solid #DEDEDA">
           <sc-for list="{{ pacItems }}" as="l" hint-placeholder-count="1">
-            <a data-r="row" href="{{ l.url }}" target="_blank" rel="noopener" style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:baseline; padding:16px 0; border-bottom:1px solid #EAEAE6; color:inherit" style-hover="text-decoration:none; background:#F1F1EE">
+            <a data-r="row" href="{{ l.url }}" download="{{ l.download }}" target="_blank" rel="noopener" style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:baseline; padding:16px 0; border-bottom:1px solid #EAEAE6; color:inherit" style-hover="text-decoration:none; background:#F1F1EE">
               <div>
                 <div style="font-size:17px; font-weight:600; color:#0F1114; margin-bottom:4px">{{ l.title }}</div>
                 <div style="font-size:14px; line-height:1.5; color:#5A6169; max-width:70ch">{{ l.body }}</div>
@@ -2015,6 +2074,32 @@ const CE_MINOR = [
   ["Filamentos valvulares (strands)", ""]
 ];
 
+const WSC25 = [
+  { day: "Miércoles 22", trials: [
+    { name: "TRIDENT", who: "Craig S. Anderson · Australia", design: "Polipíldora a dosis bajas (telmisartán 20 + amlodipino 2,5 + indapamida 1,25 mg) frente a placebo, ambos con tratamiento habitual, en hemorragia intracerebral primaria clínicamente estable.", result: "Reduce de forma significativa la recurrencia de ictus, la nueva HIC y los MACE; sin efecto significativo en la muerte cardiovascular. Sin diferencias de seguridad, salvo un empeoramiento no significativo de la función renal. El beneficio se mantiene con independencia del momento de inicio (antes o después de 6 semanas), la localización de la HIC, el sexo o la edad.", comment: "Población multicéntrica y diversa, lo que lo hace reproducible. Vigilar la función renal en pacientes con aclaramiento moderadamente reducido." },
+    { name: "ATLAS (metaanálisis)", who: "Amrou Sarraj · EE. UU.", design: "Metaanálisis de los seis ensayos de trombectomía en core grande de circulación anterior. Objetivo primario: distribución de la mRS a 90 días.", result: "El beneficio se mantiene en < 6 h y en 6–24 h, y en ASPECTS 0–2 y 3–5 en ventana precoz; en ventana tardía no lo hay para ASPECTS 0–2. Más HIC sintomática en el brazo de trombectomía, sin anular el beneficio neto. Con ASPECTS 0–2 la proporción que alcanza la independencia es muy baja.", comment: "Las características basales son las de los ensayos previos: aleatorización hacia las 6 h, solo un 18 % con ASPECTS 0–2 y cores de 81 ml de mediana. El reto no es si tratar, sino ajustar a la realidad las expectativas de pacientes y familias." },
+    { name: "CATALYST-TNK (metaanálisis)", who: "Yaode He · China", design: "Metaanálisis de tenecteplasa frente a alteplasa.", result: "TNK no inferior en mRS 0–1; la superioridad solo se alcanza al incluir AcT, TRACE y TRACE-2. Sin diferencias en mRS 0–2, distribución de la mRS, muerte, HIC sintomática ni HIC fatal (con poco poder por los escasos eventos).", comment: "Análisis interino, no ajustado y pendiente de los datos individuales de AcT, TRACE y TRACE-2." },
+    { name: "OPTIMAL", who: "Yaode He · China", design: "Intervención múltiple de cambio de conducta (persuasión, educación, incentivos, entrenamiento, capacitación y restricción) mediante videoconferencia mensual y seguimiento anual, en centros con trombectomía en < 24 h, frente a práctica habitual.", result: "Mejora de forma significativa la mRS 0–3 a 90 días y acorta el tiempo hasta la punción (129 min de media en China). En < 6 h, con tiempos similares, el resultado es igual en ambos grupos.", comment: "El beneficio parece mediado por la reducción de tiempos." },
+    { name: "T-FLAVOR", who: "Manabu Inoue · Japón", design: "Tenecteplasa 0,25 mg/kg frente a alteplasa 0,6 mg/kg (dosis aprobada en Japón) en oclusión de ACI, M1, M2 o basilar antes de trombectomía.", result: "Más reperfusión previa a la trombectomía (TICI 2b–3) con TNK en todos los vasos, significativa al excluir a los pacientes mal dosificados. mRS a 90 días similar. Tendencia no significativa a mejor NIHSS a 72 h y a más sangrados mayores con TNK.", comment: "La TNK acorta el tiempo hasta la punción, lo que puede explicar parte del beneficio. El objetivo de fondo es su aprobación en Japón." },
+    { name: "ANGEL-COAST", who: "Raul Nogueira · EE. UU.", design: "Aspiración frente a stent-retriever en oclusión de la basilar; 338 pacientes en < 24 h, NIHSS ≥ 10, pc-ASPECTS ≥ 6.", result: "Mejor efecto de primer pase con aspiración, pero mejor reperfusión final con stent-retriever. Sin diferencias en NIHSS a 24 h, mRS a 90 días, calidad de vida, HIC sintomática ni complicaciones.", comment: "Todos los pacientes eran chinos, con alta proporción de estenosis intracraneal. La exclusión por «tortuosidad» no está definida." },
+    { name: "CHANCE-4", who: "Jing Jing · China", design: "Tirofibán durante 48 h frente a placebo en AIT de alto riesgo (ABCD² ≥ 6) o ictus menor con estenosis intracraneal sintomática > 50 %, en < 24 h.", result: "Sin diferencias en ictus isquémico a 90 días, eventos vasculares combinados a 1 año ni deterioro neurológico. Sin más sangrado grave, pero sí más sangrado de cualquier tipo.", comment: "Si la clave es la doble antiagregación desde el minuto cero, la dosis de carga lo resuelve en pocas horas. No se especificó si se usó." },
+    { name: "TRACE-5", who: "Yunyun Xiong · China", design: "Tenecteplasa 0,25 mg/kg frente a tratamiento estándar en oclusión de la basilar en < 24 h (pc-ASPECTS ≥ 6, mRS ≤ 3).", result: "Más mRS ≤ 1 o vuelta a la situación basal a 90 días con TNK; el beneficio desaparece con mRS ≤ 2. Sin diferencias en HIC sintomática, muerte ni mRS 5–6.", comment: "Los autores concluyen que la TNK es claramente mejor; el resultado parece más modesto." }
+  ]},
+  { day: "Jueves 23", trials: [
+    { name: "STABLED", who: "Yasuhiro Nishiyama · Japón", design: "Ablación con catéter frente a no ablación, 1–6 meses tras el ictus, en pacientes con FA anticoagulados con edoxabán; seguimiento de 3 años.", result: "Sin diferencias en ictus recurrente, embolia sistémica, muerte ni hospitalización por insuficiencia cardiaca. Tendencia no significativa a menos eventos con ablación.", comment: "Entre un 13 y un 15 % cambió de estrategia en cada brazo. Hasta 6 meses de demora y 3 años de seguimiento pueden ser insuficientes." },
+    { name: "OCEANIC-Stroke", who: "Mukul Sharma · Canadá", design: "Asundexián 50 mg (inhibidor del FXIa) frente a placebo, añadido a antiagregación simple o doble, en ictus no cardioembólico (NIHSS ≤ 15) o AIT de alto riesgo con ateromatosis, en < 72 h.", result: "Más de 12.000 pacientes, 63 % con doble antiagregación. Resultados definitivos pendientes.", comment: "El FXI permite separar hemostasia y trombosis. En PACIFIC-Stroke hubo una tendencia a menos ictus, significativa en pacientes con ateromatosis." },
+    { name: "IDEAL", who: "Zhao Shi · China", design: "Modelo de deep learning como segundo lector de angio-TC para detectar aneurismas intracraneales, frente a IA simulada, con residentes de Radiología.", result: "Mejora la sensibilidad sin perder especificidad, sobre todo en aneurismas pequeños (88,8 % < 5 mm), sin aumentar ingresos ni pruebas.", comment: "" },
+    { name: "ARPEGGIO (fase 2)", who: "Eva Mistry · EE. UU.", design: "IGF-1 como neuroprotector en pacientes tratados con trombectomía sin trombólisis (NIHSS ≥ 6, < 24 h).", result: "La dosis media es segura, con pocas HIC sintomáticas e hipoglucemias manejables. Sin diferencias en volumen final del infarto ni en mRS 0–2 a 90 días.", comment: "" }
+  ]},
+  { day: "Viernes 24", trials: [
+    { name: "RESCUE-REES", who: "Xin Liu · China", design: "Fase 3 con xingnaojing IV (compuesto de cuatro plantas) durante 10 días tras trombectomía; 424 pacientes.", result: "En curso; sin datos de eficacia ni de seguridad.", comment: "El racional es frenar la recanalización fútil (> 50 %) con citoprotección adyuvante." },
+    { name: "PROLEVIS", who: "Mean Chandu · India", design: "Levetiracetam profiláctico durante 3 meses frente a placebo en ictus de ≤ 14 días.", result: "Sin diferencias en crisis a 1 año ni en objetivos secundarios. La mayoría de crisis ocurrieron en los primeros 3 meses. Efectos adversos leves (8,2 % frente a 4,5 %).", comment: "" },
+    { name: "COMMIT", who: "Ian McGurgan · Irlanda", design: "Descenso intensivo y precoz de la PA tras AIT o ictus menor con telemonitorización domiciliaria revisada a diario por el médico (perindopril + indapamida o amlodipino), frente a la práctica habitual de OXVASC.", result: "Reduce el ictus isquémico y hemorrágico a 5 años y los ictus discapacitantes o fatales, sin aumentar la HIC pese a la doble antiagregación. Bien valorado por pacientes y Atención Primaria.", comment: "Medidas básicas bien hechas que benefician a muchos pacientes." },
+    { name: "EMMA-CAD", who: "Jai Shankar · Canadá", design: "Embolización de la arteria meníngea media con Onyx-18 bajo anestesia general en < 72 h tras cirugía, frente a tratamiento estándar, en hematoma subdural sintomático > 10 mm; 519 pacientes.", result: "Resultados muy favorables a la embolización en recurrencia sintomática a 90 días, sin diferencias en efectos adversos graves ni mortalidad.", comment: "Desequilibrio clínico entre brazos: más déficit motor en el grupo estándar y más alteración del lenguaje o cognitiva en el experimental." },
+    { name: "FOCUS", who: "Xin Zhang · China", design: "Gangliósido GM1 100 mg/día durante 12–14 días frente a placebo en ictus de circulación anterior (NIHSS 7–20, < 24 h) sin trombectomía prevista; 1524 pacientes.", result: "Más mRS ≤ 2 y mRS ≤ 1 a 90 días, sobre todo si se inicia en < 12 h y en menores de 75 años. Parada precoz por eficacia. Sin efectos adversos relevantes.", comment: "No se menciona ningún criterio de imagen. Queda por definir qué paciente en < 12 h no sería hoy candidato a trombectomía." },
+    { name: "IAT-TOP", who: "Raul Nogueira · EE. UU.", design: "Alteplasa intraarterial 0,225 mg/kg tras trombectomía exitosa (TICI ≥ 2b50) en oclusión basilar o vertebral; 247 pacientes.", result: "Parada precoz por futilidad: sin diferencias en mRS a 90 días, mejoría precoz, TICI, HIC ni mortalidad.", comment: "Se atribuye a una independencia inesperada en el brazo control (46,7 %) y al uso frecuente de angioplastia-stent de rescate." }
+  ]}
+];
 class Component extends DCLogic {
   state = { blogCat: "all", crit: null, bos: {}, asc: {}, oxf: {}, tab: "inicio", lang: "es", scores: {}, calc: "nihss", aspects: {}, ich: {}, gcs: {}, mrs: null, sc: {}, pcasp: {}, weight: "", mrsMode: "interview", mrsQ: {}, ev: null, evTopic: null, evSec: null, evSub: null };
 
@@ -2038,7 +2123,7 @@ class Component extends DCLogic {
       label: es ? s : e,
       go: this.go(id),
       style: (() => {
-        const on = tab === id || (id === "blog" && tab === "articulo");
+        const on = tab === id || (id === "blog" && (tab === "articulo" || tab === "wsc25"));
         const bc = on ? "#DEDEDA" : "transparent";
         return "padding:9px 14px; font-size:15px; cursor:pointer; border-radius:8px 8px 0 0; margin-bottom:-1px; " +
           "border-top:1px solid " + bc + "; border-left:1px solid " + bc + "; border-right:1px solid " + bc + "; border-bottom:0 solid transparent; " +
@@ -2047,12 +2132,13 @@ class Component extends DCLogic {
       })()
     }));
 
-    ["inicio", "blog", "protocolos", "evidencia", "criterios", "casos", "calc", "videos", "nihss", "pacientes", "enlaces", "biblio", "articulo"].forEach(id => {
+    ["inicio", "blog", "protocolos", "evidencia", "criterios", "casos", "calc", "videos", "nihss", "pacientes", "enlaces", "biblio", "articulo", "wsc25"].forEach(id => {
       v["is" + id.charAt(0).toUpperCase() + id.slice(1)] = tab === id;
     });
     v.isCalc = tab === "calc"; v.isVideos = tab === "videos"; v.isBiblio = tab === "biblio";
 
     v.agenda = [
+      { date: es ? "MAR 10 NOV" : "TUE 10 NOV", title: es ? "Buen uso de los anticoagulantes de acción directa" : "Good use of direct oral anticoagulants", meta: "Sergio Calleja" },
       { date: es ? "PRÓX." : "NEXT", title: es ? "Isquemia medular: anatomía vascular, etiopatogenia, clínica, tratamiento y pronóstico" : "Spinal cord ischaemia: vascular anatomy, pathogenesis, clinical picture, treatment and prognosis", meta: "Carmen García-Cabo" },
     ];
 
@@ -2064,6 +2150,19 @@ class Component extends DCLogic {
     ];
 
     const rowBase = "border-top:1px solid #DEDEDA; padding:26px 0; display:grid; grid-template-columns:120px minmax(0,1fr); gap:28px;";
+    const allPostsWsc = [{
+      date: "OCT 2025",
+      cat: "actualidad",
+      title: "Lo mejor del 17th World Stroke Congress (Barcelona, 2025): los ensayos",
+      excerpt: es
+        ? "Dieciocho ensayos presentados del 22 al 24 de octubre, de TRIDENT y ATLAS a OCEANIC-Stroke, COMMIT o EMMA-CAD: diseño, resultados y comentario crítico."
+        : "Eighteen trials presented on 22–24 October, from TRIDENT and ATLAS to OCEANIC-Stroke, COMMIT and EMMA-CAD: design, results and critical commentary (in Spanish).",
+      author: "Lorena Benavente",
+      sort: "2025-10-24",
+      open: () => { this.setState({ tab: "wsc25" }); window.scrollTo(0, 0); },
+      row: rowBase + " cursor:pointer; border-radius:10px; margin:0 -12px; padding-left:12px; padding-right:12px"
+    }];
+    v.wscDays = WSC25;
     v.posts = [
       {
         date: es ? "10 SEP 2026" : "10 SEP 2026",
@@ -2074,6 +2173,7 @@ class Component extends DCLogic {
           ? "Anatomía vascular, etiopatogenia, clínica, tratamiento y pronóstico. Por qué toda isquemia medular obliga a pensar en la aorta antes de administrar cualquier antitrombótico."
           : "Vascular anatomy, pathogenesis, clinical picture, treatment and prognosis. Why every spinal cord infarction calls for ruling out the aorta before any antithrombotic.",
         author: "Carmen García-Cabo",
+        sort: "2026-09-10",
         open: () => { this.setState({ tab: "articulo" }); window.scrollTo(0, 0); },
         row: rowBase + " cursor:pointer; border-radius:10px; margin:0 -12px; padding-left:12px; padding-right:12px"
       },
@@ -2085,10 +2185,12 @@ class Component extends DCLogic {
           ? "Artículo de opinión publicado en la sección de Salud de La Nueva España. Se abre en el diario original."
           : "Opinion piece published in the Health section of La Nueva España. Opens on the newspaper's website.",
         author: "Carmen García-Cabo, Lorena Benavente y Sergio Calleja · La Nueva España ↗",
+        sort: "2025-05-20",
         open: () => { window.open("https://www.lne.es/salud/2025/05/20/pertenece-ciencia-reflexion-tres-neurologos-117564180.html", "_blank", "noopener"); },
         row: rowBase + " cursor:pointer; border-radius:10px; margin:0 -12px; padding-left:12px; padding-right:12px"
       }
     ];
+    v.posts = v.posts.concat(allPostsWsc).sort((a, b) => b.sort.localeCompare(a.sort));
     const BLOG_CATS = [
       ["revision", es ? "Revisión de patología" : "Disease review", "#FAEAEC", "#EBC8CD", "#A01220"],
       ["farma", es ? "Farmacología" : "Pharmacology", "#EBEFF5", "#C6D2E3", "#1F3A5F"],
@@ -2226,7 +2328,7 @@ class Component extends DCLogic {
         label: es ? "Prevención y seguimiento" : "Prevention and follow-up",
         labelStyle: "font-family:'Source Serif 4', Georgia, serif; font-size:19px; font-weight:700; color:" + calcHues[2][2] + "; margin-bottom:10px",
         style: "background:" + calcHues[2][0] + "66; border:1px solid " + calcHues[2][1] + "; border-radius:12px; padding:14px 16px",
-        tabs: [["chadsvasc", "CHA₂DS₂-VASc"], ["hasbled", "HAS-BLED"], ["mrs", es ? "Rankin modificada" : "Modified Rankin"]].map(mkTab(calcHues[2]))
+        tabs: [["chadsvasc", "CHA₂DS₂-VASc"], ["hasbled", "HAS-BLED"], ["mrs", es ? "Rankin modificada" : "Modified Rankin"], ["barthel", es ? "Índice de Barthel" : "Barthel Index"]].map(mkTab(calcHues[2]))
       }
     ];
     v.calcIntro = {
@@ -2239,7 +2341,8 @@ class Component extends DCLogic {
       gcs: es ? "Escala de coma de Glasgow. Apertura ocular, respuesta verbal y respuesta motora; total de 3 a 15." : "Glasgow Coma Scale. Eye opening, verbal and motor response; total 3 to 15.",
       chadsvasc: es ? "CHA₂DS₂-VASc para el riesgo embólico en fibrilación auricular no valvular." : "CHA₂DS₂-VASc for embolic risk in non-valvular atrial fibrillation.",
       hasbled: es ? "HAS-BLED para el riesgo hemorrágico del paciente anticoagulado." : "HAS-BLED for bleeding risk in the anticoagulated patient.",
-      mrs: es ? "Escala de Rankin modificada, por entrevista estructurada o por asignación directa del grado." : "Modified Rankin Scale, by structured interview or by direct grade assignment."
+      mrs: es ? "Escala de Rankin modificada, por entrevista estructurada o por asignación directa del grado." : "Modified Rankin Scale, by structured interview or by direct grade assignment.",
+      barthel: es ? "Índice de Barthel para las actividades básicas de la vida diaria. Diez actividades; total de 0 a 100." : "Barthel Index for basic activities of daily living. Ten activities; total 0 to 100."
     }[this.state.calc];
     v.isCalcNihss = this.state.calc === "nihss";
     v.isCalcAspects = this.state.calc === "aspects";
@@ -2248,6 +2351,7 @@ class Component extends DCLogic {
     v.isCalcIch = this.state.calc === "ich";
     v.isCalcGcs = this.state.calc === "gcs";
     v.isCalcMrs = this.state.calc === "mrs";
+    v.isCalcBarthel = this.state.calc === "barthel";
 
     const yn = [[1, es ? "Sí" : "Yes"], [0, "No"]];
     const SC = {
@@ -2534,6 +2638,58 @@ class Component extends DCLogic {
       : "Teasdale and Jennett, 1974. Range 3 to 15. Record the three components separately: the breakdown is more informative than the total.";
     v.resetGcs = () => this.setState({ gcs: {} });
 
+    const BAR = es ? [
+      ["comer", "Comer", [[10, "Independiente"], [5, "Necesita ayuda para cortar, extender mantequilla…"], [0, "Dependiente"]]],
+      ["banarse", "Bañarse", [[5, "Independiente"], [0, "Dependiente"]]],
+      ["vestirse", "Vestirse", [[10, "Independiente"], [5, "Necesita ayuda"], [0, "Dependiente"]]],
+      ["arreglarse", "Arreglarse", [[5, "Independiente para lavarse la cara, peinarse, afeitarse…"], [0, "Dependiente"]]],
+      ["deposicion", "Deposiciones", [[10, "Continente"], [5, "Accidente ocasional"], [0, "Incontinente"]]],
+      ["miccion", "Micción", [[10, "Continente"], [5, "Accidente ocasional (máx. uno en 24 h)"], [0, "Incontinente o sondado sin autonomía"]]],
+      ["retrete", "Uso del retrete", [[10, "Independiente"], [5, "Necesita alguna ayuda"], [0, "Dependiente"]]],
+      ["traslado", "Traslado sillón–cama", [[15, "Independiente"], [10, "Mínima ayuda física o supervisión"], [5, "Gran ayuda, pero se mantiene sentado"], [0, "Dependiente"]]],
+      ["deambular", "Deambulación", [[15, "Independiente 50 m"], [10, "Necesita ayuda o supervisión 50 m"], [5, "Independiente en silla de ruedas"], [0, "Inmóvil"]]],
+      ["escalones", "Subir y bajar escaleras", [[10, "Independiente"], [5, "Necesita ayuda o supervisión"], [0, "Incapaz"]]]
+    ] : [
+      ["comer", "Feeding", [[10, "Independent"], [5, "Needs help cutting, spreading butter…"], [0, "Unable"]]],
+      ["banarse", "Bathing", [[5, "Independent"], [0, "Dependent"]]],
+      ["vestirse", "Dressing", [[10, "Independent"], [5, "Needs help"], [0, "Dependent"]]],
+      ["arreglarse", "Grooming", [[5, "Independent face, hair, teeth, shaving"], [0, "Needs help"]]],
+      ["deposicion", "Bowels", [[10, "Continent"], [5, "Occasional accident"], [0, "Incontinent"]]],
+      ["miccion", "Bladder", [[10, "Continent"], [5, "Occasional accident (max. one per 24 h)"], [0, "Incontinent or catheterised, unable to manage"]]],
+      ["retrete", "Toilet use", [[10, "Independent"], [5, "Needs some help"], [0, "Dependent"]]],
+      ["traslado", "Transfers bed–chair", [[15, "Independent"], [10, "Minor help or supervision"], [5, "Major help, can sit"], [0, "Unable"]]],
+      ["deambular", "Mobility", [[15, "Independent 50 m"], [10, "Walks with help 50 m"], [5, "Wheelchair independent"], [0, "Immobile"]]],
+      ["escalones", "Stairs", [[10, "Independent"], [5, "Needs help or supervision"], [0, "Unable"]]]
+    ];
+    const bs = this.state.bar || {};
+    v.barthel = BAR.map(([k, label, opts]) => ({
+      label,
+      opts: opts.map(([val, text]) => {
+        const on = bs[k] === val;
+        return {
+          text: val + " · " + text,
+          pick: () => this.setState(st => ({ bar: Object.assign({}, st.bar, { [k]: (st.bar || {})[k] === val ? undefined : val }) })),
+          style: "padding:7px 16px; border-radius:8px; font-size:14px; cursor:pointer; border:1px solid " +
+            (on ? "#A01220; background:#A01220; color:#fff" : "#D5D6D2; background:#fff; color:#2B2F35")
+        };
+      })
+    }));
+    const barDone = BAR.filter(([k]) => bs[k] !== undefined).length;
+    const barT = BAR.reduce((a, [k]) => a + (bs[k] || 0), 0);
+    const barComplete = barDone === BAR.length;
+    v.barthelTotal = barComplete ? barT : "—";
+    v.barthelDetail = barComplete ? "/ 100" : barDone + " / 10";
+    v.barthelBand = !barComplete ? (es ? "Completa las diez actividades" : "Complete all ten activities")
+      : barT === 100 ? (es ? "Independiente" : "Independent")
+      : barT >= 60 ? (es ? "Dependencia leve (60–95)" : "Mild dependency (60–95)")
+      : barT >= 40 ? (es ? "Dependencia moderada (40–55)" : "Moderate dependency (40–55)")
+      : barT >= 20 ? (es ? "Dependencia grave (20–35)" : "Severe dependency (20–35)")
+      : (es ? "Dependencia total (< 20)" : "Total dependency (< 20)");
+    v.barthelNote = es
+      ? "Mahoney y Barthel, 1965. Puntos de corte de Shah et al., 1989. Puntuar lo que el paciente hace, no lo que podría hacer. Para silla de ruedas, 90 es el máximo."
+      : "Mahoney and Barthel, 1965. Cut-offs from Shah et al., 1989. Score what the patient does, not what they could do. Maximum 90 for wheelchair users.";
+    v.resetBarthel = () => this.setState({ bar: {} });
+
     const MRS = [
       [es ? "Sin síntomas" : "No symptoms", es ? "Ningún síntoma residual." : "No residual symptoms."],
       [es ? "Sin incapacidad importante" : "No significant disability", es ? "Síntomas presentes, realiza todas sus actividades habituales." : "Symptoms present, carries out all usual activities."],
@@ -2627,9 +2783,9 @@ class Component extends DCLogic {
     v.pacIntro = es ? "Herramientas y documentos para entregar o preparar con el paciente y su familia." : "Tools and documents to share with patients and their families.";
     v.pacItems = [
       { url: "https://sergiocalleja.github.io/Generador-de-informes-de-ACOD/", host: "sergiocalleja.github.io", title: es ? "Generador de informes de ACOD" : "DOAC report generator", body: es ? "Genera un informe para el paciente con la información de su anticoagulante oral de acción directa." : "Generates a patient report with information about their direct oral anticoagulant." },
-      { url: "docs/folleto-recursos-sociales-ictus.pdf", host: "PDF · 2 págs.", title: es ? "Recursos sociales para pacientes con ictus" : "Social resources for stroke patients", body: es ? "Tríptico de la Unidad de Ictus: trámites tras el alta, servicios sociales, recursos de asesoramiento y limitación a la conducción." : "Stroke Unit leaflet: post-discharge procedures, social services, advice resources and driving restrictions (in Spanish)." },
-      { url: "docs/preguntas-respuestas-ictus.pdf", host: "PDF · 96 págs.", title: es ? "Preguntas y respuestas sobre el ictus" : "Questions and answers about stroke", body: es ? "Libro de la Escuela de cuidados para pacientes y familiares." : "Care school book for patients and families (in Spanish)." },
-      { url: "docs/folleto-completo.pdf", host: "PDF · 24 págs.", title: es ? "Sexualidades. Ictus y enfermedades neurológicas" : "Sexualities. Stroke and neurological diseases", body: es ? "Guía de Enrique Oltra y Andrea Rodríguez sobre la sexualidad tras el ictus." : "Guide by Enrique Oltra and Andrea Rodríguez on sexuality after stroke (in Spanish)." }
+      { url: "docs/folleto-recursos-sociales-ictus.pdf", download: "folleto-recursos-sociales-ictus.pdf", host: "PDF · 2 págs.", title: es ? "Recursos sociales para pacientes con ictus" : "Social resources for stroke patients", body: es ? "Tríptico de la Unidad de Ictus: trámites tras el alta, servicios sociales, recursos de asesoramiento y limitación a la conducción." : "Stroke Unit leaflet: post-discharge procedures, social services, advice resources and driving restrictions (in Spanish)." },
+      { url: "docs/preguntas-respuestas-ictus.pdf", download: "preguntas-respuestas-ictus.pdf", host: "PDF · 96 págs.", title: es ? "Preguntas y respuestas sobre el ictus" : "Questions and answers about stroke", body: es ? "Libro de la Escuela de cuidados para pacientes y familiares." : "Care school book for patients and families (in Spanish)." },
+      { url: "docs/folleto-completo.pdf", download: "folleto-completo.pdf", host: "PDF · 24 págs.", title: es ? "Sexualidades. Ictus y enfermedades neurológicas" : "Sexualities. Stroke and neurological diseases", body: es ? "Guía de Enrique Oltra y Andrea Rodríguez sobre la sexualidad tras el ictus." : "Guide by Enrique Oltra and Andrea Rodríguez on sexuality after stroke (in Spanish)." }
     ];
 
     v.linkGroups = [
