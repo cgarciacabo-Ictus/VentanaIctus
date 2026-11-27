@@ -120,19 +120,41 @@
             <p style="font-size:15px; line-height:1.6; color:#5A6169; margin:0; max-width:52ch">{{ heroNote }}</p>
           </div>
           <div style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:22px 24px">
-            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; margin-bottom:14px">{{ agendaLabel }}</div>
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; margin-bottom:14px">{{ pastLabel }}</div>
             <div style="display:flex; flex-direction:column; gap:14px">
-              <sc-for list="{{ agenda }}" as="s" hint-placeholder-count="3">
+              <sc-for list="{{ pastAgenda }}" as="s" hint-placeholder-count="3">
                 <div style="display:flex; gap:14px; align-items:baseline">
                   <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#C1121F; min-width:52px">{{ s.date }}</div>
                   <div>
-                    <div style="font-size:15px; line-height:1.35">{{ s.title }}</div>
+                    <sc-if value="{{ s.url }}" hint-placeholder-val="{{ false }}">
+                      <a href="{{ s.url }}" target="_blank" rel="noopener" style="font-size:15px; line-height:1.35; color:#0F1114; text-decoration:underline; text-decoration-color:#C1121F; text-underline-offset:3px">{{ s.title }} ↗</a>
+                    </sc-if>
+                    <sc-if value="{{ s.noUrl }}" hint-placeholder-val="{{ true }}">
+                      <div style="font-size:15px; line-height:1.35">{{ s.title }}</div>
+                    </sc-if>
                     <div style="font-size:13px; color:#79808A">{{ s.meta }}</div>
                   </div>
                 </div>
               </sc-for>
             </div>
-            <div style="margin-top:18px; padding-top:14px; border-top:1px dashed #D5D6D2; font-family:'IBM Plex Mono', monospace; font-size:11px; color:#A89C8D; line-height:1.5">{{ agendaHint }}</div>
+            <div style="height:1px; background:#EAEAE6; margin:20px 0"></div>
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; margin-bottom:14px">{{ agendaLabel }}</div>
+            <div style="display:flex; flex-direction:column; gap:14px">
+              <sc-for list="{{ nextAgenda }}" as="s" hint-placeholder-count="1">
+                <div style="display:flex; gap:14px; align-items:baseline">
+                  <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#C1121F; min-width:52px">{{ s.date }}</div>
+                  <div>
+                    <sc-if value="{{ s.url }}" hint-placeholder-val="{{ false }}">
+                      <a href="{{ s.url }}" target="_blank" rel="noopener" style="font-size:15px; line-height:1.35; color:#0F1114; text-decoration:underline; text-decoration-color:#C1121F; text-underline-offset:3px">{{ s.title }} ↗</a>
+                    </sc-if>
+                    <sc-if value="{{ s.noUrl }}" hint-placeholder-val="{{ true }}">
+                      <div style="font-size:15px; line-height:1.35">{{ s.title }}</div>
+                    </sc-if>
+                    <div style="font-size:13px; color:#79808A">{{ s.meta }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
           </div>
         </div>
 
@@ -655,6 +677,17 @@
         <div style="max-width:64ch; margin-bottom:36px">
           <h2 style="font-family:'Source Serif 4', Georgia, serif; font-size:28px; font-weight:600; margin:0 0 10px">{{ vidTitle }}</h2>
           <p style="font-size:16px; line-height:1.6; color:#5A6169; margin:0">{{ vidIntro }}</p>
+        </div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; margin-bottom:14px">{{ vidClinLabel }}</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:18px; margin-bottom:34px">
+          <sc-for list="{{ clinSessions }}" as="c" hint-placeholder-count="1">
+            <a href="{{ c.url }}" target="_blank" rel="noopener" style="border:1px solid #DEDEDA; background:#FFFFFF; border-radius:12px; padding:24px; display:block; color:inherit" style-hover="border-color:#1F3A5F; text-decoration:none">
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#C1121F; margin-bottom:10px">{{ c.kicker }}</div>
+              <div style="font-size:20px; font-weight:600; color:#0F1114; margin-bottom:6px; line-height:1.25">{{ c.title }}</div>
+              <div style="font-size:14px; color:#5A6169; line-height:1.55">{{ c.body }}</div>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#1F3A5F; margin-top:14px">{{ c.host }}</div>
+            </a>
+          </sc-for>
         </div>
         <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; margin-bottom:14px">{{ vidSessionsLabel }}</div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:18px; margin-bottom:34px">
@@ -1240,15 +1273,7 @@
           </sc-for>
         </div>
 
-        <div style="border:1px dashed #CFD0CC; background:#FFFFFF; border-radius:12px; padding:26px 28px; max-width:760px">
-          <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#8A919B; margin-bottom:18px">{{ bibTemplateLabel }}</div>
-          <sc-for list="{{ bibFields }}" as="f" hint-placeholder-count="5">
-            <div data-r="row" style="display:grid; grid-template-columns:150px minmax(0,1fr); gap:18px; padding:12px 0; border-bottom:1px solid #EAEAE6; align-items:baseline">
-              <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:#C1121F">{{ f.k }}</div>
-              <div style="font-size:15px; line-height:1.55; color:#2B2F35">{{ f.v }}</div>
-            </div>
-          </sc-for>
-        </div>
+
       </div>
     </sc-if>
 
@@ -1269,7 +1294,8 @@ const T = {
   heroTitle: { es: "Repositorio abierto de formación en neurología vascular", en: "An open training repository in vascular neurology" },
   heroBody: { es: "Ventana recopila y ordena material docente sobre enfermedad cerebrovascular: protocolos de trabajo, casos comentados, sesiones clínicas grabadas, guías de práctica clínica y bibliografía revisada de forma periódica.", en: "Ventana collects and organises teaching material on cerebrovascular disease: working protocols, discussed cases, recorded clinical sessions, practice guidelines and a periodically reviewed bibliography." },
   heroNote: { es: "Mantenido por un grupo de profesionales de neurología vascular, sin financiación comercial ni registro de usuarios. Acceso libre bajo licencia CC BY-NC-SA 4.0.", en: "Maintained by a group of vascular neurology professionals, with no commercial funding and no user registration. Open access under CC BY-NC-SA 4.0." },
-  agendaLabel: { es: "Próximas sesiones", en: "Upcoming sessions" },
+  agendaLabel: { es: "Próximamente", en: "Coming up" },
+  pastLabel: { es: "Últimas sesiones", en: "Recent sessions" },
   agendaHint: { es: "Añade una fila por sesión prevista. Si no hay ninguna, borra el bloque.", en: "Add one row per scheduled session. Delete the block when there is none." },
   blogTitle: { es: "Blog", en: "Blog" },
   blogIntro: { es: "Entradas breves: lo que aprendemos en la guardia, lecturas críticas y notas de práctica clínica.", en: "Short posts: lessons from on-call shifts, critical readings and practice notes." },
@@ -1287,10 +1313,11 @@ const T = {
   vidCh1: { es: "Sesiones del grupo de ictus de la Sociedad Neurológica Asturiana.", en: "Stroke group sessions, Sociedad Neurológica Asturiana." },
   vidCh2: { es: "Unidad neurovascular del Hospital Universitario Central de Asturias.", en: "Neurovascular unit, Hospital Universitario Central de Asturias." },
   vidSessionsLabel: { es: "Sesiones destacadas", en: "Featured sessions" },
+  vidClinLabel: { es: "Sesiones clínicas", en: "Clinical sessions" },
   enlTitle: { es: "Enlaces de interés", en: "Links" },
   enlIntro: { es: "Guías, blogs y recursos externos que merecen una visita periódica.", en: "Guidelines, blogs and external resources worth revisiting." },
   bibTitle: { es: "Bibliografía comentada", en: "Annotated bibliography" },
-  bibIntro: { es: "Un artículo al mes, leído y comentado por un miembro del grupo. Usa esta plantilla para cada entrada.", en: "One paper a month, read and discussed by a member of the group. Use this template for each entry." },
+  bibIntro: { es: "Un artículo al mes, leído y comentado por un miembro del grupo.", en: "One paper a month, read and discussed by a member of the group. Use this template for each entry." },
   bibTemplateLabel: { es: "Plantilla mensual", en: "Monthly template" },
   footerLeft: { es: "VentanaIctus · Repositorio docente abierto de neurología vascular. Contenido docente, sin ánimo de lucro. No sustituye el juicio clínico ni los protocolos de tu centro.", en: "VentanaIctus · Open teaching repository in vascular neurology. Non-profit educational content. It does not replace clinical judgement or your local protocols." }
 };
@@ -2153,8 +2180,12 @@ class Component extends DCLogic {
 
     v.agenda = [
       { date: es ? "MAR 10 NOV" : "TUE 10 NOV", title: es ? "Buen uso de los anticoagulantes de acción directa" : "Good use of direct oral anticoagulants", meta: "Sergio Calleja" },
+      { date: es ? "JUE 26 NOV" : "THU 26 NOV", title: es ? "Síndrome de moyamoya" : "Moyamoya syndrome", meta: "Claudia Redondo", url: "https://www.youtube.com/watch?v=KQdNrhZAJys" },
       { date: es ? "PRÓX." : "NEXT", title: es ? "Isquemia medular: anatomía vascular, etiopatogenia, clínica, tratamiento y pronóstico" : "Spinal cord ischaemia: vascular anatomy, pathogenesis, clinical picture, treatment and prognosis", meta: "Carmen García-Cabo" },
     ];
+    v.agenda.forEach(s => { s.noUrl = !s.url; });
+    v.pastAgenda = [v.agenda[1], v.agenda[0]];
+    v.nextAgenda = [v.agenda[2]];
 
     v.shortcuts = [
       { n: "01", title: es ? "Sesiones grabadas" : "Recorded sessions", body: es ? "Dos canales de YouTube con sesiones clínicas del grupo." : "Two YouTube channels with the group's clinical sessions.", go: this.go("videos") },
@@ -2243,12 +2274,12 @@ class Component extends DCLogic {
       card: cardBase + (has ? "solid #DEDEDA" : "dashed #CFD0CC")
     }));
 
-    v.casos = [1, 2, 3].map(i => ({
-      image: es ? "TAC / RM del caso " + i : "CT / MRI of case " + i,
-      tag: es ? "CASO " + i : "CASE " + i,
-      title: es ? "Título del caso" : "Case title",
-      body: es ? "Motivo de consulta, NIHSS, imagen, decisión y evolución en cuatro párrafos." : "Presentation, NIHSS, imaging, decision and outcome in four paragraphs."
-    }));
+    v.casos = [{
+      image: es ? "En construcción" : "Under construction",
+      tag: es ? "CASO 1" : "CASE 1",
+      title: es ? "En construcción" : "Under construction",
+      body: es ? "Próximamente." : "Coming soon."
+    }];
 
     v.nihss = NIHSS.map(([code, max, s, e]) => ({
       code, label: es ? s : e,
@@ -2271,6 +2302,9 @@ class Component extends DCLogic {
       : (es ? "Grave" : "Severe");
     v.resetNihss = () => this.setState({ scores: {} });
 
+    v.clinSessions = [
+      { kicker: es ? "26 NOV 2026 · SESIÓN CLÍNICA" : "26 NOV 2026 · CLINICAL SESSION", title: es ? "Síndrome de moyamoya" : "Moyamoya syndrome", body: "Claudia Redondo", url: "https://www.youtube.com/watch?v=KQdNrhZAJys", host: "youtube.com" }
+    ];
     v.courses = [
       {
         kicker: "CURSO",
@@ -2842,6 +2876,17 @@ class Component extends DCLogic {
     const pStyle = "font-size:15px; line-height:1.55; color:#5A6169; font-style:italic";
     const fStyle = "font-size:15px; line-height:1.55; color:#2B2F35";
     v.bibEntries = [{
+      month: es ? "Noviembre 2025" : "November 2025",
+      doi: "10.1056/NEJMoa2508800",
+      url: "https://www.nejm.org/doi/10.1056/NEJMoa2508800",
+      fields: [
+        { k: es ? "Referencia" : "Reference", v: "Brott TG, et al.; CREST-2 Investigators. Medical Management and Revascularization for Asymptomatic Carotid Stenosis. N Engl J Med. Publicado en línea el 21 de noviembre de 2025. doi:10.1056/NEJMoa2508800", style: fStyle },
+        { k: es ? "Pregunta" : "Question", v: es ? "¿Añade la revascularización (stent o endarterectomía) beneficio al tratamiento médico intensivo en la estenosis carotídea asintomática de alto grado?" : "Does revascularisation (stenting or endarterectomy) add benefit to intensive medical management in high-grade asymptomatic carotid stenosis?", style: fStyle },
+        { k: es ? "Diseño" : "Design", v: es ? "Dos ensayos paralelos, aleatorizados y con evaluación ciega, en 155 centros de cinco países (incluida España). Estenosis asintomática ≥ 70 %. Ensayo de stent: 1245 pacientes; ensayo de endarterectomía: 1240. Todos con tratamiento médico intensivo. Objetivo primario: ictus o muerte hasta el día 44, o ictus isquémico ipsilateral hasta los 4 años." : "Two parallel, randomised, observer-blinded trials at 155 centres in five countries (including Spain). Asymptomatic stenosis ≥70%. Stenting trial: 1245 patients; endarterectomy trial: 1240. All received intensive medical management. Primary outcome: stroke or death up to day 44, or ipsilateral ischaemic stroke up to 4 years.", style: fStyle },
+        { k: es ? "Resultado" : "Result", v: es ? "Stent: 2,8 % frente a 6,0 % con tratamiento médico solo a 4 años (P = 0,02). Endarterectomía: 3,7 % frente a 5,3 % (P = 0,24), sin diferencia significativa. Periprocedimiento (días 0–44): 7 ictus y 1 muerte con stent frente a ninguno con tratamiento médico; 9 ictus con endarterectomía frente a 3." : "Stenting: 2.8% vs 6.0% with medical management alone at 4 years (P = 0.02). Endarterectomy: 3.7% vs 5.3% (P = 0.24), no significant difference. Periprocedural (days 0–44): 7 strokes and 1 death with stenting vs none with medical therapy; 9 strokes with endarterectomy vs 3.", style: fStyle },
+        { k: es ? "Qué cambia" : "What changes", v: es ? "El tratamiento médico intensivo es la base en todos los pacientes. El stent ofrece un beneficio absoluto modesto; la endarterectomía sistemática pierde apoyo, en línea con SPACE-2 y ECST-2." : "Intensive medical management is the basis for every patient. Stenting offers a modest absolute benefit; routine endarterectomy loses support, in line with SPACE-2 and ECST-2.", style: fStyle }
+      ]
+    }, {
       month: es ? "Septiembre 2026" : "September 2026",
       doi: "10.1161/STROKEAHA.126.055839",
       url: "https://www.ahajournals.org/doi/10.1161/STROKEAHA.126.055839",
